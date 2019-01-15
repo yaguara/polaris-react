@@ -88,10 +88,9 @@ export class DatePicker extends React.PureComponent<CombinedProps, State> {
     const {hoverDate, focusDate} = this.state;
 
     const visibleMonth = new Date(year, month);
-    const nextVisibleMonth = multiMonth
-      ? new Date(year, month + 2)
-      : new Date(year, month + 1);
     const previousVisibleMonth = new Date(year, month - 1);
+    const nextVisibleMonth = new Date(year, month + 1);
+    const nextToNextVisibleMonth = new Date(year, month + 2);
 
     const secondDatePicker = multiMonth ? (
       <Month
@@ -138,7 +137,7 @@ export class DatePicker extends React.PureComponent<CombinedProps, State> {
             accessibilityLabel={Intl.DateTimeFormat(locale, {
               month: 'long',
               year: 'numeric',
-            }).format(nextVisibleMonth)}
+            }).format(multiMonth ? nextToNextVisibleMonth : nextVisibleMonth)}
             // eslint-disable-next-line react/jsx-no-bind
             onClick={this.handleMonthChangeClick.bind(
               null,
