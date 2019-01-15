@@ -162,22 +162,6 @@ describe('<DatePicker />', () => {
       expect(spy).toHaveBeenCalledTimes(1);
       expect(spy).toHaveBeenCalledWith(11, 2017);
     });
-
-    it('calls onMonthChange with next to next month arguments when next month button is clicked when multiMonth is true', () => {
-      const spy = jest.fn();
-      const datePicker = mountWithAppProvider(
-        <DatePicker month={10} year={2018} onMonthChange={spy} multiMonth />,
-      );
-
-      const nextMonthButton = datePicker
-        .find(Button)
-        .filter({icon: 'arrowRight'});
-
-      trigger(nextMonthButton, 'onClick');
-
-      expect(spy).toHaveBeenCalledTimes(1);
-      expect(spy).toHaveBeenCalledWith(0, 2019);
-    });
   });
 
   describe('locale', () => {
