@@ -10,8 +10,10 @@ import {
   dateIsSelected,
   getNewRange,
 } from '@shopify/javascript-utilities/dates';
+import {autobind} from '@shopify/javascript-utilities/decorators';
 import {noop} from '@shopify/javascript-utilities/other';
 import {classNames} from '@shopify/react-utilities/styles';
+import {withAppProvider, WithAppProviderProps} from '../../../AppProvider';
 import * as styles from '../../DatePicker.scss';
 import Day from '../Day';
 import Weekday from '../Weekday';
@@ -31,6 +33,8 @@ export interface Props {
   onFocus?(date: Date): void;
 }
 
+export type CombinedProps = Props & WithAppProviderProps;
+
 const WEEKDAYS = [
   Weekdays.Sunday,
   Weekdays.Monday,
@@ -41,57 +45,85 @@ const WEEKDAYS = [
   Weekdays.Saturday,
 ];
 
-export default function Month({
-  locale = 'en',
-  focusedDate,
-  selected,
-  hoverDate,
-  disableDatesBefore,
-  disableDatesAfter,
-  allowRange,
-  onChange = noop,
-  onHover = noop,
-  onFocus = noop,
-  visibleMonth,
-  weekStartsOn,
-}: Props) {
-  const isInHoveringRange = allowRange ? hoveringDateIsInRange : () => false;
-  const now = new Date();
-  const current =
-    now.getMonth() === visibleMonth.getMonth() &&
-    now.getFullYear() === visibleMonth.getFullYear();
-  const className = classNames(
-    styles.Title,
-    current && styles['Month-current'],
-  );
+export class Month extends React.PureComponent<CombinedProps, never> {
+  render() {
+    const {locale = 'en', visibleMonth, weekStartsOn} = this.props;
+    const now = new Date();
+    const current =
+      now.getMonth() === visibleMonth.getMonth() &&
+      now.getFullYear() === visibleMonth.getFullYear();
 
-  const weeks = getWeeksForMonth(
-    visibleMonth.getMonth(),
-    visibleMonth.getFullYear(),
-    weekStartsOn,
-  );
+    const className = classNames(
+      styles.Title,
+      current && styles['Month-current'],
+    );
 
-  const weekdayFormat = Intl.DateTimeFormat(locale, {weekday: 'short'});
+    const weeks = getWeeksForMonth(
+      visibleMonth.getMonth(),
+      visibleMonth.getFullYear(),
+      weekStartsOn,
+    );
 
-  const weekdays = getWeekdaysOrdered(weekStartsOn).map((weekday) => {
-    // October 1, 2017 is a Sunday
-    const arbitraryWeekdayDate = new Date(2017, 9, weekday + 1);
+    const weekdayFormat = Intl.DateTimeFormat(locale, {weekday: 'short'});
+    const weekdays = getWeekdaysOrdered(weekStartsOn).map((weekday) => {
+      // October 1, 2017 is a Sunday
+      const arbitraryWeekdayDate = new Date(2017, 9, weekday + 1);
+
+      return (
+        <Weekday
+          key={weekday}
+          title={weekdayFormat.format(arbitraryWeekdayDate)}
+          current={current && new Date().getDay() === weekday}
+          label={weekday}
+        />
+      );
+    });
+
+    const weeksMarkup = weeks.map((week, index) => (
+      <div role="row" className={styles.Week} key={index}>
+        {week.map(this.renderWeek)}
+      </div>
+    ));
 
     return (
-      <Weekday
-        key={weekday}
-        title={weekdayFormat.format(arbitraryWeekdayDate)}
-        current={current && new Date().getDay() === weekday}
-        label={weekday}
-      />
+      <div role="grid" className={styles.Month}>
+        <div className={className}>
+          {Intl.DateTimeFormat(locale, {month: 'long', year: 'numeric'}).format(
+            visibleMonth,
+          )}
+        </div>
+        <div role="rowheader" className={styles.WeekHeadings}>
+          {weekdays}
+        </div>
+        {weeksMarkup}
+      </div>
     );
-  });
-
-  function handleDateClick(selectedDate: Date) {
-    onChange(getNewRange(allowRange && selected, selectedDate));
   }
 
-  function renderWeek(day: Date, dayIndex: number) {
+  @autobind
+  handleDateClick(selectedDate: Date) {
+    const {onChange, allowRange, selected} = this.props;
+
+    if (onChange) {
+      onChange(getNewRange(allowRange && selected, selectedDate));
+    }
+  }
+
+  @autobind
+  renderWeek(day: Date, dayIndex: number) {
+    const {
+      locale = 'en',
+      focusedDate,
+      selected,
+      hoverDate,
+      disableDatesBefore,
+      disableDatesAfter,
+      allowRange,
+      onHover = noop,
+      onFocus = noop,
+      visibleMonth,
+    } = this.props;
+
     if (day == null) {
       const lastDayOfMonth = new Date(
         visibleMonth.getFullYear(),
@@ -112,6 +144,8 @@ export default function Month({
       (disableDatesBefore && isDateBefore(day, disableDatesBefore)) ||
       (disableDatesAfter && isDateAfter(day, disableDatesAfter));
 
+    const isInHoveringRange = allowRange ? hoveringDateIsInRange : () => false;
+
     return (
       <Day
         locale={locale}
@@ -119,7 +153,7 @@ export default function Month({
         day={day}
         key={dayIndex}
         onFocus={onFocus}
-        onClick={handleDateClick}
+        onClick={this.handleDateClick}
         onHover={onHover}
         selected={selected != null && dateIsSelected(day, selected)}
         inRange={selected != null && dateIsInRange(day, selected)}
@@ -132,26 +166,6 @@ export default function Month({
       />
     );
   }
-
-  const weeksMarkup = weeks.map((week, index) => (
-    <div role="row" className={styles.Week} key={index}>
-      {week.map(renderWeek)}
-    </div>
-  ));
-
-  return (
-    <div role="grid" className={styles.Month}>
-      <div className={className}>
-        {Intl.DateTimeFormat(locale, {month: 'long', year: 'numeric'}).format(
-          visibleMonth,
-        )}
-      </div>
-      <div role="rowheader" className={styles.WeekHeadings}>
-        {weekdays}
-      </div>
-      {weeksMarkup}
-    </div>
-  );
 }
 
 function hoveringDateIsInRange(
@@ -171,3 +185,5 @@ function getWeekdaysOrdered(weekStartsOn: Weekdays): Weekdays[] {
   const restOfDays = weekDays.splice(weekStartsOn);
   return [...restOfDays, ...weekDays];
 }
+
+export default withAppProvider<Props>()(Month);

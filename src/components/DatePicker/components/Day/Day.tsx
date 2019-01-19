@@ -71,6 +71,8 @@ export class Day extends React.PureComponent<CombinedProps, never> {
       }).format(day),
     ].join('');
 
+    const dayText = Intl.DateTimeFormat(locale, {day: 'numeric'}).format(day);
+
     return (
       <button
         // eslint-disable-next-line react/jsx-no-bind
@@ -87,7 +89,7 @@ export class Day extends React.PureComponent<CombinedProps, never> {
         aria-disabled={disabled}
         role="gridcell"
       >
-        {Intl.DateTimeFormat(locale, {day: 'numeric'}).format(day)}
+        {dayText}
       </button>
     );
   }
