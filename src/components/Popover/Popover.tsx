@@ -38,6 +38,8 @@ export interface Props {
   fullHeight?: boolean;
   /** Remains in a fixed position */
   fixed?: boolean;
+  /** Prevent popover from automatically wrapping contents in a Pane */
+  noWrap?: boolean;
   /** Callback when popover is closed */
   onClose(source: CloseSource): void;
 }
@@ -82,6 +84,7 @@ export default class Popover extends React.PureComponent<Props, State> {
       activator,
       active,
       fixed,
+      noWrap,
       ...rest
     } = this.props;
 
@@ -96,6 +99,7 @@ export default class Popover extends React.PureComponent<Props, State> {
           onClose={this.handleClose}
           active={active}
           fixed={fixed}
+          noWrap={noWrap}
           {...rest}
         >
           {children}

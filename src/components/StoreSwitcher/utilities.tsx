@@ -1,7 +1,7 @@
 import * as React from 'react';
 import TextStyle from '../TextStyle';
 import {Shop} from './types';
-import * as styles from './ShopSwitcher.scss';
+import * as styles from './StoreSwitcher.scss';
 
 export function transformShopsToItems(shops: Shop[], activeIndex: number) {
   return shops.map(({name, url}, index) => ({

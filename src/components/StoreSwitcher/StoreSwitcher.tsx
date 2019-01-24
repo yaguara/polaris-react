@@ -6,7 +6,7 @@ import TextStyle from '../TextStyle';
 import ActionList, {Props as ActionListProps} from '../ActionList';
 import {Shop} from './types';
 import {transformShopsToItems, filterShops} from './utilities';
-import * as styles from './ShopSwitcher.scss';
+import * as styles from './StoreSwitcher.scss';
 
 export interface BaseProps {
   shops: Shop[];
@@ -29,7 +29,7 @@ interface State {
 
 const MIN_SHOPS_FOR_SEARCH = 5;
 
-class ShopSwitcher extends React.Component<Props, State> {
+class StoreSwitcher extends React.Component<Props, State> {
   state = {
     query: '',
     items: transformShopsToItems(this.props.shops, this.props.activeIndex),
@@ -81,4 +81,4 @@ class ShopSwitcher extends React.Component<Props, State> {
   }
 }
 
-export default ShopSwitcher;
+export default StoreSwitcher;

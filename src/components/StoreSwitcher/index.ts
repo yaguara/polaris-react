@@ -1,1 +1,1 @@
-export {default, Props, BaseProps} from './ShopSwitcher';
+export {default, Props, BaseProps} from './StoreSwitcher';

@@ -2,6 +2,7 @@
 
 $icon-size: rem(20px);
 $page-left-alignment-breakpoint-max: 1268px;
+$store-details-width: layout-width(nav);
 
 .TopBar {
   position: relative;
@@ -17,17 +18,25 @@ $page-left-alignment-breakpoint-max: 1268px;
   }
 }
 
-.LogoContainer {
+.StoreDetails {
   display: none;
+
   @include breakpoint-after(nav-min-window-corrected()) {
+    position: relative;
+    z-index: z-index(store-details, $stacking-order);
     display: flex;
-    flex: 0 0 layout-width(nav);
     align-items: center;
     height: 100%;
-    padding: 0 spacing(tight) 0 spacing(base);
-    background-color: var(--top-bar-background-darker);
-    @include safe-area-for(flex-basis, layout-width(nav), left);
-    @include safe-area-for(padding-left, spacing(), left);
+    width: $store-details-width;
+    padding: 0 spacing(tight) 0 spacing();
+  }
+}
+
+.StoreDetails-HasStoreSwitcher {
+  @include breakpoint-after(nav-min-window-corrected()) {
+    display: block;
+    padding-top: spacing(tight);
+    padding-left: spacing(tight);
   }
 }
 

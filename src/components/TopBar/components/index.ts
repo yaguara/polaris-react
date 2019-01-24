@@ -7,4 +7,8 @@ export {
   Modifier as UserMenuModifier,
 } from './UserMenu';
 export {default as Menu, Props as MenuProps} from './Menu';
+export {
+  default as StoreSwitcher,
+  Props as StoreSwitcherProps,
+} from './StoreSwitcher';
 export {MessageProps} from './Menu/components';

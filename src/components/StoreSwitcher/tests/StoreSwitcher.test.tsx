@@ -3,9 +3,9 @@ import {mountWithAppProvider, trigger} from 'test-utilities';
 import {filterShops, transformShopsToItems} from '../utilities';
 import ActionList from '../../ActionList';
 import TextField from '../../TextField';
-import ShopSwitcher from '../ShopSwitcher';
+import StoreSwitcher from '../StoreSwitcher';
 
-describe('<ShopSwitcher />', () => {
+describe('<StoreSwitcher />', () => {
   const mockProps = {
     shops: [],
     searchPlaceholder: '',
@@ -30,11 +30,15 @@ describe('<ShopSwitcher />', () => {
         },
       ];
       const activeIndex = 0;
-      const shopSwitcher = mountWithAppProvider(
-        <ShopSwitcher {...mockProps} shops={shops} activeIndex={activeIndex} />,
+      const storeSwitcher = mountWithAppProvider(
+        <StoreSwitcher
+          {...mockProps}
+          shops={shops}
+          activeIndex={activeIndex}
+        />,
       );
       const expectedItems = transformShopsToItems(shops, activeIndex);
-      expect(shopSwitcher.find(ActionList).prop('items')).toEqual(
+      expect(storeSwitcher.find(ActionList).prop('items')).toEqual(
         expectedItems,
       );
     });
@@ -44,10 +48,10 @@ describe('<ShopSwitcher />', () => {
         name: '',
         url: '',
       });
-      const shopSwitcher = mountWithAppProvider(
-        <ShopSwitcher {...mockProps} shops={shops} />,
+      const storeSwitcher = mountWithAppProvider(
+        <StoreSwitcher {...mockProps} shops={shops} />,
       );
-      expect(shopSwitcher.find(TextField)).toHaveLength(1);
+      expect(storeSwitcher.find(TextField)).toHaveLength(1);
     });
 
     it('filters the shops when the search query changes', () => {
@@ -71,11 +75,15 @@ describe('<ShopSwitcher />', () => {
         filterShops(newQuery, shops),
         activeIndex,
       );
-      const shopSwitcher = mountWithAppProvider(
-        <ShopSwitcher {...mockProps} shops={shops} activeIndex={activeIndex} />,
+      const storeSwitcher = mountWithAppProvider(
+        <StoreSwitcher
+          {...mockProps}
+          shops={shops}
+          activeIndex={activeIndex}
+        />,
       );
-      trigger(shopSwitcher.find(TextField), 'onChange', newQuery);
-      expect(shopSwitcher.find(ActionList).prop('items')).toEqual(newItems);
+      trigger(storeSwitcher.find(TextField), 'onChange', newQuery);
+      expect(storeSwitcher.find(ActionList).prop('items')).toEqual(newItems);
     });
 
     it('renders the no results message when there are no shops found', () => {
@@ -84,16 +92,16 @@ describe('<ShopSwitcher />', () => {
         name: '',
         url: '',
       });
-      const shopSwitcher = mountWithAppProvider(
-        <ShopSwitcher
+      const storeSwitcher = mountWithAppProvider(
+        <StoreSwitcher
           {...mockProps}
           shops={shops}
           activeIndex={0}
           noResultsMessage={noResultsMessage}
         />,
       );
-      trigger(shopSwitcher.find(TextField), 'onChange', 'toy');
-      expect(shopSwitcher.contains(noResultsMessage)).toBeTruthy();
+      trigger(storeSwitcher.find(TextField), 'onChange', 'toy');
+      expect(storeSwitcher.contains(noResultsMessage)).toBeTruthy();
     });
   });
 
@@ -104,14 +112,14 @@ describe('<ShopSwitcher />', () => {
         url: '',
       });
       const searchPlaceholder = 'Search for a shop.';
-      const shopSwitcher = mountWithAppProvider(
-        <ShopSwitcher
+      const storeSwitcher = mountWithAppProvider(
+        <StoreSwitcher
           {...mockProps}
           shops={shops}
           searchPlaceholder={searchPlaceholder}
         />,
       );
-      expect(shopSwitcher.find(TextField).prop('placeholder')).toBe(
+      expect(storeSwitcher.find(TextField).prop('placeholder')).toBe(
         searchPlaceholder,
       );
     });
@@ -120,10 +128,10 @@ describe('<ShopSwitcher />', () => {
   describe('children', () => {
     it('is used to render the content', () => {
       const content = <div />;
-      const shopSwitcher = mountWithAppProvider(
-        <ShopSwitcher {...mockProps}>{() => content}</ShopSwitcher>,
+      const storeSwitcher = mountWithAppProvider(
+        <StoreSwitcher {...mockProps}>{() => content}</StoreSwitcher>,
       );
-      expect(shopSwitcher.contains(content)).toBeTruthy();
+      expect(storeSwitcher.contains(content)).toBeTruthy();
     });
 
     it('receives the search and content markup', () => {
@@ -133,9 +141,9 @@ describe('<ShopSwitcher />', () => {
         url: '',
       });
       mountWithAppProvider(
-        <ShopSwitcher {...mockProps} shops={shops}>
+        <StoreSwitcher {...mockProps} shops={shops}>
           {childrenSpy}
-        </ShopSwitcher>,
+        </StoreSwitcher>,
       );
       const {
         mock: {

@@ -40,6 +40,7 @@ export interface Props {
   preventAutofocus?: boolean;
   sectioned?: boolean;
   fixed?: boolean;
+  noWrap?: boolean;
   onClose(source: CloseSource): void;
 }
 
@@ -124,7 +125,7 @@ export default class PopoverOverlay extends React.PureComponent<Props, never> {
   ) {
     const {measuring, desiredHeight, positioning} = overlayDetails;
 
-    const {id, children, sectioned, fullWidth, fullHeight} = this.props;
+    const {id, children, sectioned, fullWidth, fullHeight, noWrap} = this.props;
 
     const className = classNames(
       styles.Popover,
@@ -151,7 +152,7 @@ export default class PopoverOverlay extends React.PureComponent<Props, never> {
         style={contentStyles}
         ref={this.contentNode}
       >
-        {renderPopoverContent(children, {sectioned})}
+        {renderPopoverContent(children, Boolean(noWrap), {sectioned})}
       </div>
     );
 
@@ -221,10 +222,11 @@ export default class PopoverOverlay extends React.PureComponent<Props, never> {
 
 function renderPopoverContent(
   children: React.ReactNode,
+  noWrap: boolean,
   props?: Partial<PaneProps>,
 ) {
   const childrenArray = React.Children.toArray(children);
-  if (isElementOfType(childrenArray[0], Pane)) {
+  if (noWrap || isElementOfType(childrenArray[0], Pane)) {
     return childrenArray;
   }
   return wrapWithComponent(childrenArray, Pane, props);

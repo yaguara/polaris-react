@@ -1,0 +1,30 @@
+@import '../../styles/variables';
+
+.Logo {
+  width: rem(24px);
+  flex-shrink: 0;
+}
+
+.Activator {
+  max-width: 100%;
+  height: rem(40px);
+  @include unstyled-button;
+  color: var(--top-bar-color);
+  display: flex;
+  align-items: center;
+  padding: spacing(extra-tight) spacing(tight);
+  border-radius: border-radius();
+  @include topbar-activator;
+}
+
+.Icon {
+  width: rem(20px);
+}
+
+.ShopName {
+  margin: 0 spacing(extra-tight) 0 rem(12px);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  overflow: hidden;
+}

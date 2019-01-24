@@ -1,8 +1,16 @@
 import * as React from 'react';
+import {noop} from 'utilities/other';
 import {mountWithAppProvider, findByTestID} from 'test-utilities';
+import {PopoverOverlay} from '../components';
 import Popover from '../Popover';
 
 describe('<Popover />', () => {
+  const mockProps = {
+    active: false,
+    activator: <div />,
+    onClose: noop,
+  };
+
   const spy = jest.fn();
 
   it('renders a portal', () => {
@@ -146,5 +154,10 @@ describe('<Popover />', () => {
     const evt = new CustomEvent('click');
     window.dispatchEvent(evt);
     expect(spy).toHaveBeenCalled();
+  });
+
+  it('passes noWrap into the overlay', () => {
+    const popover = mountWithAppProvider(<Popover {...mockProps} noWrap />);
+    expect(popover.find(PopoverOverlay).prop('noWrap')).toBeTruthy();
   });
 });
