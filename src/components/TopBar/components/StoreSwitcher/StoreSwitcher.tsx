@@ -23,7 +23,7 @@ class StoreSwitcher extends React.Component<ComposedProps, State> {
   render() {
     const {open} = this.state;
     const {
-      shops,
+      stores,
       searchPlaceholder,
       activeIndex,
       noResultsMessage,
@@ -59,12 +59,12 @@ class StoreSwitcher extends React.Component<ComposedProps, State> {
 
     return (
       <Switcher
-        shops={shops}
+        stores={stores}
         searchPlaceholder={searchPlaceholder}
         activeIndex={activeIndex}
         noResultsMessage={noResultsMessage}
       >
-        {(searchField, shopsList) => (
+        {(searchField, storesList) => (
           <Popover
             fullHeight
             active={open}
@@ -74,7 +74,7 @@ class StoreSwitcher extends React.Component<ComposedProps, State> {
             noWrap
           >
             {searchField}
-            <Popover.Pane>{shopsList}</Popover.Pane>
+            <Popover.Pane>{storesList}</Popover.Pane>
           </Popover>
         )}
       </Switcher>
@@ -88,8 +88,8 @@ class StoreSwitcher extends React.Component<ComposedProps, State> {
   }
 
   private get activeShop() {
-    const {shops, activeIndex} = this.props;
-    return shops[activeIndex];
+    const {stores, activeIndex} = this.props;
+    return stores[activeIndex];
   }
 }
 

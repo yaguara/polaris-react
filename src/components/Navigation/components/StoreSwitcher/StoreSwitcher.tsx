@@ -12,7 +12,7 @@ export type Props = SwitcherProps & {
 type ComposedProps = Props & WithAppProviderProps;
 
 function StoreSwitcher({
-  shops,
+  stores,
   searchPlaceholder,
   activeIndex,
   noResultsMessage,
@@ -21,7 +21,7 @@ function StoreSwitcher({
     theme: {logo},
   },
 }: ComposedProps) {
-  const {name: shopName} = shops[activeIndex];
+  const {name: shopName} = stores[activeIndex];
 
   const logoMarkup = logo && (
     <Image
@@ -38,16 +38,16 @@ function StoreSwitcher({
       activatorAccessibilityLabel={activatorAccessibilityLabel}
     >
       <Switcher
-        shops={shops}
+        stores={stores}
         searchPlaceholder={searchPlaceholder}
         activeIndex={activeIndex}
         noResultsMessage={noResultsMessage}
       >
-        {(searchField, shopsList) => (
+        {(searchField, storesList) => (
           <React.Fragment>
             {searchField}
             <Scrollable vertical shadow>
-              {shopsList}
+              {storesList}
             </Scrollable>
           </React.Fragment>
         )}

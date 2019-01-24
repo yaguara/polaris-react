@@ -230,7 +230,7 @@ describe('<TopBar />', () => {
   describe('storeSwitcher', () => {
     const mockStoreSwitcher = (
       <TopBar.StoreSwitcher
-        shops={[
+        stores={[
           {
             name: '',
             url: '',

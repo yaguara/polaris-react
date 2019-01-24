@@ -15,15 +15,15 @@
   text-align: center;
 }
 
-.ShopsList {
+.StoresList {
   margin-top: -#{spacing(tight)};
 }
 
-.ShopItem {
+.StoreItem {
   width: 100%;
 }
 
-.ShopName {
+.StoreName {
   // stylelint-disable-next-line value-no-vendor-prefix
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -38,6 +38,6 @@
   }
 }
 
-.ShopUrl {
+.StoreUrl {
   @include single-line-clamp;
 }

@@ -11,7 +11,7 @@ import StoreSwitcher from '../StoreSwitcher';
 
 describe('<StoreSwitcher />', () => {
   const mockProps = {
-    shops: [
+    stores: [
       {
         name: '',
         url: '',
@@ -22,30 +22,30 @@ describe('<StoreSwitcher />', () => {
     noResultsMessage: '',
   };
 
-  describe('shops', () => {
+  describe('stores', () => {
     it('gets passed into the switcher', () => {
-      const shops = [
+      const stores = [
         {
           name: '',
           url: '',
         },
       ];
       const storeSwitcher = shallowWithAppProvider(
-        <StoreSwitcher {...mockProps} shops={shops} />,
+        <StoreSwitcher {...mockProps} stores={stores} />,
       );
-      expect(storeSwitcher.find(Switcher).prop('shops')).toEqual(shops);
+      expect(storeSwitcher.find(Switcher).prop('stores')).toEqual(stores);
     });
 
     it('displays the name of the active shop', () => {
       const activeShopName = 'Little Victories CA';
-      const shops = [
+      const stores = [
         {
           name: activeShopName,
           url: '',
         },
       ];
       const storeSwitcher = mountWithAppProvider(
-        <StoreSwitcher {...mockProps} shops={shops} activeIndex={0} />,
+        <StoreSwitcher {...mockProps} stores={stores} activeIndex={0} />,
       );
       expect(storeSwitcher.contains(activeShopName)).toBeTruthy();
     });
@@ -77,7 +77,7 @@ describe('<StoreSwitcher />', () => {
 
   describe('noResultsMessage', () => {
     it('gets passed into the switcher', () => {
-      const noResultsMessage = 'No shops found.';
+      const noResultsMessage = 'No stores found.';
       const storeSwitcher = shallowWithAppProvider(
         <StoreSwitcher {...mockProps} noResultsMessage={noResultsMessage} />,
       );

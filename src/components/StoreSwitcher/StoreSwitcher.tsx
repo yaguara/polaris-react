@@ -4,12 +4,12 @@ import TextField from '../TextField';
 import Icon from '../Icon';
 import TextStyle from '../TextStyle';
 import ActionList, {Props as ActionListProps} from '../ActionList';
-import {Shop} from './types';
-import {transformShopsToItems, filterShops} from './utilities';
+import {Store} from './types';
+import {transformStoresToItems, filterStores} from './utilities';
 import * as styles from './StoreSwitcher.scss';
 
 export interface BaseProps {
-  shops: Shop[];
+  stores: Store[];
   searchPlaceholder: string;
   activeIndex: number;
   noResultsMessage: string;
@@ -27,18 +27,18 @@ interface State {
   items: ActionListProps['items'];
 }
 
-const MIN_SHOPS_FOR_SEARCH = 5;
+const MIN_STORES_FOR_SEARCH = 5;
 
 class StoreSwitcher extends React.Component<Props, State> {
   state = {
     query: '',
-    items: transformShopsToItems(this.props.shops, this.props.activeIndex),
+    items: transformStoresToItems(this.props.stores, this.props.activeIndex),
   };
 
   render() {
     const {query, items} = this.state;
-    const {searchPlaceholder, shops, children, noResultsMessage} = this.props;
-    const hasSearch = shops.length >= MIN_SHOPS_FOR_SEARCH;
+    const {searchPlaceholder, stores, children, noResultsMessage} = this.props;
+    const hasSearch = stores.length >= MIN_STORES_FOR_SEARCH;
 
     const searchFieldMarkup = hasSearch && (
       <div className={styles.Search}>
@@ -53,8 +53,8 @@ class StoreSwitcher extends React.Component<Props, State> {
       </div>
     );
 
-    const shopsListMarkup = (
-      <section className={hasSearch && styles.ShopsList}>
+    const storesListMarkup = (
+      <section className={hasSearch && styles.StoresList}>
         <ActionList items={items} />
       </section>
     );
@@ -65,7 +65,7 @@ class StoreSwitcher extends React.Component<Props, State> {
           <TextStyle variation="subdued">{noResultsMessage}</TextStyle>
         </div>
       ) : (
-        shopsListMarkup
+        storesListMarkup
       );
 
     return children(searchFieldMarkup, contentMarkup);
@@ -73,10 +73,10 @@ class StoreSwitcher extends React.Component<Props, State> {
 
   @autobind
   private handleQueryChange(query: string) {
-    const {shops, activeIndex} = this.props;
+    const {stores, activeIndex} = this.props;
     this.setState({
       query,
-      items: transformShopsToItems(filterShops(query, shops), activeIndex),
+      items: transformStoresToItems(filterStores(query, stores), activeIndex),
     });
   }
 }

@@ -4,9 +4,9 @@ import {TopBar, AppProvider, Navigation, Page, Frame, Icon} from '../src';
 
 const storeSwitcherProps = {
   searchPlaceholder: 'Search stores',
-  noResultsMessage: 'No shops found.',
+  noResultsMessage: 'No stores found.',
   activeIndex: 2,
-  shops: [
+  stores: [
     {
       url: 'https://little-victories.myshopify.io',
       name: 'Little Victories CA',
@@ -206,12 +206,12 @@ export default class Playground extends React.Component<never, any> {
       />
     );
 
-    const storeSwitcher = storeSwitcherProps.shops.length > 1 && (
+    const storeSwitcher = storeSwitcherProps.stores.length > 1 && (
       <TopBar.StoreSwitcher
         searchPlaceholder="Search for a shop."
-        noResultsMessage="No shops found."
+        noResultsMessage="No stores found."
         activeIndex={0}
-        shops={[
+        stores={[
           {
             url: 'https://a-better-looking-shop.myshopify.io/admin',
             name: 'A Better Looking Shop',
@@ -278,9 +278,9 @@ export default class Playground extends React.Component<never, any> {
     const mobilestoreSwitcher = (
       <Navigation.StoreSwitcher
         searchPlaceholder="Search for a shop."
-        noResultsMessage="No shops found."
+        noResultsMessage="No stores found."
         activeIndex={0}
-        shops={[
+        stores={[
           {
             url: 'https://a-better-looking-shop.myshopify.io/admin',
             name: 'A Better Looking Shop',

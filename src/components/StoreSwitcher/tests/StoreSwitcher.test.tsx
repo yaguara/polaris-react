@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {mountWithAppProvider, trigger} from 'test-utilities';
-import {filterShops, transformShopsToItems} from '../utilities';
+import {filterStores, transformStoresToItems} from '../utilities';
 import ActionList from '../../ActionList';
 import TextField from '../../TextField';
 import StoreSwitcher from '../StoreSwitcher';
 
 describe('<StoreSwitcher />', () => {
   const mockProps = {
-    shops: [],
+    stores: [],
     searchPlaceholder: '',
     activeIndex: 0,
     noResultsMessage: '',
@@ -21,9 +21,9 @@ describe('<StoreSwitcher />', () => {
     },
   };
 
-  describe('shops', () => {
+  describe('stores', () => {
     it('is used to construct the action list items', () => {
-      const shops = [
+      const stores = [
         {
           name: '',
           url: '',
@@ -33,29 +33,29 @@ describe('<StoreSwitcher />', () => {
       const storeSwitcher = mountWithAppProvider(
         <StoreSwitcher
           {...mockProps}
-          shops={shops}
+          stores={stores}
           activeIndex={activeIndex}
         />,
       );
-      const expectedItems = transformShopsToItems(shops, activeIndex);
+      const expectedItems = transformStoresToItems(stores, activeIndex);
       expect(storeSwitcher.find(ActionList).prop('items')).toEqual(
         expectedItems,
       );
     });
 
-    it('shows a search field when there are 5 or more shops', () => {
-      const shops = new Array(5).fill({
+    it('shows a search field when there are 5 or more stores', () => {
+      const stores = new Array(5).fill({
         name: '',
         url: '',
       });
       const storeSwitcher = mountWithAppProvider(
-        <StoreSwitcher {...mockProps} shops={shops} />,
+        <StoreSwitcher {...mockProps} stores={stores} />,
       );
       expect(storeSwitcher.find(TextField)).toHaveLength(1);
     });
 
-    it('filters the shops when the search query changes', () => {
-      const shops = [
+    it('filters the stores when the search query changes', () => {
+      const stores = [
         {
           name: 'Little Victories CA',
           url: 'http://little-victories.com',
@@ -71,14 +71,14 @@ describe('<StoreSwitcher />', () => {
       ];
       const newQuery = 'toy';
       const activeIndex = 0;
-      const newItems = transformShopsToItems(
-        filterShops(newQuery, shops),
+      const newItems = transformStoresToItems(
+        filterStores(newQuery, stores),
         activeIndex,
       );
       const storeSwitcher = mountWithAppProvider(
         <StoreSwitcher
           {...mockProps}
-          shops={shops}
+          stores={stores}
           activeIndex={activeIndex}
         />,
       );
@@ -86,16 +86,16 @@ describe('<StoreSwitcher />', () => {
       expect(storeSwitcher.find(ActionList).prop('items')).toEqual(newItems);
     });
 
-    it('renders the no results message when there are no shops found', () => {
-      const noResultsMessage = 'No shops found.';
-      const shops = new Array(5).fill({
+    it('renders the no results message when there are no stores found', () => {
+      const noResultsMessage = 'No stores found.';
+      const stores = new Array(5).fill({
         name: '',
         url: '',
       });
       const storeSwitcher = mountWithAppProvider(
         <StoreSwitcher
           {...mockProps}
-          shops={shops}
+          stores={stores}
           activeIndex={0}
           noResultsMessage={noResultsMessage}
         />,
@@ -107,7 +107,7 @@ describe('<StoreSwitcher />', () => {
 
   describe('searchPlaceholder', () => {
     it('gets passed into the search field', () => {
-      const shops = new Array(5).fill({
+      const stores = new Array(5).fill({
         name: '',
         url: '',
       });
@@ -115,7 +115,7 @@ describe('<StoreSwitcher />', () => {
       const storeSwitcher = mountWithAppProvider(
         <StoreSwitcher
           {...mockProps}
-          shops={shops}
+          stores={stores}
           searchPlaceholder={searchPlaceholder}
         />,
       );
@@ -136,12 +136,12 @@ describe('<StoreSwitcher />', () => {
 
     it('receives the search and content markup', () => {
       const childrenSpy = jest.fn(() => null);
-      const shops = new Array(5).fill({
+      const stores = new Array(5).fill({
         name: '',
         url: '',
       });
       mountWithAppProvider(
-        <StoreSwitcher {...mockProps} shops={shops}>
+        <StoreSwitcher {...mockProps} stores={stores}>
           {childrenSpy}
         </StoreSwitcher>,
       );

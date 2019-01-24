@@ -1,14 +1,14 @@
 import * as React from 'react';
 import TextStyle from '../TextStyle';
-import {Shop} from './types';
+import {Store} from './types';
 import * as styles from './StoreSwitcher.scss';
 
-export function transformShopsToItems(shops: Shop[], activeIndex: number) {
-  return shops.map(({name, url}, index) => ({
+export function transformStoresToItems(stores: Store[], activeIndex: number) {
+  return stores.map(({name, url}, index) => ({
     content: (
-      <div className={styles.ShopItem}>
-        <div className={styles.ShopName}>{name}</div>
-        <div className={styles.ShopUrl}>
+      <div className={styles.StoreItem}>
+        <div className={styles.StoreName}>{name}</div>
+        <div className={styles.StoreUrl}>
           <TextStyle variation="subdued">{cleanUrl(url)}</TextStyle>
         </div>
       </div>
@@ -18,14 +18,14 @@ export function transformShopsToItems(shops: Shop[], activeIndex: number) {
   }));
 }
 
-export function filterShops(query: string, shops: Shop[]) {
+export function filterStores(query: string, stores: Store[]) {
   const lowerQuery = query.toLowerCase();
-  const newShops = shops.filter(
+  const newStores = stores.filter(
     ({name, url}) =>
       name.toLowerCase().startsWith(lowerQuery) ||
       cleanUrl(url).startsWith(lowerQuery),
   );
-  return newShops;
+  return newStores;
 }
 
 function cleanUrl(url: string) {
