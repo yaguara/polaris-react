@@ -1,8 +1,7 @@
 import * as React from 'react';
 import Image from '../../../Image';
-import Scrollable from '../../../Scrollable';
 import Menu from '../Menu';
-import Switcher, {BaseProps as SwitcherProps} from '../../../StoreSwitcher';
+import Switcher, {Props as SwitcherProps} from '../../../StoreSwitcher';
 import {withAppProvider, WithAppProviderProps} from '../../../AppProvider';
 import * as styles from './StoreSwitcher.scss';
 
@@ -12,16 +11,17 @@ export type Props = SwitcherProps & {
 type ComposedProps = Props & WithAppProviderProps;
 
 function StoreSwitcher({
-  stores,
+  items,
   searchPlaceholder,
   activeIndex,
   noResultsMessage,
   activatorAccessibilityLabel,
+  onQueryChange,
   polaris: {
     theme: {logo},
   },
 }: ComposedProps) {
-  const {name: shopName} = stores[activeIndex];
+  const {name: shopName} = items[activeIndex];
 
   const logoMarkup = logo && (
     <Image
@@ -38,20 +38,13 @@ function StoreSwitcher({
       activatorAccessibilityLabel={activatorAccessibilityLabel}
     >
       <Switcher
-        stores={stores}
+        items={items}
         searchPlaceholder={searchPlaceholder}
         activeIndex={activeIndex}
         noResultsMessage={noResultsMessage}
-      >
-        {(searchField, storesList) => (
-          <React.Fragment>
-            {searchField}
-            <Scrollable vertical shadow>
-              {storesList}
-            </Scrollable>
-          </React.Fragment>
-        )}
-      </Switcher>
+        hasSearch={items.length >= 5}
+        onQueryChange={onQueryChange}
+      />
     </Menu>
   );
 }

@@ -1,83 +1,98 @@
 import * as React from 'react';
 import {autobind} from '@shopify/javascript-utilities/decorators';
+import {createUniqueIDFactory} from '@shopify/javascript-utilities/other';
 import TextField from '../TextField';
 import Icon from '../Icon';
 import TextStyle from '../TextStyle';
-import ActionList, {Props as ActionListProps} from '../ActionList';
-import {Store} from './types';
-import {transformStoresToItems, filterStores} from './utilities';
+import {Section as SectionType} from './types';
+import {Section} from './components';
 import * as styles from './StoreSwitcher.scss';
 
-export interface BaseProps {
-  stores: Store[];
+export interface Props {
+  sections: SectionType[];
+  hasSearch: boolean;
   searchPlaceholder: string;
-  activeIndex: number;
   noResultsMessage: string;
-}
-
-export interface Props extends BaseProps {
-  children(
-    searchField: React.ReactNode,
-    content: React.ReactNode,
-  ): React.ReactNode;
+  activeStoreUrl: string;
+  onQueryChange(query: string): void;
+  query?: string;
 }
 
 interface State {
-  query: string;
-  items: ActionListProps['items'];
+  openSectionIds: string[];
 }
 
-const MIN_STORES_FOR_SEARCH = 5;
-
-class StoreSwitcher extends React.Component<Props, State> {
+class StoreSwitcher extends React.PureComponent<Props, State> {
   state = {
-    query: '',
-    items: transformStoresToItems(this.props.stores, this.props.activeIndex),
+    openSectionIds: ['Business #1'],
   };
 
   render() {
-    const {query, items} = this.state;
-    const {searchPlaceholder, stores, children, noResultsMessage} = this.props;
-    const hasSearch = stores.length >= MIN_STORES_FOR_SEARCH;
+    const {
+      query,
+      searchPlaceholder,
+      noResultsMessage,
+      onQueryChange,
+      sections,
+      activeStoreUrl,
+      hasSearch,
+    } = this.props;
+    const {openSectionIds} = this.state;
 
-    const searchFieldMarkup = hasSearch && (
+    const searchMarkup = hasSearch && (
       <div className={styles.Search}>
         <TextField
           labelHidden
           label=""
           value={query}
-          onChange={this.handleQueryChange}
+          onChange={onQueryChange}
           prefix={<Icon source="search" color="inkLightest" />}
           placeholder={searchPlaceholder}
         />
       </div>
     );
 
-    const storesListMarkup = (
-      <section className={hasSearch && styles.StoresList}>
-        <ActionList items={items} />
-      </section>
-    );
-
     const contentMarkup =
-      query && items.length < 1 ? (
+      query && sections.length < 1 ? (
         <div className={styles.NoResults}>
           <TextStyle variation="subdued">{noResultsMessage}</TextStyle>
         </div>
       ) : (
-        storesListMarkup
+        <section>
+          {sections.map(({name, stores}) => {
+            return (
+              <Section
+                id={name}
+                key={name}
+                name={name}
+                stores={stores}
+                activeStoreUrl={activeStoreUrl}
+                onClick={this.handleSectionClick}
+                open={openSectionIds.includes(name)}
+              />
+            );
+          })}
+        </section>
       );
 
-    return children(searchFieldMarkup, contentMarkup);
+    return (
+      <>
+        {searchMarkup}
+        {contentMarkup}
+      </>
+    );
   }
 
   @autobind
-  private handleQueryChange(query: string) {
-    const {stores, activeIndex} = this.props;
-    this.setState({
-      query,
-      items: transformStoresToItems(filterStores(query, stores), activeIndex),
-    });
+  private handleSectionClick(id: string) {
+    const {openSectionIds} = this.state;
+    if (openSectionIds.includes(id)) {
+      this.setState({
+        openSectionIds: openSectionIds.filter((currentId) => currentId !== id),
+      });
+      return;
+    }
+    this.setState({openSectionIds: [...openSectionIds, id]});
   }
 }
 

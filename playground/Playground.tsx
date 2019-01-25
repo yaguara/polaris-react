@@ -1,372 +1,58 @@
 import * as React from 'react';
-import {noop} from '@shopify/javascript-utilities/other';
-import {TopBar, AppProvider, Navigation, Page, Frame, Icon} from '../src';
+import {TopBar, AppProvider, Navigation, Page, Frame} from '../src';
 
-const storeSwitcherProps = {
-  searchPlaceholder: 'Search stores',
-  noResultsMessage: 'No stores found.',
-  activeIndex: 2,
-  stores: [
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name:
-        "Little Victories Europe Division over the rainbow where only Tobi can see it and maybe Jakob but that's it okay maybe Anthony.",
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url:
-        'https://little-victories-little-victories-little-victories-little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name:
-        "Little Victories Europe Division over the rainbow where only Tobi can see it and maybe Jakob but that's it okay maybe Anthony.",
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name:
-        "Little Victories Europe Division over the rainbow where only Tobi can see it and maybe Jakob but that's it okay maybe Anthony.",
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name:
-        "Little Victories Europe Division over the rainbow where only Tobi can see it and maybe Jakob but that's it okay maybe Anthony.",
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-    {
-      url: 'https://little-victories.myshopify.io',
-      name: 'Little Victories CA',
-    },
-  ],
-};
+const sections = [
+  {
+    name: 'Business #1',
+    stores: [
+      {
+        url: 'https://little-victories.myshopify.io1',
+        name: 'Little Victories CA',
+        active: true,
+      },
+      {
+        url: 'https://little-victories.myshopify.io2',
+        name: 'Little Victories CA',
+      },
+      {
+        url: 'https://little-victories.myshopify.io3',
+        name:
+          "Little Victories Europe Division over the rainbow where only Tobi can see it and maybe Jakob but that's it okay maybe Anthony.",
+      },
+      {
+        url: 'https://little-victories.myshopify.io4',
+        name: 'Little Victories CA',
+      },
+    ],
+  },
+];
 
 export default class Playground extends React.Component<never, any> {
-  state = {
-    userMenuOpen: false,
-    mobileUserMenuOpen: false,
-  };
-
   render() {
-    const {userMenuOpen, mobileUserMenuOpen} = this.state;
-
-    const searchField = (
-      <TopBar.SearchField onChange={noop} value="" placeholder="Search" />
-    );
-
-    const userMenu = (
-      <TopBar.UserMenu
-        actions={[
-          {
-            items: [{content: 'item content'}],
-          },
-        ]}
-        message={{
-          title: 'Polaris',
-          description: 'description',
-          action: {onClick: noop, content: 'action content'},
-          link: {to: '/', content: 'Link content'},
-        }}
-        name="Jakob Stecher"
-        initials="DR"
-        open={userMenuOpen}
-        onToggle={() => this.setState({userMenuOpen: !userMenuOpen})}
-      />
-    );
-
-    const supportMenu = (
-      <TopBar.Menu
-        actions={[
-          {
-            items: [{content: 'item content'}],
-          },
-        ]}
-        activatorContent={<Icon source="help" />}
-        open={false}
-        onOpen={noop}
-        onClose={noop}
-      />
-    );
-
-    const storeSwitcher = storeSwitcherProps.stores.length > 1 && (
+    const storeSwitcher = (
       <TopBar.StoreSwitcher
         searchPlaceholder="Search for a shop."
         noResultsMessage="No stores found."
         activeIndex={0}
-        stores={[
-          {
-            url: 'https://a-better-looking-shop.myshopify.io/admin',
-            name: 'A Better Looking Shop',
-          },
-          {
-            url: 'https://stockroom.myshopify.com/admin',
-            name: 'Stockroom',
-          },
-          {
-            url: 'https://a-better-looking-shop.myshopify.io/admin',
-            name: 'A Better Looking Shop',
-          },
-          {
-            url: 'https://stockroom.myshopify.com/admin',
-            name: 'Stockroom',
-          },
-          {
-            url: 'https://a-better-looking-shop.myshopify.io/admin',
-            name: 'A Better Looking Shop',
-          },
-          {
-            url: 'https://stockroom.myshopify.com/admin',
-            name: 'Stockroom',
-          },
-          {
-            url: 'https://a-better-looking-shop.myshopify.io/admin',
-            name: 'A Better Looking Shop',
-          },
-          {
-            url: 'https://stockroom.myshopify.com/admin',
-            name: 'Stockroom',
-          },
-        ]}
+        sections={sections}
+        activeStoreUrl="https://little-victories.myshopify.io3"
       />
     );
 
     const topBar = (
-      <TopBar
-        showNavigationToggle
-        searchField={searchField}
-        userMenu={userMenu}
-        secondaryMenu={supportMenu}
-        storeSwitcher={storeSwitcher}
-        onNavigationToggle={() =>
-          this.setState({mobileUserMenuOpen: !mobileUserMenuOpen})
-        }
-      />
-    );
-
-    const mobileUserMenu = (
-      <Navigation.UserMenu
-        actions={[
-          {
-            id: '0',
-            items: [{content: 'item content'}],
-          },
-        ]}
-        avatarInitials="KV"
-        name="Koen Vendrik"
-        detail="Store name"
-      />
-    );
-
-    const mobilestoreSwitcher = (
-      <Navigation.StoreSwitcher
-        searchPlaceholder="Search for a shop."
-        noResultsMessage="No stores found."
-        activeIndex={0}
-        stores={[
-          {
-            url: 'https://a-better-looking-shop.myshopify.io/admin',
-            name: 'A Better Looking Shop',
-          },
-          {
-            url: 'https://stockroom.myshopify.com/admin',
-            name: 'Stockroom',
-          },
-          {
-            url: 'https://a-better-looking-shop.myshopify.io/admin',
-            name: 'A Better Looking Shop',
-          },
-          {
-            url: 'https://stockroom.myshopify.com/admin',
-            name: 'Stockroom',
-          },
-          {
-            url: 'https://a-better-looking-shop.myshopify.io/admin',
-            name: 'A Better Looking Shop',
-          },
-          {
-            url: 'https://stockroom.myshopify.com/admin',
-            name: 'Stockroom',
-          },
-          {
-            url: 'https://a-better-looking-shop.myshopify.io/admin',
-            name: 'A Better Looking Shop',
-          },
-          {
-            url: 'https://stockroom.myshopify.com/admin',
-            name: 'Stockroom',
-          },
-        ]}
-      />
-    );
-
-    const navigation = (
-      <Navigation
-        location="/"
-        userMenu={mobileUserMenu}
-        storeSwitcher={mobilestoreSwitcher}
-      >
-        <Navigation.Section
-          items={[
-            {
-              url: '/',
-              label: 'Products',
-              icon: 'view',
-              disabled: false,
-            },
-          ]}
-        />
-      </Navigation>
+      <TopBar showNavigationToggle storeSwitcher={storeSwitcher} />
     );
 
     return (
       <AppProvider
         theme={{
           logo: {
-            width: 124,
             storeSwitcherSource:
               'https://cdn.shopify.com/s/files/1/0048/7889/3112/t/1/assets/jaded-pixel-logo-icon-color.svg?9067931593300480340',
-            topBarSource:
-              'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-color.svg?6215648040070010999',
-            contextualSaveBarSource:
-              'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-gray.svg?6215648040070010999',
           },
         }}
       >
-        <Frame
-          topBar={topBar}
-          navigation={navigation}
-          showMobileNavigation={mobileUserMenuOpen}
-          onNavigationDismiss={() => this.setState({mobileUserMenuOpen: false})}
-        >
-          {/* <ContextualSaveBar
-            message="Unsaved changes"
-            saveAction={{
-              onAction: () => console.log('add form submit logic'),
-              loading: false,
-              disabled: false,
-            }}
-            discardAction={{
-              onAction: () => console.log('add clear form logic'),
-            }}
-          /> */}
+        <Frame topBar={topBar} showMobileNavigation>
           <Page title="Playground" />
         </Frame>
       </AppProvider>

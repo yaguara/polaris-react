@@ -1,43 +1,11 @@
-@mixin single-line-clamp {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
 .Search {
   padding: rem(12px) spacing();
   text-align: center;
+  border-bottom: border();
 }
 
 .NoResults {
   padding: spacing();
   padding-top: 0;
   text-align: center;
-}
-
-.StoresList {
-  margin-top: -#{spacing(tight)};
-}
-
-.StoreItem {
-  width: 100%;
-}
-
-.StoreName {
-  // stylelint-disable-next-line value-no-vendor-prefix
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  // stylelint-disable-next-line property-no-vendor-prefix
-  -webkit-box-orient: vertical;
-  padding-bottom: spacing(extra-tight);
-  overflow: hidden;
-
-  @supports not (-webkit-line-clamp: 2) {
-    display: block;
-    @include single-line-clamp;
-  }
-}
-
-.StoreUrl {
-  @include single-line-clamp;
 }

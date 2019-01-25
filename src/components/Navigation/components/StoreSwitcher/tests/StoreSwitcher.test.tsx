@@ -1,12 +1,13 @@
 import * as React from 'react';
 import {mountWithAppProvider} from 'test-utilities';
+import {noop} from '@shopify/javascript-utilities/other';
 import Switcher from '../../../../StoreSwitcher';
 import Menu from '../../Menu';
 import StoreSwitcher from '../StoreSwitcher';
 
 describe('<StoreSwitcher />', () => {
   const mockProps = {
-    stores: [
+    items: [
       {
         name: '',
         url: '',
@@ -15,6 +16,7 @@ describe('<StoreSwitcher />', () => {
     searchPlaceholder: '',
     noResultsMessage: '',
     activeIndex: 0,
+    onQueryChange: noop,
   };
 
   describe('stores', () => {

@@ -40,7 +40,7 @@ export interface Props {
   preventAutofocus?: boolean;
   sectioned?: boolean;
   fixed?: boolean;
-  noWrap?: boolean;
+  plain?: boolean;
   onClose(source: CloseSource): void;
 }
 
@@ -125,7 +125,7 @@ export default class PopoverOverlay extends React.PureComponent<Props, never> {
   ) {
     const {measuring, desiredHeight, positioning} = overlayDetails;
 
-    const {id, children, sectioned, fullWidth, fullHeight, noWrap} = this.props;
+    const {id, children, sectioned, fullWidth, fullHeight, plain} = this.props;
 
     const className = classNames(
       styles.Popover,
@@ -137,7 +137,8 @@ export default class PopoverOverlay extends React.PureComponent<Props, never> {
 
     this.transitionStatus = transitionStatus;
 
-    const contentStyles = measuring ? undefined : {height: desiredHeight};
+    const contentStyles =
+      measuring || plain ? undefined : {height: desiredHeight};
 
     const contentClassNames = classNames(
       styles.Content,
@@ -152,7 +153,7 @@ export default class PopoverOverlay extends React.PureComponent<Props, never> {
         style={contentStyles}
         ref={this.contentNode}
       >
-        {renderPopoverContent(children, Boolean(noWrap), {sectioned})}
+        {renderPopoverContent(children, Boolean(plain), {sectioned})}
       </div>
     );
 

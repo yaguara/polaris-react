@@ -1,0 +1,51 @@
+@import '../../../ActionList/styles/variables';
+
+@mixin single-line-clamp {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.Store {
+  width: 100%;
+  display: block;
+  text-decoration: none;
+  color: color(ink);
+  padding: $item-vertical-padding spacing();
+
+  &:hover {
+    @include state(hover);
+  }
+}
+
+.Store-Active {
+  background-color: color('indigo');
+  color: color('white');
+
+  .Url {
+    color: color('white');
+  }
+}
+
+.Name {
+  // stylelint-disable-next-line value-no-vendor-prefix
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+
+  /* autoprefixer: off */
+  // stylelint-disable-next-line property-no-vendor-prefix
+  -webkit-box-orient: vertical;
+
+  /* autoprefixer: on */
+  overflow: hidden;
+
+  @supports not (-webkit-line-clamp: 2) {
+    display: block;
+    @include single-line-clamp;
+  }
+}
+
+.Url {
+  @include single-line-clamp;
+  @include text-emphasis-subdued;
+}

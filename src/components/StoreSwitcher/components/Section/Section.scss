@@ -1,0 +1,33 @@
+.Header {
+  width: 100%;
+  padding: spacing(tight) spacing();
+  border-top: border();
+  line-height: 1em;
+  color: color('ink', 'lighter');
+
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  @include text-style-subheading;
+
+  &:first-child {
+    border: none;
+  }
+}
+
+.Header-Icon {
+  margin-left: auto;
+  transform-origin: 50% 50%;
+  transition: transform duration() ease;
+}
+
+.Header-Open {
+  .Header-Icon {
+    transform: rotate(-180deg);
+  }
+}
+
+.List {
+  max-height: 200px;
+}

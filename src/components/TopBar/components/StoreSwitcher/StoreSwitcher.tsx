@@ -4,7 +4,7 @@ import Icon from '../../../Icon';
 import TextStyle from '../../../TextStyle';
 import Image from '../../../Image';
 import Popover from '../../../Popover';
-import Switcher, {BaseProps as SwitcherProps} from '../../../StoreSwitcher';
+import Switcher, {Props as SwitcherProps} from '../../../StoreSwitcher';
 import {withAppProvider, WithAppProviderProps} from '../../../AppProvider';
 import * as styles from './StoreSwitcher.scss';
 
@@ -17,22 +17,22 @@ interface State {
 
 class StoreSwitcher extends React.Component<ComposedProps, State> {
   state = {
-    open: false,
+    open: true,
   };
 
   render() {
     const {open} = this.state;
     const {
-      stores,
+      sections,
       searchPlaceholder,
-      activeIndex,
       noResultsMessage,
+      onQueryChange,
+      activeStoreUrl,
       polaris: {
         theme: {logo},
       },
     } = this.props;
 
-    const {name} = this.activeShop;
     const logoMarkup = logo && (
       <Image
         source={logo.storeSwitcherSource || ''}
@@ -41,6 +41,9 @@ class StoreSwitcher extends React.Component<ComposedProps, State> {
       />
     );
 
+    // eslint-disable-next-line typescript/no-non-null-assertion
+    const {name} = this.activeStore!;
+
     const activator = (
       <button
         type="button"
@@ -48,7 +51,7 @@ class StoreSwitcher extends React.Component<ComposedProps, State> {
         onClick={this.togglePopover}
       >
         {logoMarkup}
-        <span className={styles.ShopName}>
+        <span className={styles.StoreName}>
           <TextStyle variation="strong">{name}</TextStyle>
         </span>
         <span className={styles.Icon}>
@@ -58,26 +61,23 @@ class StoreSwitcher extends React.Component<ComposedProps, State> {
     );
 
     return (
-      <Switcher
-        stores={stores}
-        searchPlaceholder={searchPlaceholder}
-        activeIndex={activeIndex}
-        noResultsMessage={noResultsMessage}
+      <Popover
+        fullHeight
+        active={open}
+        activator={activator}
+        onClose={this.togglePopover}
+        preferredAlignment="left"
+        plain
       >
-        {(searchField, storesList) => (
-          <Popover
-            fullHeight
-            active={open}
-            activator={activator}
-            onClose={this.togglePopover}
-            preferredAlignment="left"
-            noWrap
-          >
-            {searchField}
-            <Popover.Pane>{storesList}</Popover.Pane>
-          </Popover>
-        )}
-      </Switcher>
+        <Switcher
+          sections={sections}
+          searchPlaceholder={searchPlaceholder}
+          noResultsMessage={noResultsMessage}
+          activeStoreUrl={activeStoreUrl}
+          onQueryChange={onQueryChange}
+          hasSearch
+        />
+      </Popover>
     );
   }
 
@@ -87,9 +87,14 @@ class StoreSwitcher extends React.Component<ComposedProps, State> {
     this.setState({open: !open});
   }
 
-  private get activeShop() {
-    const {stores, activeIndex} = this.props;
-    return stores[activeIndex];
+  private get activeStore() {
+    const {sections, activeStoreUrl} = this.props;
+    for (const {stores} of sections) {
+      const activeStore = stores.find(({url}) => url === activeStoreUrl);
+      if (activeStore) {
+        return activeStore;
+      }
+    }
   }
 }
 
