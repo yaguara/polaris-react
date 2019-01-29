@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {TopBar, AppProvider, Navigation, Page, Frame} from '../src';
+import {noop} from '@shopify/javascript-utilities/other';
+import {TopBar, AppProvider, Page, Frame} from '../src';
 
 const sections = [
   {
@@ -8,7 +9,6 @@ const sections = [
       {
         url: 'https://little-victories.myshopify.io1',
         name: 'Little Victories CA',
-        active: true,
       },
       {
         url: 'https://little-victories.myshopify.io2',
@@ -25,6 +25,28 @@ const sections = [
       },
     ],
   },
+  {
+    name: 'Business #2',
+    stores: [
+      {
+        url: 'https://little-victories.myshopify.io5',
+        name: 'Little Victories CA',
+      },
+      {
+        url: 'https://little-victories.myshopify.io6',
+        name: 'Little Victories CA',
+      },
+      {
+        url: 'https://little-victories.myshopify.io7',
+        name:
+          "Little Victories Europe Division over the rainbow where only Tobi can see it and maybe Jakob but that's it okay maybe Anthony.",
+      },
+      {
+        url: 'https://little-victories.myshopify.io8',
+        name: 'Little Victories CA',
+      },
+    ],
+  },
 ];
 
 export default class Playground extends React.Component<never, any> {
@@ -33,9 +55,9 @@ export default class Playground extends React.Component<never, any> {
       <TopBar.StoreSwitcher
         searchPlaceholder="Search for a shop."
         noResultsMessage="No stores found."
-        activeIndex={0}
         sections={sections}
         activeStoreUrl="https://little-victories.myshopify.io3"
+        onQueryChange={noop}
       />
     );
 

@@ -1,7 +1,8 @@
+@import './styles/variables';
+
 $arrow-size: rem(14px);
 $visible-portion-of-arrow: rem(5px);
 $content-max-height: rem(295px);
-$content-max-width: rem(400px);
 
 .Popover {
   max-width: calc(100vw - #{2 * spacing()});

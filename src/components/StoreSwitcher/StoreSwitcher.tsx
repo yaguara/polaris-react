@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {autobind} from '@shopify/javascript-utilities/decorators';
-import {createUniqueIDFactory} from '@shopify/javascript-utilities/other';
 import TextField from '../TextField';
 import Icon from '../Icon';
 import TextStyle from '../TextStyle';
@@ -8,14 +7,20 @@ import {Section as SectionType} from './types';
 import {Section} from './components';
 import * as styles from './StoreSwitcher.scss';
 
-export interface Props {
+export interface BaseProps {
   sections: SectionType[];
-  hasSearch: boolean;
   searchPlaceholder: string;
   noResultsMessage: string;
   activeStoreUrl: string;
-  onQueryChange(query: string): void;
   query?: string;
+  onQueryChange(query: string): void;
+}
+
+interface Props extends BaseProps {
+  children(
+    searchField: React.ReactNode,
+    storesList: React.ReactNode,
+  ): React.ReactNode;
 }
 
 interface State {
@@ -24,7 +29,10 @@ interface State {
 
 class StoreSwitcher extends React.PureComponent<Props, State> {
   state = {
-    openSectionIds: ['Business #1'],
+    openSectionIds: this.props.sections.reduce(
+      (current, {name}) => [...current, name],
+      [],
+    ),
   };
 
   render() {
@@ -35,11 +43,11 @@ class StoreSwitcher extends React.PureComponent<Props, State> {
       onQueryChange,
       sections,
       activeStoreUrl,
-      hasSearch,
+      children,
     } = this.props;
     const {openSectionIds} = this.state;
 
-    const searchMarkup = hasSearch && (
+    const searchMarkup = this.hasSearch && (
       <div className={styles.Search}>
         <TextField
           labelHidden
@@ -52,7 +60,7 @@ class StoreSwitcher extends React.PureComponent<Props, State> {
       </div>
     );
 
-    const contentMarkup =
+    const listMarkup =
       query && sections.length < 1 ? (
         <div className={styles.NoResults}>
           <TextStyle variation="subdued">{noResultsMessage}</TextStyle>
@@ -75,12 +83,7 @@ class StoreSwitcher extends React.PureComponent<Props, State> {
         </section>
       );
 
-    return (
-      <>
-        {searchMarkup}
-        {contentMarkup}
-      </>
-    );
+    return children(searchMarkup, listMarkup);
   }
 
   @autobind
@@ -93,6 +96,15 @@ class StoreSwitcher extends React.PureComponent<Props, State> {
       return;
     }
     this.setState({openSectionIds: [...openSectionIds, id]});
+  }
+
+  private get hasSearch() {
+    const {sections} = this.props;
+    const stores = sections.reduce(
+      (current, {stores}) => [...current, ...stores],
+      [],
+    );
+    return stores.length >= 5;
   }
 }
 

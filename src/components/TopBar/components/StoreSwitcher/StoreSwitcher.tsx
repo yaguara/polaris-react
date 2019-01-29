@@ -62,21 +62,30 @@ class StoreSwitcher extends React.Component<ComposedProps, State> {
 
     return (
       <Popover
-        fullHeight
         active={open}
         activator={activator}
         onClose={this.togglePopover}
         preferredAlignment="left"
-        plain
+        fullHeight
+        noWrap
       >
-        <Switcher
-          sections={sections}
-          searchPlaceholder={searchPlaceholder}
-          noResultsMessage={noResultsMessage}
-          activeStoreUrl={activeStoreUrl}
-          onQueryChange={onQueryChange}
-          hasSearch
-        />
+        {(measureOverlay) => (
+          <Switcher
+            sections={sections}
+            searchPlaceholder={searchPlaceholder}
+            noResultsMessage={noResultsMessage}
+            activeStoreUrl={activeStoreUrl}
+            onQueryChange={onQueryChange}
+            onSectionToggle={measureOverlay}
+          >
+            {(searchField, storesList) => (
+              <>
+                {searchField}
+                <Popover.Pane>{storesList}</Popover.Pane>
+              </>
+            )}
+          </Switcher>
+        )}
       </Popover>
     );
   }

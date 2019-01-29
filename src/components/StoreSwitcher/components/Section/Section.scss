@@ -1,5 +1,8 @@
+@import '../../../Popover/styles/variables';
+
 .Header {
-  width: 100%;
+  width: $content-max-width;
+  max-width: 100%;
   padding: spacing(tight) spacing();
   border-top: border();
   line-height: 1em;
@@ -26,8 +29,4 @@
   .Header-Icon {
     transform: rotate(-180deg);
   }
-}
-
-.List {
-  max-height: 200px;
 }

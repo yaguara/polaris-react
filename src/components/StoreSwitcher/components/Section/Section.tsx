@@ -30,11 +30,7 @@ class Section extends React.PureComponent<Props> {
         />
       ));
 
-      storesList = open && (
-        <Scrollable shadow className={styles.List}>
-          {storeNodes}
-        </Scrollable>
-      );
+      storesList = open && <Scrollable shadow>{storeNodes}</Scrollable>;
     }
 
     return (

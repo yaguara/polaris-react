@@ -5,5 +5,6 @@ export {
   PreferredPosition,
   PreferredAlignment,
   OverlayDetails,
+  MeasureOverlay,
 } from './PositionedOverlay';
 export default PositionedOverlay;

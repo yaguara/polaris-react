@@ -29,6 +29,8 @@ export interface OverlayDetails {
   activatorRect: Rect;
 }
 
+export type MeasureOverlay = () => void;
+
 export interface Props {
   active: boolean;
   activator: HTMLElement;
@@ -36,7 +38,10 @@ export interface Props {
   preferredAlignment?: PreferredAlignment;
   fullWidth?: boolean;
   fixed?: boolean;
-  render(overlayDetails: OverlayDetails): React.ReactNode;
+  render(
+    overlayDetails: OverlayDetails,
+    measureOverlay: MeasureOverlay,
+  ): React.ReactNode;
   onScrollOut?(): void;
 }
 
@@ -131,7 +136,7 @@ export default class PositionedOverlay extends React.PureComponent<
     return (
       <div className={className} style={style} ref={this.setOverlay}>
         <EventListener event="resize" handler={this.handleMeasurement} />
-        {render(this.overlayDetails())}
+        {render(this.overlayDetails(), this.handleMeasurement)}
       </div>
     );
   }
