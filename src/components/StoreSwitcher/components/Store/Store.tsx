@@ -6,17 +6,28 @@ import * as styles from './Store.scss';
 
 export interface Props extends StoreType {
   active: boolean;
+  highlight?: string;
 }
 
-function Store({name, url, active}: Props) {
+function Store({name, url, active, highlight}: Props) {
   const storeClassNames = classNames(
     styles.Store,
     active && styles['Store-Active'],
   );
 
+  const nameClassNames = classNames(
+    styles.Name,
+    highlight && styles['Name-Bolded'],
+  );
+
+  const nameMarkup = !highlight ? name : highlightName(name, highlight);
+
   return (
     <UnstyledLink url={url} className={storeClassNames}>
-      <span className={styles.Name}>{name}</span>
+      <span
+        className={nameClassNames}
+        dangerouslySetInnerHTML={{__html: nameMarkup}}
+      />
       <span className={styles.Url}>{cleanUrl(url)}</span>
     </UnstyledLink>
   );
@@ -29,6 +40,13 @@ function cleanUrl(url: string) {
   } catch {
     return url;
   }
+}
+
+function highlightName(name: string, highlight: string) {
+  return name.replace(
+    new RegExp(highlight, 'i'),
+    (match) => `<span class="${styles['Name-Highlight']}">${match}</span>`,
+  );
 }
 
 export default Store;

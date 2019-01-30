@@ -45,6 +45,14 @@
   }
 }
 
+.Name-Bolded {
+  font-weight: 500;
+
+  .Name-Highlight {
+    font-weight: 400;
+  }
+}
+
 .Url {
   @include single-line-clamp;
   @include text-emphasis-subdued;

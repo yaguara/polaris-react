@@ -10,13 +10,14 @@ import * as styles from './Section.scss';
 export interface Props extends SectionType {
   id: string;
   activeStoreUrl: string;
+  highlight?: string;
   open?: boolean;
   onClick(id: string): void;
 }
 
 class Section extends React.PureComponent<Props> {
   render() {
-    const {name, stores, activeStoreUrl, open} = this.props;
+    const {name, stores, activeStoreUrl, open, highlight} = this.props;
     const className = classNames(styles.Header, open && styles['Header-Open']);
     let storesList;
 
@@ -25,6 +26,7 @@ class Section extends React.PureComponent<Props> {
         <Store
           key={url}
           name={name}
+          highlight={highlight}
           url={url}
           active={url === activeStoreUrl}
         />

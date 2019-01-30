@@ -27,7 +27,9 @@ class StoreSwitcher extends React.Component<ComposedProps, State> {
       searchPlaceholder,
       noResultsMessage,
       onQueryChange,
-      activeStoreUrl,
+      activeStore,
+      query,
+      hasSearch,
       polaris: {
         theme: {logo},
       },
@@ -41,9 +43,6 @@ class StoreSwitcher extends React.Component<ComposedProps, State> {
       />
     );
 
-    // eslint-disable-next-line typescript/no-non-null-assertion
-    const {name} = this.activeStore!;
-
     const activator = (
       <button
         type="button"
@@ -52,7 +51,7 @@ class StoreSwitcher extends React.Component<ComposedProps, State> {
       >
         {logoMarkup}
         <span className={styles.StoreName}>
-          <TextStyle variation="strong">{name}</TextStyle>
+          <TextStyle variation="strong">{activeStore.name}</TextStyle>
         </span>
         <span className={styles.Icon}>
           <Icon source="chevronDown" color="white" />
@@ -67,16 +66,17 @@ class StoreSwitcher extends React.Component<ComposedProps, State> {
         onClose={this.togglePopover}
         preferredAlignment="left"
         fullHeight
-        noWrap
       >
         {(measureOverlay) => (
           <Switcher
             sections={sections}
             searchPlaceholder={searchPlaceholder}
             noResultsMessage={noResultsMessage}
-            activeStoreUrl={activeStoreUrl}
+            activeStore={activeStore}
             onQueryChange={onQueryChange}
+            query={query}
             onSectionToggle={measureOverlay}
+            hasSearch={hasSearch}
           >
             {(searchField, storesList) => (
               <>
@@ -94,16 +94,6 @@ class StoreSwitcher extends React.Component<ComposedProps, State> {
   private togglePopover() {
     const {open} = this.state;
     this.setState({open: !open});
-  }
-
-  private get activeStore() {
-    const {sections, activeStoreUrl} = this.props;
-    for (const {stores} of sections) {
-      const activeStore = stores.find(({url}) => url === activeStoreUrl);
-      if (activeStore) {
-        return activeStore;
-      }
-    }
   }
 }
 

@@ -54,10 +54,12 @@ export default class Playground extends React.Component<never, any> {
     const storeSwitcher = (
       <TopBar.StoreSwitcher
         searchPlaceholder="Search for a shop."
-        noResultsMessage="No stores found."
+        noResultsMessage="No stores found for little, showing simular results."
+        query="little"
         sections={sections}
-        activeStoreUrl="https://little-victories.myshopify.io3"
+        activeStore={sections[0].stores[1]}
         onQueryChange={noop}
+        hasSearch
       />
     );
 

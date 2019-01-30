@@ -6,6 +6,10 @@
 
 .NoResults {
   padding: spacing();
-  padding-top: 0;
+  background: color(sky, light);
   text-align: center;
+}
+
+.NoResults-Query {
+  font-weight: 500;
 }
