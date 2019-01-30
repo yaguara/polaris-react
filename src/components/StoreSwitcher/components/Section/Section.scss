@@ -14,8 +14,8 @@
 
   @include text-style-subheading;
 
-  &:first-child {
-    border: none;
+  &:nth-child(2) {
+    border-top: none;
   }
 }
 

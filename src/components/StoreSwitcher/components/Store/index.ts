@@ -1,1 +1,1 @@
-export {default, Props} from './Store';
+export {default, Props, StoreType} from './Store';

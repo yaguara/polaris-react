@@ -4,14 +4,18 @@ import {autobind} from '@shopify/javascript-utilities/decorators';
 import TextField from '../TextField';
 import Icon from '../Icon';
 import TextStyle from '../TextStyle';
-import {Section as SectionType, Store} from './types';
-import {Section} from './components';
+import {Section, StoresList, StoreType} from './components';
 import * as styles from './StoreSwitcher.scss';
+
+interface SectionType {
+  name: string;
+  stores: StoreType[];
+}
 
 export interface BaseProps {
   sections: SectionType[];
   noResultsMessage: string;
-  activeStore: Store;
+  activeStore: StoreType;
   searchPlaceholder: string;
   query?: string;
   hasSearch: boolean;
@@ -28,13 +32,11 @@ interface Props extends BaseProps {
 
 interface State {
   openSectionIds: string[];
-  openAllSections: boolean;
 }
 
 class StoreSwitcher extends React.PureComponent<Props, State> {
   state = {
-    openSectionIds: [] as string[],
-    openAllSections: true,
+    openSectionIds: this.allSectionIds,
   };
 
   render() {
@@ -47,7 +49,7 @@ class StoreSwitcher extends React.PureComponent<Props, State> {
       children,
       hasSearch,
     } = this.props;
-    const {openSectionIds, openAllSections} = this.state;
+    const {openSectionIds} = this.state;
     const {noResultsMessage} = this;
 
     const searchMarkup = hasSearch && (
@@ -72,19 +74,29 @@ class StoreSwitcher extends React.PureComponent<Props, State> {
     );
 
     const sectionsMarkup =
-      sections &&
-      sections.map(({name, stores}) => (
-        <Section
-          id={name}
-          key={name}
-          name={name}
-          highlight={query}
-          stores={stores}
+      sections.length > 1 ? (
+        sections.map(({name, stores}) => (
+          <Section
+            id={name}
+            key={name}
+            name={name}
+            onClick={this.handleSectionClick}
+            open={openSectionIds.includes(name)}
+          >
+            <StoresList
+              stores={stores}
+              activeStoreUrl={activeStore.url}
+              highlight={query}
+            />
+          </Section>
+        ))
+      ) : (
+        <StoresList
+          stores={sections[0].stores}
           activeStoreUrl={activeStore.url}
-          onClick={this.handleSectionClick}
-          open={openAllSections || openSectionIds.includes(name)}
+          highlight={query}
         />
-      ));
+      );
 
     const contentMarkup = sections && (
       <>
@@ -126,6 +138,11 @@ class StoreSwitcher extends React.PureComponent<Props, State> {
         )}</strong>`,
       )
     );
+  }
+
+  private get allSectionIds() {
+    const {sections} = this.props;
+    return sections.reduce((current, {name}) => [...current, name], []);
   }
 }
 

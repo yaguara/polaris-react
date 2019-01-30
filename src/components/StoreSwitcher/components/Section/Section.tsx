@@ -1,39 +1,21 @@
 import * as React from 'react';
 import {autobind} from '@shopify/javascript-utilities/decorators';
 import {classNames} from '@shopify/react-utilities';
-import Scrollable from '../../../Scrollable';
 import Icon from '../../../Icon';
-import {Section as SectionType} from '../../types';
-import Store from '../Store';
 import * as styles from './Section.scss';
 
-export interface Props extends SectionType {
+export interface Props {
   id: string;
-  activeStoreUrl: string;
-  highlight?: string;
-  open?: boolean;
+  name: string;
   onClick(id: string): void;
+  children: React.ReactNode;
+  open?: boolean;
 }
 
 class Section extends React.PureComponent<Props> {
   render() {
-    const {name, stores, activeStoreUrl, open, highlight} = this.props;
+    const {name, open, children} = this.props;
     const className = classNames(styles.Header, open && styles['Header-Open']);
-    let storesList;
-
-    if (open) {
-      const storeNodes = stores.map(({name, url}) => (
-        <Store
-          key={url}
-          name={name}
-          highlight={highlight}
-          url={url}
-          active={url === activeStoreUrl}
-        />
-      ));
-
-      storesList = open && <Scrollable shadow>{storeNodes}</Scrollable>;
-    }
 
     return (
       <>
@@ -43,14 +25,14 @@ class Section extends React.PureComponent<Props> {
             <Icon source="chevronDown" color="inkLighter" />
           </div>
         </div>
-        {storesList}
+        {open && children}
       </>
     );
   }
 
   @autobind
   private handleClick() {
-    const {onClick, id} = this.props;
+    const {id, onClick} = this.props;
     onClick(id);
   }
 }

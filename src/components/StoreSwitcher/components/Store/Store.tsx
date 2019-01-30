@@ -1,8 +1,12 @@
 import * as React from 'react';
 import {classNames} from '@shopify/react-utilities';
 import UnstyledLink from '../../../UnstyledLink';
-import {Store as StoreType} from '../../types';
 import * as styles from './Store.scss';
+
+export interface StoreType {
+  url: string;
+  name: string;
+}
 
 export interface Props extends StoreType {
   active: boolean;
