@@ -13,12 +13,13 @@ interface SectionType {
 }
 
 export interface BaseProps {
-  sections: SectionType[];
+  sections?: SectionType[];
+  stores?: StoreType[];
   noResultsMessage: string;
   activeStore: StoreType;
   searchPlaceholder: string;
-  query?: string;
-  hasSearch: boolean;
+  query: string;
+  hasSearch?: boolean;
   onQueryChange(query: string): void;
 }
 
@@ -36,7 +37,7 @@ interface State {
 
 class StoreSwitcher extends React.PureComponent<Props, State> {
   state = {
-    openSectionIds: this.allSectionIds,
+    openSectionIds: getAllSectionIds(this.props.sections),
   };
 
   render() {
@@ -48,6 +49,7 @@ class StoreSwitcher extends React.PureComponent<Props, State> {
       activeStore,
       children,
       hasSearch,
+      stores,
     } = this.props;
     const {openSectionIds} = this.state;
     const {noResultsMessage} = this;
@@ -74,25 +76,27 @@ class StoreSwitcher extends React.PureComponent<Props, State> {
     );
 
     const sectionsMarkup =
-      sections.length > 1 ? (
-        sections.map(({name, stores}) => (
-          <Section
-            id={name}
-            key={name}
-            name={name}
-            onClick={this.handleSectionClick}
-            open={openSectionIds.includes(name)}
-          >
-            <StoresList
-              stores={stores}
-              activeStoreUrl={activeStore.url}
-              highlight={query}
-            />
-          </Section>
-        ))
-      ) : (
+      sections &&
+      sections.map(({name, stores}) => (
+        <Section
+          id={name}
+          key={name}
+          name={name}
+          onClick={this.handleSectionClick}
+          open={openSectionIds.includes(name)}
+        >
+          <StoresList
+            stores={stores}
+            activeStoreUrl={activeStore.url}
+            highlight={query}
+          />
+        </Section>
+      ));
+
+    const storesMarkup = !sectionsMarkup &&
+      stores && (
         <StoresList
-          stores={sections[0].stores}
+          stores={stores}
           activeStoreUrl={activeStore.url}
           highlight={query}
         />
@@ -102,6 +106,7 @@ class StoreSwitcher extends React.PureComponent<Props, State> {
       <>
         {noResultsMessageMarkup}
         {sectionsMarkup}
+        {storesMarkup}
       </>
     );
 
@@ -139,11 +144,13 @@ class StoreSwitcher extends React.PureComponent<Props, State> {
       )
     );
   }
+}
 
-  private get allSectionIds() {
-    const {sections} = this.props;
-    return sections.reduce((current, {name}) => [...current, name], []);
+function getAllSectionIds(sections?: SectionType[]) {
+  if (!sections) {
+    return [];
   }
+  return sections.reduce((current, {name}) => [...current, name], []);
 }
 
 export default StoreSwitcher;

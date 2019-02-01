@@ -3,7 +3,7 @@ import {autobind} from '@shopify/javascript-utilities/decorators';
 import Icon from '../../../Icon';
 import TextStyle from '../../../TextStyle';
 import Image from '../../../Image';
-import Popover from '../../../Popover';
+import Popover, {MeasureOverlay} from '../../../Popover';
 import Switcher, {Props as SwitcherProps} from '../../../StoreSwitcher';
 import {withAppProvider, WithAppProviderProps} from '../../../AppProvider';
 import * as styles from './StoreSwitcher.scss';
@@ -30,6 +30,7 @@ class StoreSwitcher extends React.Component<ComposedProps, State> {
       activeStore,
       query,
       hasSearch,
+      stores,
       polaris: {
         theme: {logo},
       },
@@ -67,9 +68,10 @@ class StoreSwitcher extends React.Component<ComposedProps, State> {
         preferredAlignment="left"
         fullHeight
       >
-        {(measureOverlay) => (
+        {(measureOverlay: MeasureOverlay) => (
           <Switcher
             sections={sections}
+            stores={stores}
             searchPlaceholder={searchPlaceholder}
             noResultsMessage={noResultsMessage}
             activeStore={activeStore}

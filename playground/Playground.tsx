@@ -1,65 +1,57 @@
 import * as React from 'react';
 import {noop} from '@shopify/javascript-utilities/other';
+import {autobind} from '@shopify/javascript-utilities/decorators';
 import {TopBar, AppProvider, Page, Frame} from '../src';
 
-const sections = [
-  {
-    name: 'Business #1',
-    stores: [
-      {
-        url: 'https://little-victories.myshopify.io1',
-        name: 'Little Victories CA',
-      },
-      {
-        url: 'https://little-victories.myshopify.io2',
-        name: 'Little Victories CA',
-      },
-      {
-        url: 'https://little-victories.myshopify.io3',
-        name:
-          "Little Victories Europe Division over the rainbow where only Tobi can see it and maybe Jakob but that's it okay maybe Anthony.",
-      },
-      {
-        url: 'https://little-victories.myshopify.io4',
-        name: 'Little Victories CA',
-      },
-    ],
-  },
-  {
-    name: 'Business #2',
-    stores: [
-      {
-        url: 'https://little-victories.myshopify.io5',
-        name: 'Little Victories CA',
-      },
-      {
-        url: 'https://little-victories.myshopify.io6',
-        name: 'Little Victories CA',
-      },
-      {
-        url: 'https://little-victories.myshopify.io7',
-        name:
-          "Little Victories Europe Division over the rainbow where only Tobi can see it and maybe Jakob but that's it okay maybe Anthony.",
-      },
-      {
-        url: 'https://little-victories.myshopify.io8',
-        name: 'Little Victories CA',
-      },
-    ],
-  },
-];
+function generateStores(amount: number, prefix: string) {
+  const stores = [];
+  for (let i = 0; i < amount; i++) {
+    stores.push({
+      url: `https://little-victories.myshopify.io-${prefix}-${i}`,
+      name: `Little Victories CA ${prefix}-${i}`,
+    });
+  }
+  return stores;
+}
+
+function generateSections(amount: number, storesAmount: number) {
+  const stores = [];
+  for (let i = 0; i < amount; i++) {
+    stores.push({
+      name: `Business ${i}`,
+      stores: generateStores(storesAmount, i.toString()),
+    });
+  }
+  return stores;
+}
+
+const SECTIONS_AMOUNT = 2;
+const STORES_AMOUNT = 5;
+
+const sections = generateSections(SECTIONS_AMOUNT, STORES_AMOUNT);
+const hasSearch = SECTIONS_AMOUNT * STORES_AMOUNT > 5;
 
 export default class Playground extends React.Component<never, any> {
+  state = {
+    query: '',
+    filteredSections: sections,
+    showSearchMessage: false,
+  };
+
   render() {
+    const {query, showSearchMessage, filteredSections} = this.state;
     const storeSwitcher = (
       <TopBar.StoreSwitcher
         searchPlaceholder="Search for a shop."
-        noResultsMessage="No stores found for little, showing simular results."
-        query="little"
-        sections={sections}
+        noResultsMessage={
+          showSearchMessage &&
+          `No stores found for ${query}, showing simular results.`
+        }
+        query={query}
+        sections={filteredSections}
         activeStore={sections[0].stores[1]}
-        onQueryChange={noop}
-        hasSearch
+        onQueryChange={this.handleChange}
+        hasSearch={hasSearch}
       />
     );
 
@@ -81,5 +73,23 @@ export default class Playground extends React.Component<never, any> {
         </Frame>
       </AppProvider>
     );
+  }
+
+  @autobind
+  private handleChange(query: string) {
+    const filteredSections = sections
+      .map(({name, stores}) => ({
+        name,
+        stores: stores.filter(({name}) =>
+          name.toLowerCase().includes(query.toLowerCase()),
+        ),
+      }))
+      .filter(({stores}) => stores.length > 0);
+
+    this.setState({
+      query,
+      filteredSections,
+      showSearchMessage: filteredSections.length === 0,
+    });
   }
 }

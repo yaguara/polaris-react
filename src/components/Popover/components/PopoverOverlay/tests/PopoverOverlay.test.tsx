@@ -170,11 +170,4 @@ describe('<PopoverOverlay />', () => {
     );
     expect(popoverOverlay.find(Pane).exists()).toBeTruthy();
   });
-
-  it('doesn’t wrap the children in a Pane when noWrap is truthy', () => {
-    const popoverOverlay = mountWithAppProvider(
-      <PopoverOverlay {...mockProps} active noWrap />,
-    );
-    expect(popoverOverlay.find(Pane).exists()).toBeFalsy();
-  });
 });
