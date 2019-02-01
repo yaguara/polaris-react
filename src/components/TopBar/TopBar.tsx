@@ -19,6 +19,8 @@ export interface Props {
   userMenu?: React.ReactNode;
   /** Accepts a menu component that is made available as a static member of the top bar component */
   secondaryMenu?: React.ReactNode;
+  /** Accepts a shop switcher component that is ideally composed of an activator and a popover with a list of actionable store names */
+  storeSwitcher?: React.ReactNode;
   /** Accepts a search field component that is made available as a `TextField` static member of the top bar component */
   searchField?: React.ReactNode;
   /** Accepts a search results component that is ideally composed of a card component containing a list of actionable search results */
@@ -56,6 +58,7 @@ export class TopBar extends React.PureComponent<ComposedProps, State> {
       searchResultsVisible,
       onNavigationToggle,
       onSearchResultsDismiss,
+      storeSwitcher,
       polaris: {
         theme: {logo},
       },
@@ -83,20 +86,25 @@ export class TopBar extends React.PureComponent<ComposedProps, State> {
 
     const width = getWidth(logo, 104);
 
-    const logoMarkup = logo ? (
-      <UnstyledLink
-        url={logo.url || ''}
-        className={styles.LogoLink}
-        style={{width}}
-      >
-        <Image
-          source={logo.topBarSource || ''}
-          alt={logo.accessibilityLabel || ''}
-          className={styles.Logo}
-          style={{width}}
-        />
-      </UnstyledLink>
-    ) : null;
+    const logoMarkup =
+      !storeSwitcher && logo ? (
+        <div className={styles.LogoContainer}>
+          <UnstyledLink
+            url={logo.url || ''}
+            className={styles.LogoLink}
+            style={{width}}
+          >
+            <Image
+              source={logo.topBarSource || ''}
+              alt={logo.accessibilityLabel || ''}
+              className={styles.Logo}
+              style={{width}}
+            />
+          </UnstyledLink>
+        </div>
+      ) : (
+        <div className={styles.StoreSwitcherContainer}>{storeSwitcher}</div>
+      );
 
     const searchResultsMarkup =
       searchResults && searchResultsVisible ? (
@@ -118,7 +126,7 @@ export class TopBar extends React.PureComponent<ComposedProps, State> {
     return (
       <div className={styles.TopBar}>
         {navigationButtonMarkup}
-        <div className={styles.LogoContainer}>{logoMarkup}</div>
+        {logoMarkup}
         <div className={styles.Contents}>
           <div className={styles.SearchField}>{searchMarkup}</div>
           <div className={styles.SecondaryMenu}>{secondaryMenu}</div>
