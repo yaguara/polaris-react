@@ -12,6 +12,7 @@ export interface Props {
   sections?: SectionType[];
   children?: React.ReactNode;
   userMenu?: React.ReactNode;
+  storeSwitcher?: React.ReactNode;
   onDismiss?(): void;
 }
 
@@ -29,10 +30,11 @@ export default class Navigation extends React.Component<Props, never> {
   }
 
   render() {
-    const {children, userMenu} = this.props;
+    const {children, userMenu, storeSwitcher} = this.props;
 
     return (
       <nav className={styles.Navigation}>
+        {storeSwitcher}
         <div className={styles.UserMenu}>{userMenu}</div>
         <Scrollable className={styles.PrimaryNavigation}>{children}</Scrollable>
       </nav>

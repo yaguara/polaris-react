@@ -43,4 +43,14 @@ describe('<Navigation />', () => {
       expect(navigation.contains(userMenu)).toBeTruthy();
     });
   });
+
+  describe('storeSwitcher', () => {
+    it('renders the given store switcher', () => {
+      const storeSwitcher = <div />;
+      const navigation = mountWithAppProvider(
+        <Navigation location="/" storeSwitcher={storeSwitcher} />,
+      );
+      expect(navigation.contains(storeSwitcher)).toBeTruthy();
+    });
+  });
 });
