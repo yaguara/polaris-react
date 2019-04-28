@@ -27,6 +27,9 @@ export interface BaseProps {
 export interface Props extends BaseProps {}
 type CombinedProps = Props & WithAppProviderProps;
 
+/**
+ * @uxpincomponent
+ */
 function Link({
   url,
   children,

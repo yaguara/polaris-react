@@ -14,6 +14,9 @@ export interface Props {
   children?: React.ReactNode;
 }
 
+/**
+ * @uxpinnamespace Card
+ */
 export default function Header({children, title, actions}: Props) {
   const actionMarkup = actions ? (
     <ButtonGroup>{buttonsFrom(actions, {plain: true})}</ButtonGroup>
