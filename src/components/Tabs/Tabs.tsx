@@ -41,6 +41,7 @@ export interface State {
   tabToFocus: number;
 }
 
+/** @uxpincomponent */
 class Tabs extends React.PureComponent<CombinedProps, State> {
   static getDerivedStateFromProps(nextProps: Props, prevState: State) {
     const {disclosureWidth, tabWidths, containerWidth} = prevState;

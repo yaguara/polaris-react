@@ -25,6 +25,10 @@ export interface Props {
   onToggle(): void;
 }
 
+/**
+ * @uxpincomponent
+ * @uxpinnamespace TopBar
+ */
 function UserMenu({
   name,
   detail,

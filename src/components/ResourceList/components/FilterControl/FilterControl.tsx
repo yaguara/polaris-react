@@ -25,6 +25,10 @@ export interface Props {
   onFiltersChange?(appliedFilters: AppliedFilter[]): void;
 }
 
+/**
+ * @uxpincomponent
+ * @uxpinnamespace ResourceList
+ */
 export default function FilterControl({
   searchValue,
   appliedFilters = [],

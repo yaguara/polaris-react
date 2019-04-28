@@ -47,6 +47,7 @@ export interface State {
   mobile: boolean;
 }
 
+/** @uxpincomponent */
 export default function Sheet({
   children,
   open,

@@ -15,6 +15,7 @@ export interface Props {
   onRemove?(): void;
 }
 
+/** @uxpincomponent */
 export default function Tag({children, disabled = false, onRemove}: Props) {
   const intl = useI18n();
   const className = classNames(disabled && styles.disabled, styles.Tag);

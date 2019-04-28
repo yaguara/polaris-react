@@ -23,6 +23,10 @@ export interface Props {
   actionHint?: string;
 }
 
+/**
+ * @uxpincomponent
+ * @uxpinnamespace DropZone
+ */
 export default function FileUpload(props: Props) {
   const {translate} = useI18n();
   const {size, type} = useContext(DropZoneContext);

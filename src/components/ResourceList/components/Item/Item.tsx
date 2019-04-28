@@ -422,6 +422,10 @@ function isSelected(id: string, selectedItems?: SelectedItems) {
   );
 }
 
+/**
+ * @uxpincomponent
+ * @uxpinnamespace ResourceList
+ */
 function Item(props: CombinedProps) {
   return (
     <ResourceListContext.Consumer>

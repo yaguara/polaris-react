@@ -19,6 +19,7 @@ const COLORS_WITH_BACKDROPS = [
 // styleguide to generate the props explorer
 interface Props extends IconProps {}
 
+/** @uxpincomponent */
 export default function Icon({
   source,
   color,

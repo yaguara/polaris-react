@@ -133,7 +133,8 @@ type CombinedProps = Props & WithAppProviderProps;
 
 const getUniqueID = createUniqueIDFactory('TextField');
 
-class TextField extends React.PureComponent<CombinedProps, State> {
+/** @uxpincomponent */
+export class TextField extends React.PureComponent<CombinedProps, State> {
   static getDerivedStateFromProps(nextProps: CombinedProps, prevState: State) {
     return {id: nextProps.id || prevState.id};
   }

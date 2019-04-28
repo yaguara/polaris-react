@@ -9,6 +9,7 @@ export interface Props {
   description?: React.ReactNode;
 }
 
+/** @uxpinnamespace Layout */
 export default function AnnotatedSection(props: Props) {
   const {children, title, description} = props;
 

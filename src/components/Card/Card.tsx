@@ -41,6 +41,7 @@ export interface State {
   secondaryFooterActionsPopoverOpen: boolean;
 }
 
+/** @uxpincomponent */
 class Card extends React.PureComponent<CombinedProps, State> {
   static Section = Section;
   static Header = Header;

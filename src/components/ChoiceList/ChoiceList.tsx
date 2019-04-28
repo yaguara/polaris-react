@@ -50,6 +50,7 @@ export interface Props {
 
 const getUniqueID = createUniqueIDFactory('ChoiceList');
 
+/** @uxpincomponent */
 export default function ChoiceList({
   title,
   titleHidden,

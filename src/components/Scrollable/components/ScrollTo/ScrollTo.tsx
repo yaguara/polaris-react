@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useRef} from 'react';
 import {createUniqueIDFactory} from '@shopify/javascript-utilities/other';
 import {ScrollableContext} from '../../context';
 
+/** @uxpinnamespace Scrollable */
 export default function ScrollTo() {
   const anchorNode = useRef<HTMLAnchorElement>(null);
   const scrollToPosition = useContext(ScrollableContext);

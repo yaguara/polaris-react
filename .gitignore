@@ -1,5 +1,6 @@
 *.log
 node_modules
+/.uxpin-merge
 /build
 /build-intermediate
 /docs

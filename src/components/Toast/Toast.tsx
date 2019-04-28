@@ -15,6 +15,7 @@ const createId = createUniqueIDFactory('Toast');
 // crashing if we write `ComposedProps = ToastProps & WithAppProviderProps`
 export interface Props extends ToastProps {}
 
+/** @uxpincomponent */
 function Toast(props: Props) {
   const id = useRef(createId());
   const appBridgeToast = useRef<AppBridgeToast.Toast>();

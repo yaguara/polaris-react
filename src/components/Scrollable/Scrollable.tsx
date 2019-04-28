@@ -44,6 +44,7 @@ export interface State {
   scrollPosition: number;
 }
 
+/** @uxpincomponent */
 export default class Scrollable extends React.Component<Props, State> {
   static ScrollTo = ScrollTo;
   static forNode(node: HTMLElement): HTMLElement | Document {

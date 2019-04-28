@@ -4,6 +4,7 @@ import React from 'react';
 import {ComboBoxContext} from '../ComboBox/context';
 import BaseTextField, {Props as TextFieldProps} from '../../../TextField';
 
+/** @uxpinnamespace Autocomplete */
 export default function TextField(props: TextFieldProps) {
   return (
     <ComboBoxContext.Consumer>

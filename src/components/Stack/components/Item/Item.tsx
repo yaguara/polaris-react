@@ -12,6 +12,7 @@ export interface Props {
    */
 }
 
+/** @uxpinnamespace Stack */
 export default function Item({children, fill}: Props) {
   const className = classNames(styles.Item, fill && styles['Item-fill']);
 

@@ -18,6 +18,7 @@ export interface Props {
   size?: Size;
 }
 
+/** @uxpincomponent */
 export default function ProgressBar({progress = 0, size = 'medium'}: Props) {
   const intl = useI18n();
 

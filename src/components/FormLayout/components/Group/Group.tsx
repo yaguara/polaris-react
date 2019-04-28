@@ -15,6 +15,7 @@ export interface Props {
 
 const getUniqueID = createUniqueIDFactory('FormLayoutGroup');
 
+/** @uxpinnamespace FormLayout */
 export default function Group({children, condensed, title, helpText}: Props) {
   const className = classNames(condensed ? styles.condensed : styles.grouped);
 
