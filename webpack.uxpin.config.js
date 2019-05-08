@@ -4,6 +4,7 @@ const {
   svgOptions: svgOptimizationOptions,
 } = require('@shopify/images/optimize');
 const postcssShopify = require('postcss-shopify');
+const postcssRemtoPx = require('./config/uxpin/postcss-remtopx');
 
 const ICON_PATH_REGEX = /icons\//;
 const IMAGE_PATH_REGEX = /\.(jpe?g|png|gif|svg)$/;
@@ -75,7 +76,7 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: () => postcssShopify(),
+              plugins: () => [postcssRemtoPx(), postcssShopify()],
               sourceMap: false,
             },
           },
