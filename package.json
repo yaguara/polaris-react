@@ -64,8 +64,7 @@
     "version": "yarn run readme-update-version",
     "storybook": "start-storybook -p 6006 --quiet",
     "storybook:build": "yarn run copy-polaris-tokens && build-storybook -o build/storybook/static",
-    "merge": "uxpin-merge --webpack-config ./webpack.uxpin.config.js --wrapper ./config/uxpin/Wrapper/UXPinWrapper.js",
-    "merge:dump": "uxpin-merge dump --webpack-config ./webpack.uxpin.config.js --wrapper ./config/uxpin/Wrapper/UXPinWrapper.js"
+    "merge": "uxpin-merge --webpack-config ./webpack.uxpin.config.js --wrapper ./config/uxpin/Wrapper/UXPinWrapper.js"
   },
   "stylelint": {
     "extends": [
@@ -103,6 +102,7 @@
     "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/lodash": "^4.14.108",
     "@types/node": "^11.13.8",
+    "@uxpin/merge-cli": "1.4.2",
     "archiver": "^3.0.0",
     "aws-sdk": "^2.58.0",
     "babel-core": "7.0.0-bridge.0",
@@ -190,13 +190,10 @@
     "@types/react": "^16.4.7",
     "@types/react-dom": "^16.0.6",
     "@types/react-transition-group": "^2.0.7",
-    "@uxpin/merge-cli": "1.4.2",
     "hoist-non-react-statics": "^2.5.0",
     "lodash": "^4.17.4",
     "prop-types": "^15.6.1",
     "react-transition-group": "^2.4.0",
-    "sass-loader": "^7.1.0",
-    "tslib": "^1.9.3",
-    "url-loader": "^1.1.2"
+    "tslib": "^1.9.3"
   }
 }

@@ -1,4 +1,4 @@
-const { join, resolve } = require('path');
+const {join, resolve} = require('path');
 
 const {
   svgOptions: svgOptimizationOptions,
@@ -7,6 +7,8 @@ const postcssShopify = require('postcss-shopify');
 
 const ICON_PATH_REGEX = /icons\//;
 const IMAGE_PATH_REGEX = /\.(jpe?g|png|gif|svg)$/;
+
+const cacheDir = resolve(__dirname, '../build/cache/uxpin');
 
 module.exports = {
   module: {
@@ -25,7 +27,7 @@ module.exports = {
               useCache: true,
               useTranspileModule: true,
               transpileOnly: true,
-              cacheDirectory: resolve(__dirname, '.cache', 'typescript'),
+              cacheDirectory: `${cacheDir}/typescript`,
               babelOptions: {
                 babelrc: false,
                 presets: [
@@ -88,18 +90,8 @@ module.exports = {
             loader: 'sass-resources-loader',
             options: {
               resources: [
-                resolve(
-                  __dirname,
-                  'src',
-                  'styles',
-                  'foundation.scss',
-                ),
-                resolve(
-                  __dirname,
-                  'src',
-                  'styles',
-                  'shared.scss',
-                ),
+                resolve(__dirname, 'src', 'styles', 'foundation.scss'),
+                resolve(__dirname, 'src', 'styles', 'shared.scss'),
               ],
             },
           },
