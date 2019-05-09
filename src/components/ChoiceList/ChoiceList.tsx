@@ -49,6 +49,9 @@ type CombinedProps = Props & WithAppProviderProps;
 
 const getUniqueID = createUniqueIDFactory('ChoiceList');
 
+/**
+ * @uxpincomponent
+ */
 function ChoiceList({
   title,
   titleHidden,
