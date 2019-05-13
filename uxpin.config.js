@@ -58,7 +58,6 @@ const uxPinCategories = Object.entries(readmeMetadatas).reduce(
 // 'src/components/Card/components/Header/Header.tsx',
 // 'src/components/Card/components/Section/Section.tsx',
 
-console.log(uxPinCategories);
 module.exports = {
   name: 'Shopify Polaris',
   components: {

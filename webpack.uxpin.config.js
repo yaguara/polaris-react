@@ -15,41 +15,25 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        exclude: /node_modules/,
-        include: join(__dirname, 'src'),
-        // use: 'ts-loader',
-        use: [
-          {
-            loader: 'awesome-typescript-loader',
-            options: {
-              silent: true,
-              useBabel: true,
-              useCache: true,
-              useTranspileModule: true,
-              transpileOnly: true,
-              cacheDirectory: `${cacheDir}/typescript`,
-              babelOptions: {
-                babelrc: false,
-                presets: [
-                  ['babel-preset-shopify/web', {modules: false}],
-                  ['babel-preset-shopify/react', {hot: false}],
-                ],
-              },
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         include: join(__dirname, 'src'),
         use: [
           {
             loader: 'babel-loader',
             options: {
+              cacheDirectory: `${cacheDir}/babel`,
               babelrc: false,
-              presets: ['@babel/preset-env', '@babel/preset-react'],
+              presets: [
+                [
+                  'babel-preset-shopify/web',
+                  {modules: false, typescript: true},
+                ],
+                ['babel-preset-shopify/react', {hot: false}],
+              ],
+              plugins: [
+                `${__dirname}/config/uxpin/babel-rewrite-theme-provider.js`,
+              ],
             },
           },
         ],

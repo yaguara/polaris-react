@@ -55,7 +55,11 @@ export default class ThemeProvider extends React.Component<Props> {
   }
 
   render() {
-    const styles = this.createStyles() || defaultTheme;
+    const styles = {
+      'min-width': 'min-content',
+      'max-width': 'max-content',
+      ...(this.createStyles() || defaultTheme),
+    };
 
     return <div style={styles}>{React.Children.only(this.props.children)}</div>;
   }
