@@ -42,6 +42,7 @@ const CONTEXT_TYPES = {
   parentCollapsibleExpanding: PropTypes.bool,
 };
 
+/** @uxpincomponent */
 // eslint-disable-next-line react/no-unsafe
 class Collapsible extends React.Component<CombinedProps, State> {
   static contextTypes = CONTEXT_TYPES;

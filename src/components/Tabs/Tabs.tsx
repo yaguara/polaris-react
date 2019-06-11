@@ -38,6 +38,7 @@ export interface State {
   tabToFocus: number;
 }
 
+/** @uxpincomponent */
 class Tabs extends React.PureComponent<CombinedProps, State> {
   static Panel = Panel;
 

@@ -49,6 +49,7 @@ export interface Props {
   onSort?(headingIndex: number, direction: SortDirection): void;
 }
 
+/** @uxpincomponent */
 class DataTable extends React.PureComponent<CombinedProps, DataTableState> {
   state: DataTableState = {
     collapsed: false,

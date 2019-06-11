@@ -40,6 +40,7 @@ export interface Props {
 
 type CombinedProps = Props & WithAppProviderProps;
 
+/** @uxpincomponent */
 class Autocomplete extends React.PureComponent<CombinedProps, never> {
   static TextField = TextField;
   static ComboBox = ComboBox;

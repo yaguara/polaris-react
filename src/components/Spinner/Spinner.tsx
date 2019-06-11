@@ -28,6 +28,7 @@ export interface Props {
 
 type CombinedProps = Props & WithAppProviderProps;
 
+/** @uxpincomponent */
 function Spinner({
   size = 'large',
   color = 'teal',

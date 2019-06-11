@@ -47,6 +47,7 @@ export interface State {
   mobile: boolean;
 }
 
+/** @uxpincomponent */
 class Sheet extends React.Component<ComposedProps, State> {
   static contextTypes = frameContextTypes;
   context: FrameContext;

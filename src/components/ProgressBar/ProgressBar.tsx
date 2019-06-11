@@ -20,6 +20,7 @@ export interface Props {
 
 type CombinedProps = Props & WithAppProviderProps;
 
+/** @uxpincomponent */
 function ProgressBar({
   progress = 0,
   size = 'medium',

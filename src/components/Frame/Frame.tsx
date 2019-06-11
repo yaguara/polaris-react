@@ -55,6 +55,7 @@ const APP_FRAME_LOADING_BAR = 'AppFrameLoadingBar';
 
 type CombinedProps = Props & WithAppProviderProps;
 
+/** @uxpincomponent */
 class Frame extends React.PureComponent<CombinedProps, State> {
   static childContextTypes = frameContextTypes;
 

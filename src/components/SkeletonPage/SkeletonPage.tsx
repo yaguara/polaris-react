@@ -26,6 +26,7 @@ export interface Props {
 
 type CombinedProps = Props & WithAppProviderProps;
 
+/** @uxpincomponent */
 class SkeletonPage extends React.PureComponent<CombinedProps, never> {
   render() {
     const {

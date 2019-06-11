@@ -16,6 +16,7 @@ type CombinedProps = Props & WithAppProviderProps;
 
 const getUniqueID = createUniqueIDFactory('RangeSlider');
 
+/** @uxpincomponent */
 class RangeSlider extends React.Component<CombinedProps> {
   private id = getUniqueID();
 

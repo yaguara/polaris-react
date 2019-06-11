@@ -39,6 +39,7 @@ export interface Props {
 
 type CombinedProps = Props & WithAppProviderProps;
 
+/** @uxpincomponent */
 class Form extends React.PureComponent<CombinedProps, never> {
   render() {
     const {

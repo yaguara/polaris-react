@@ -56,8 +56,8 @@ export default class ThemeProvider extends React.Component<Props> {
 
   render() {
     const styles = {
-      'min-width': 'min-content',
-      'max-width': 'max-content',
+      minWidth: 'min-content',
+      maxWidth: 'max-content',
       ...(this.createStyles() || defaultTheme),
     };
 

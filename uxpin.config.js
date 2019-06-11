@@ -4,22 +4,8 @@ const glob = require('glob');
 const grayMatter = require('gray-matter');
 
 const blockList = [
-  // Throws "TypeError: Cannot read property 'kind' of undefined" error
-  'ChoiceList',
-
-  // Thows "Error: No component found!"
-  'ContextualSaveBar',
-  'InlineError',
-  'Tag',
-  'TextField',
-  'Icon',
-  'ProgressBar',
-  'Spinner',
-  'Scrollable',
-  'Pagination',
-
-  // TODO Needs presets // subcomponent stuff
-  'Card',
+  // No need to publish AppProvider as it is already implictly wrapped around every component
+  'AppProvider',
 ];
 
 const readmeMetadatas = glob

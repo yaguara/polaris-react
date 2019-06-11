@@ -91,6 +91,7 @@ const APP_BRIDGE_PROPS: (keyof Props)[] = [
   'secondaryActions',
 ];
 
+/** @uxpincomponent */
 class Modal extends React.Component<CombinedProps, State> {
   static childContextTypes = contentContextTypes;
 
