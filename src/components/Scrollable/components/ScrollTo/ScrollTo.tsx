@@ -2,6 +2,7 @@ import * as React from 'react';
 import {createUniqueIDFactory} from '@shopify/javascript-utilities/other';
 import {contextTypes} from '../../types';
 
+/** @uxpinnamespace Scrollable */
 export default class ScrollTo extends React.Component<{}, never> {
   static contextTypes = contextTypes;
   private ref: React.RefObject<HTMLAnchorElement> = React.createRef();

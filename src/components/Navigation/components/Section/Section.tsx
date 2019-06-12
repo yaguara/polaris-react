@@ -37,6 +37,7 @@ interface State {
   expanded: boolean;
 }
 
+/** @uxpinnamespace Navigation */
 export default class Section extends React.Component<Props, State> {
   static contextTypes = contextTypes;
 

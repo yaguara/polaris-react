@@ -10,6 +10,7 @@ export interface Props {
   oneThird?: boolean;
 }
 
+/** @uxpinnamespace Layout */
 export default function Section({
   children,
   secondary,

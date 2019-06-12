@@ -8,6 +8,7 @@ export interface Props {
   subdued?: boolean;
 }
 
+/** @uxpinnamespace Modal */
 export default function Section({
   children,
   flush = false,

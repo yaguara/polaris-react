@@ -7,6 +7,7 @@ export interface Props {
   children?: React.ReactNode;
 }
 
+/** @uxpinnamespace Tabs */
 export default function Panel({id, tabID, children}: Props) {
   return (
     <div

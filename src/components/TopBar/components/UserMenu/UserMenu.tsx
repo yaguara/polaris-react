@@ -6,6 +6,7 @@ import {UserMenu as UserMenuComponent, UserMenuProps} from './components';
 
 type ComposedProps = UserMenuProps & WithContextTypes<UserMenuContextTypes>;
 
+/** @uxpinnamespace TopBar */
 function UserMenu({
   context: {mobileUserMenuProps, mobileView},
   ...userMenuProps

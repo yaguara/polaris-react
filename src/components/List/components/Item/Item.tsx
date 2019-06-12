@@ -6,6 +6,7 @@ export interface Props {
   children?: React.ReactNode;
 }
 
+/** @uxpinnamespace List */
 export default function Item({children}: Props) {
   return <li className={styles.Item}>{children}</li>;
 }

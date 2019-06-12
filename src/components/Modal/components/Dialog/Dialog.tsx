@@ -31,6 +31,7 @@ function DialogContainer(props: {children: React.ReactNode}) {
   );
 }
 
+/** @uxpinnamespace Modal */
 export default function Dialog({
   instant,
   labelledBy,

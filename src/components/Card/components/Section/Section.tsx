@@ -17,9 +17,7 @@ export interface Props {
   actions?: ComplexAction[];
 }
 
-/**
- * @uxpinnamespace Card
- */
+/** @uxpinnamespace Card */
 export default function Section({
   children,
   title,

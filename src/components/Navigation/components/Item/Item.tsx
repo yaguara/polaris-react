@@ -66,7 +66,8 @@ enum MatchState {
   NoMatch,
 }
 
-export class BaseItem extends React.Component<CombinedProps, State> {
+/** @uxpinnamespace Navigation */
+export class Item extends React.Component<CombinedProps, State> {
   static contextTypes = contextTypes;
 
   context!: Context;
@@ -387,6 +388,4 @@ function matchStateForItem(
   return matchesUrl ? MatchState.MatchUrl : MatchState.NoMatch;
 }
 
-export const Item = withAppProvider<Props>()(BaseItem);
-
-export default Item;
+export default withAppProvider<Props>()(Item);
