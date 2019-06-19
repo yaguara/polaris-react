@@ -66,8 +66,11 @@ enum MatchState {
   NoMatch,
 }
 
-/** @uxpinnamespace Navigation */
-export class Item extends React.Component<CombinedProps, State> {
+/**
+ * @uxpincomponent Navigation.Item
+ * @uxpinnamespace Navigation
+ * */
+class Item extends React.Component<CombinedProps, State> {
   static contextTypes = contextTypes;
 
   context!: Context;

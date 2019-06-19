@@ -37,7 +37,10 @@ type CombinedProps = Props &
   WithAppProviderProps &
   WithContextTypes<DropZoneContext>;
 
-/** @uxpinnamespace Dropzone */
+/**
+ * @uxpincomponent DropZone.FileUpload
+ * @uxpinnamespace DropZone
+ * */
 class FileUpload extends React.Component<CombinedProps, State> {
   static getDerivedStateFromProps(
     {

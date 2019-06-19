@@ -72,7 +72,10 @@ type CombinedProps =
 const getUniqueCheckboxID = createUniqueIDFactory('ResourceListItemCheckbox');
 const getUniqueOverlayID = createUniqueIDFactory('ResourceListItemOverlay');
 
-/** @uxpinnamespace ResourceList */
+/**
+ * @uxpincomponent ResourceList.Item
+ * @uxpinnamespace ResourceList
+ * */
 class Item extends React.Component<CombinedProps, State> {
   static getDerivedStateFromProps(nextProps: CombinedProps, prevState: State) {
     const selected = isSelected(nextProps.id, nextProps.context.selectedItems);
