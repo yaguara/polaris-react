@@ -61,6 +61,7 @@ export interface Context {
   unsubscribe(callback: () => void): void;
 }
 
+/** @uxpinnamespace Autocomplete */
 export default class ComboBox extends React.PureComponent<Props, State> {
   static TextField = TextField;
   static OptionList = OptionList;

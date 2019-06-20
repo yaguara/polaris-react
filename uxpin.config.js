@@ -9,14 +9,12 @@ const blockList = [
 ];
 
 const subcomponentList = {
-  // Combobox is a sub component, TextField is an inlined defined function
-  // that proxies through to Autocomplete.Combobox.TextField. Need to
-  // refactor this to have TextField be directly under Autocomplete.
-  // Combobox also exposes TextField and OptionList subcomponents however they
-  // should never be used.
+  // Autocomplete.Combobox exposes TextField and OptionList subcomponents
+  // however they should never be used.
   // Instead of Autocomplete.Combobox.TextField use Autocomplete.TextField
   // Instead of Autocomplete.Combobox.OptionList use OptionList
-  // Autocomplete: ['TextField', 'Combobox'],
+  // Textfield currently causes an error as it conflicts with the top level TextField
+  Autocomplete: [/* 'TextField',*/ 'Combobox'],
   Card: ['Header', 'Section', 'SubSection'],
   // FileUpload exports a HoC, and deals with context, thus it won't work
   Dropzone: ['FileUpload'],

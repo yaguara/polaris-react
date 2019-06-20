@@ -22,15 +22,8 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
+              envName: 'production',
               cacheDirectory: `${cacheDir}/babel`,
-              babelrc: false,
-              presets: [
-                [
-                  'babel-preset-shopify/web',
-                  {modules: false, typescript: true},
-                ],
-                ['babel-preset-shopify/react', {hot: false}],
-              ],
               plugins: [
                 `${__dirname}/config/uxpin/babel-rewrite-theme-provider.js`,
               ],

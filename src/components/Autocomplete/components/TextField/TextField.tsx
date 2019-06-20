@@ -3,6 +3,7 @@ import * as React from 'react';
 import {contextTypes} from '../types';
 import BaseTextField, {Props as TextFieldProps} from '../../../TextField';
 
+/** @uxpinnamespace Autocomplete */
 export default class TextField extends React.PureComponent<
   TextFieldProps,
   never
