@@ -17,7 +17,7 @@ const subcomponentList = {
   Autocomplete: [/* 'TextField',*/ 'Combobox'],
   Card: ['Header', 'Section', 'SubSection'],
   // FileUpload exports a HoC, and deals with context, thus it won't work
-  Dropzone: ['FileUpload'],
+  DropZone: ['FileUpload'],
   FormLayout: ['Group'],
   Layout: ['AnnotatedSection', 'Section'],
   List: ['Item'],

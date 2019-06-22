@@ -2,11 +2,12 @@ import ChoiceList from '../ChoiceList';
 
 export default (
   <ChoiceList
-    title="Company name"
+    uxpId="choicelist-1"
+    title="Choice name"
     choices={[
-      {label: 'Hidden', value: 'hidden'},
-      {label: 'Optional', value: 'optional'},
-      {label: 'Required', value: 'required'},
+      {label: 'First', value: 'first'},
+      {label: 'Second', value: 'second'},
+      {label: 'Third', value: 'third'},
     ]}
     selected={['hidden']}
   />

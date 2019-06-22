@@ -43,7 +43,7 @@ type CombinedProps = Props & WithAppProviderProps;
  * @uxpincomponent
  * @deprecated Use `ResourcePicker` from `@shopify/app-bridge-react` instead.
  * */
-class ResourcePicker extends React.PureComponent<CombinedProps, never> {
+export class ResourcePicker extends React.PureComponent<CombinedProps, never> {
   private focusReturnPoint: HTMLElement | null = null;
   private appBridgeResourcePicker:
     | AppBridgeResourcePicker.ResourcePicker

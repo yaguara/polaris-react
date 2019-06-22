@@ -76,7 +76,7 @@ const getUniqueOverlayID = createUniqueIDFactory('ResourceListItemOverlay');
  * @uxpincomponent ResourceList.Item
  * @uxpinnamespace ResourceList
  * */
-class Item extends React.Component<CombinedProps, State> {
+export class Item extends React.Component<CombinedProps, State> {
   static getDerivedStateFromProps(nextProps: CombinedProps, prevState: State) {
     const selected = isSelected(nextProps.id, nextProps.context.selectedItems);
 

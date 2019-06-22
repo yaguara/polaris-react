@@ -79,6 +79,14 @@
         "shopify/jsx-no-hardcoded-content": "off",
         "shopify/react-initialize-state": "off"
       }
+    },
+    {
+      "files": ["src/components/*/presets/*.jsx"],
+      "rules": {
+        "shopify/jsx-no-hardcoded-content": "off",
+        "shopify/no-ancestor-directory-import": "off",
+        "react/jsx-filename-extension": "off"
+      }
     }
   ]
 }

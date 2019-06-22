@@ -82,7 +82,7 @@ export interface Props {
 type CombinedProps = Props & WithAppProviderProps;
 
 const getUniqueID = createUniqueIDFactory('Select');
-
+/** @uxpincomponent */
 class ResourceList extends React.Component<CombinedProps, State> {
   static Item: typeof Item = Item;
   static FilterControl: typeof FilterControl = FilterControl;

@@ -48,7 +48,7 @@ export interface Context {
 type CombinedProps = Props & WithAppProviderProps;
 
 /** @uxpincomponent */
-class Scrollable extends React.Component<CombinedProps, State> {
+export class Scrollable extends React.Component<CombinedProps, State> {
   static childContextTypes = contextTypes;
   static ScrollTo = ScrollTo;
 
