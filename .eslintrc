@@ -81,7 +81,7 @@
       }
     },
     {
-      "files": ["src/components/*/presets/*.jsx"],
+      "files": ["src/components/**/presets/*.jsx"],
       "rules": {
         "shopify/jsx-no-hardcoded-content": "off",
         "shopify/no-ancestor-directory-import": "off",
