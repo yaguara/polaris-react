@@ -1,7 +1,13 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+} from 'react';
 
-import {CSSTransition} from 'react-transition-group';
 import debounce from 'lodash/debounce';
+import {CSSTransition} from '../../utilities/react-transition-group';
 import {classNames} from '../../utilities/css';
 
 import {navigationBarCollapsed} from '../../utilities/breakpoints';
@@ -47,6 +53,7 @@ export interface State {
 }
 
 export function Sheet({children, open, onClose}: Props) {
+  const container = useRef<HTMLDivElement>(null);
   const [mobile, setMobile] = useState(false);
   const frame = useContext(FrameContext);
   const {intl} = usePolaris();
@@ -85,13 +92,25 @@ export function Sheet({children, open, onClose}: Props) {
   return (
     <Portal idPrefix="sheet">
       <CSSTransition
+        node={container.current}
         classNames={mobile ? BOTTOM_CLASS_NAMES : RIGHT_CLASS_NAMES}
         timeout={Duration.Slow}
         in={open}
         mountOnEnter
         unmountOnExit
       >
-        <Container open={open}>{children}</Container>
+        <div
+          className={styles.Container}
+          {...layer.props}
+          {...overlay.props}
+          ref={container}
+        >
+          <TrapFocus trapping={open}>
+            <div role="dialog" tabIndex={-1} className={styles.Sheet}>
+              {children}
+            </div>
+          </TrapFocus>
+        </div>
       </CSSTransition>
       <KeypressListener keyCode={Key.Escape} handler={onClose} />
       <EventListener event="resize" handler={handleResize} />
@@ -106,18 +125,6 @@ export function Sheet({children, open, onClose}: Props) {
 
 function isMobile(): boolean {
   return navigationBarCollapsed().matches;
-}
-
-function Container(props: {children: React.ReactNode; open: boolean}) {
-  return (
-    <div className={styles.Container} {...layer.props} {...overlay.props}>
-      <TrapFocus trapping={props.open}>
-        <div role="dialog" tabIndex={-1} className={styles.Sheet}>
-          {props.children}
-        </div>
-      </TrapFocus>
-    </div>
-  );
 }
 
 export default withAppProvider<Props>()(Sheet);

@@ -1,5 +1,8 @@
 import React from 'react';
-import {TransitionGroup, CSSTransition} from 'react-transition-group';
+import {
+  TransitionGroup,
+  CSSTransition,
+} from '../../../../utilities/react-transition-group';
 import {classNames} from '../../../../utilities/css';
 import EventListener from '../../../EventListener';
 import Portal from '../../../Portal';
@@ -27,6 +30,7 @@ export default class ToastManager extends React.PureComponent<Props, never> {
 
       return (
         <CSSTransition
+          node={this.toastNodes[index].current}
           key={toast.id}
           timeout={{enter: 0, exit: 400}}
           classNames={toastClasses}

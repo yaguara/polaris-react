@@ -1,5 +1,4 @@
 import React from 'react';
-import {CSSTransition} from 'react-transition-group';
 import {animationFrame} from '@shopify/jest-dom-mocks';
 import {documentHasStyle} from 'test-utilities';
 import {mountWithAppProvider} from 'test-utilities/legacy';
@@ -8,6 +7,7 @@ import {
   ContextualSaveBar as PolarisContextualSavebar,
   Loading as PolarisLoading,
 } from 'components';
+import {CSSTransition} from '../../../utilities/react-transition-group';
 import Frame from '../Frame';
 import Button from '../../Button';
 import {

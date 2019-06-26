@@ -1,10 +1,10 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual';
-import {TransitionGroup} from 'react-transition-group';
 import {write} from '@shopify/javascript-utilities/fastdom';
 import {focusFirstFocusableNode} from '@shopify/javascript-utilities/focus';
 import {createUniqueIDFactory} from '@shopify/javascript-utilities/other';
 import {Modal as AppBridgeModal} from '@shopify/app-bridge/actions';
+import {TransitionGroup} from '../../utilities/react-transition-group';
 import WithinContentContext from '../WithinContentContext';
 import {wrapWithComponent} from '../../utilities/components';
 

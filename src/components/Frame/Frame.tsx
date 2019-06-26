@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {createRef} from 'react';
 import {MobileCancelMajorMonotone} from '@shopify/polaris-icons';
 import {durationSlow} from '@shopify/polaris-tokens';
-import {CSSTransition} from 'react-transition-group';
+import {CSSTransition} from '../../utilities/react-transition-group';
 import {classNames} from '../../utilities/css';
 import {navigationBarCollapsed} from '../../utilities/breakpoints';
 import Button from '../Button';
@@ -63,6 +63,8 @@ export class Frame extends React.PureComponent<CombinedProps, State> {
   private contextualSaveBar: ContextualSaveBarProps | null;
 
   private globalRibbonContainer: HTMLDivElement | null = null;
+  private navigationNode = createRef<HTMLDivElement>();
+  private contextualSaveBarNode = createRef<HTMLDivElement>();
 
   componentDidMount() {
     this.handleResize();
@@ -107,6 +109,7 @@ export class Frame extends React.PureComponent<CombinedProps, State> {
     const navigationMarkup = navigation ? (
       <TrapFocus trapping={mobileNavShowing}>
         <CSSTransition
+          node={this.navigationNode.current}
           appear={mobileView}
           exit={mobileView}
           in={showMobileNavigation}
@@ -114,6 +117,7 @@ export class Frame extends React.PureComponent<CombinedProps, State> {
           classNames={navTransitionClasses}
         >
           <div
+            ref={this.navigationNode}
             className={navClassName}
             onKeyDown={this.handleNavKeydown}
             id={APP_FRAME_NAV}
@@ -149,6 +153,7 @@ export class Frame extends React.PureComponent<CombinedProps, State> {
 
     const contextualSaveBarMarkup = (
       <CSSTransition
+        node={this.contextualSaveBarNode.current}
         appear
         exit
         in={showContextualSaveBar}
@@ -157,7 +162,10 @@ export class Frame extends React.PureComponent<CombinedProps, State> {
         mountOnEnter
         unmountOnExit
       >
-        <div className={styles.ContextualSaveBar}>
+        <div
+          className={styles.ContextualSaveBar}
+          ref={this.contextualSaveBarNode}
+        >
           <ContextualSaveBar {...this.contextualSaveBar} />
         </div>
       </CSSTransition>

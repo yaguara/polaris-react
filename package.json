@@ -186,10 +186,8 @@
     "@shopify/polaris-tokens": "^2.5.0",
     "@types/react": "^16.8.15",
     "@types/react-dom": "^16.8.4",
-    "@types/react-transition-group": "^2.0.7",
     "hoist-non-react-statics": "^2.5.0",
     "lodash": "^4.17.4",
-    "react-transition-group": "^2.4.0",
     "tslib": "^1.9.3"
   }
 }

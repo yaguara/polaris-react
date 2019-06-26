@@ -4,6 +4,16 @@ import Popover from '../Popover';
 
 describe('<Popover />', () => {
   const spy = jest.fn();
+  let requestAnimationFrameSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    requestAnimationFrameSpy = jest.spyOn(window, 'requestAnimationFrame');
+    requestAnimationFrameSpy.mockImplementation((cb) => cb());
+  });
+
+  afterEach(() => {
+    requestAnimationFrameSpy.mockRestore();
+  });
 
   it('renders a portal', () => {
     const popover = mountWithAppProvider(
@@ -135,6 +145,9 @@ describe('<Popover />', () => {
   });
 
   it('calls onClose when you click outside the Popover', () => {
+    jest
+      .spyOn(window, 'requestAnimationFrame')
+      .mockImplementation((cb) => cb());
     mountWithAppProvider(
       <Popover
         active

@@ -1,10 +1,10 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import {CSSTransition} from 'react-transition-group';
 import {matchMedia} from '@shopify/jest-dom-mocks';
 import {mountWithAppProvider} from 'test-utilities/legacy';
 
 import Backdrop from 'components/Backdrop';
+import {CSSTransition} from '../../../utilities/react-transition-group';
 import AppProvider from '../../AppProvider';
 import Sheet, {BOTTOM_CLASS_NAMES, RIGHT_CLASS_NAMES} from '../Sheet';
 import en from '../../../../locales/en.json';
