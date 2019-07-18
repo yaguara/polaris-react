@@ -34,10 +34,10 @@ type CombinedProps = Props &
   WithContextTypes<ResourceListContext>;
 
 /**
- * @uxpincomponent ResourceList.FilterControl
+ * @uxpincomponent
  * @uxpinnamespace ResourceList
  * */
-class FilterControl extends React.Component<CombinedProps> {
+export class FilterControl extends React.Component<CombinedProps> {
   render() {
     const {
       searchValue,

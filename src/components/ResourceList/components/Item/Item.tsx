@@ -73,7 +73,7 @@ const getUniqueCheckboxID = createUniqueIDFactory('ResourceListItemCheckbox');
 const getUniqueOverlayID = createUniqueIDFactory('ResourceListItemOverlay');
 
 /**
- * @uxpincomponent ResourceList.Item
+ * @uxpincomponent
  * @uxpinnamespace ResourceList
  * */
 export class Item extends React.Component<CombinedProps, State> {

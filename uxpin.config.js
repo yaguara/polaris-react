@@ -41,7 +41,7 @@ const subcomponentList = {
   // Instead of Autocomplete.Combobox.TextField use Autocomplete.TextField
   // Instead of Autocomplete.Combobox.OptionList use OptionList
   // Textfield currently causes an error as it conflicts with the top level TextField
-  Autocomplete: [/* 'TextField',*/ 'Combobox'],
+  Autocomplete: ['TextField', 'Combobox'],
   Card: ['Header', 'Section', 'SubSection'],
   // FileUpload exports a HoC, and deals with context, thus it won't work
   DropZone: ['FileUpload'],
