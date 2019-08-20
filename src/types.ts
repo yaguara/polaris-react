@@ -188,6 +188,11 @@ export interface ComplexAction
     IconableAction,
     LoadableAction {}
 
+export interface MenuActionDescriptor extends ComplexAction {
+  /** Zero-indexed numerical position. Overrides the menu item order */
+  index?: number;
+}
+
 export interface MenuGroupDescriptor extends BadgeAction {
   /** Menu group title */
   title: string;
@@ -197,6 +202,8 @@ export interface MenuGroupDescriptor extends BadgeAction {
   icon?: IconableAction['icon'];
   /** Action details */
   details?: React.ReactNode;
+  /** Zero-indexed position override of the group's order in the menu */
+  index?: number;
   /** Callback when any action takes place */
   onActionAnyItem?: ActionListItemDescriptor['onAction'];
 }
