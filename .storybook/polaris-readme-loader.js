@@ -23,30 +23,69 @@ module.exports = function loader(source) {
 
   const readme = parseCodeExamples(source);
 
-  // Work around JSON.stringify() not supporting functions.
-  // First replace all code functions within the data with a placeholder string.
-  // This transforms:
-  // { code: function() {/* blah */ } }
-  // into:
-  // { code: "___CODEPLACEHOLDER__0__0___" }
-  const readmeWithPlaceholders = {
-    ...readme,
-    examples: readme.examples.map((example, exampleIdx) => ({
-      ...example,
-      code: `___CODEPLACEHOLDER__${exampleIdx}___`,
-    })),
-  };
+  const testIndividualExamples = ['Modal', 'Card'].includes(readme.name);
 
-  // Then stringify the data, and replace all the placeholder strings with the
-  // with the function declaration.
-  // This transforms:
-  // { code: "___CODEPLACEHOLDER__0__0___" }
-  // back into:
-  // { code: function() {/* blah */ } }
-  const stringyReadme = JSON.stringify(readmeWithPlaceholders, null, 2).replace(
-    /"___CODEPLACEHOLDER__(\d+)___"/g,
-    (_, exampleIdx) => readme.examples[exampleIdx].code.toString(),
+  const csfExports = readme.examples.map((example, i) => {
+    const storyId = `Story${i}`;
+
+    // The eagle-eyed amongst you will spot that the function passed to
+    // codeInvoker has no arguments. This is because the codeInvoker function
+    // shall dynamically modify the given function, adding items from the current
+    // scope as arguments. We can't do this with some kind of placeholder value
+    // (e.g. codeInvoker(function(PLACEHOLDER) {}, scope) and then replace the
+    // PLACEHOLDER because its name will get mangled as part of minification in
+    // production mode and thus searching for "PLACEHOLDER in the function's
+    // string representation shall fail.
+    const code = `codeInvoker(function () {
+  ${example.code}
+})`;
+
+    return `
+const ${storyId}Component = (${code})();
+export const ${storyId} = () => <${storyId}Component/>;
+${storyId}.story = {
+  name: ${JSON.stringify(example.name)},
+  decorators: [withA11y],
+  parameters: {
+    notes: ${JSON.stringify(example.description)},
+    percy: {skip: ${JSON.stringify(testIndividualExamples)}},
+  }
+};
+`.trim();
+  });
+
+  if (!testIndividualExamples) {
+    allExamplesCode = readme.examples.map((example, i) => {
+      // Add styles to prevent false positives in visual regression testing.
+      // Set a minimum height so that examples don't shift and triger a failure
+      // if an example above them changes height
+      return `
+<div key="Story${i}" style={{
+    minHeight: '720px',
+    borderBottom: '1px solid #000',
+    marginBottom: '8px',
+  }}>
+  <Polaris.Heading>${example.name}</Polaris.Heading>
+  <Story${i} />
+</div>
+`.trim();
+    });
+
+    csfExports.unshift(`export const AllExamples = function AllExamples() {
+  return (
+    <React.Fragment>
+  ${allExamplesCode.join('\n')}
+    </React.Fragment>
   );
+};
+AllExamples.story = {
+  decorators: [withA11y],
+  parameters: {
+    percy: {skip: false},
+    chromatic: {disable: true},
+  }
+}`);
+  }
 
   // Example code does not have any scope attached to it by default. It boldly
   // states `<Button>An example Button</Button>`, blindly trusting that `Button`
@@ -77,6 +116,7 @@ module.exports = function loader(source) {
 
   return `
 import React, {${hooks}} from 'react';
+import {withA11y} from '@storybook/addon-a11y';
 import * as Polaris from '@shopify/polaris';
 import {
   PlusMinor,
@@ -135,7 +175,9 @@ import {
 
 const codeInvoker = ${codeInvoker};
 
-export const component = ${stringyReadme};
+export default { title: ${JSON.stringify(`All Components|${readme.name}`)} };
+
+${csfExports.join('\n\n')}
 `;
 };
 
@@ -172,9 +214,7 @@ function generateExamples(matter) {
   if (matter.data.platforms && !matter.data.platforms.includes('web')) {
     const ignoredPlatforms = matter.data.platforms.join(',');
     console.log(
-      chalk`ℹ️  {grey [${
-        matter.data.name
-      }] Component examples are ignored (platforms: ${ignoredPlatforms})}`,
+      chalk`ℹ️  {grey [${matter.data.name}] Component examples are ignored (platforms: ${ignoredPlatforms})}`,
     );
 
     return [];
@@ -182,9 +222,7 @@ function generateExamples(matter) {
 
   if (matter.data.hidePlayground) {
     console.log(
-      chalk`ℹ️  {grey [${
-        matter.data.name
-      }] Component examples are ignored (hidePlayground: true)}`,
+      chalk`ℹ️  {grey [${matter.data.name}] Component examples are ignored (hidePlayground: true)}`,
     );
 
     return [];
@@ -205,9 +243,7 @@ function generateExamples(matter) {
 
   if (allExamples.length === 0) {
     console.log(
-      chalk`🚨 {red [${
-        matter.data.name
-      }]} No examples found. For troubleshooting advice see https://github.com/Shopify/polaris-react/blob/master/documentation/Component%20READMEs.md#troubleshooting`,
+      chalk`🚨 {red [${matter.data.name}]} No examples found. For troubleshooting advice see https://github.com/Shopify/polaris-react/blob/master/documentation/Component%20READMEs.md#troubleshooting`,
     );
   }
 
@@ -246,9 +282,7 @@ function generateExamples(matter) {
   examples.forEach((example) => {
     if (example.code === '') {
       console.log(
-        chalk`🚨 {red [${matter.data.name}]} Example “${
-          example.name
-        }” is missing a React example`,
+        chalk`🚨 {red [${matter.data.name}]} Example “${example.name}” is missing a React example`,
       );
     }
   });
@@ -289,31 +323,16 @@ function wrapExample(code) {
   const fullComponentDefinitionMatch =
     classPattern.exec(code) || functionPattern.exec(code);
 
-  let wrappedCode = '';
-
   if (fullComponentDefinitionMatch) {
-    wrappedCode = `${code}
-return ${fullComponentDefinitionMatch[1]};
-`;
+    return `return function() {
+    ${code}
+    return ${fullComponentDefinitionMatch[1]};
+  };`;
   } else {
-    wrappedCode = `return function() {
-      return (
-        ${code}
-      );
-    }`;
+    return `return function () {return function() {
+    return (
+      ${code}
+    );
+  };};`;
   }
-
-  // The eagle-eyed amongst you will spot that the function passed to
-  // codeInvoker has no arguments. This is because the codeInvoker function
-  // shall dynamically modify the given function, adding items from the current
-  // scope as arguments. We can't do this with some kind of placeholder value
-  // (e.g. codeInvoker(function(PLACEHOLDER) {}, scope) and then replace the
-  // PLACEHOLDER because its name will get mangled as part of minification in
-  // production mode and thus searching for "PLACEHOLDER in the function's
-  // string representation shall fail.
-  return `function () {
-    return codeInvoker(function () {
-      ${wrappedCode}
-    });
-  }`;
 }
