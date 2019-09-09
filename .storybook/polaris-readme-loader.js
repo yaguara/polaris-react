@@ -27,21 +27,13 @@ module.exports = function loader(source) {
 
   const csfExports = readme.examples.map((example, i) => {
     const storyId = `Story${i}`;
-
-    // The eagle-eyed amongst you will spot that the function passed to
-    // codeInvoker has no arguments. This is because the codeInvoker function
-    // shall dynamically modify the given function, adding items from the current
-    // scope as arguments. We can't do this with some kind of placeholder value
-    // (e.g. codeInvoker(function(PLACEHOLDER) {}, scope) and then replace the
-    // PLACEHOLDER because its name will get mangled as part of minification in
-    // production mode and thus searching for "PLACEHOLDER in the function's
-    // string representation shall fail.
-    const code = `codeInvoker(function () {
-  ${example.code}
-})`;
+    const code = JSON.stringify(`(${example.code})`);
 
     return `
-const ${storyId}Component = (${code})();
+const ${storyId}ComponentWithoutContext = ${example.code};
+
+const ${storyId}Component = encapsulatedEval(Polaris, ${storyId}ComponentWithoutContext.toString())();
+
 export const ${storyId} = () => <${storyId}Component/>;
 ${storyId}.story = {
   name: ${JSON.stringify(example.name)},
@@ -54,7 +46,7 @@ ${storyId}.story = {
 `.trim();
   });
 
-  if (!testIndividualExamples) {
+  if (false && !testIndividualExamples) {
     allExamplesCode = readme.examples.map((example, i) => {
       // Add styles to prevent false positives in visual regression testing.
       // Set a minimum height so that examples don't shift and triger a failure
@@ -86,29 +78,6 @@ AllExamples.story = {
   }
 }`);
   }
-
-  // Example code does not have any scope attached to it by default. It boldly
-  // states `<Button>An example Button</Button>`, blindly trusting that `Button`
-  // is available in its scope.
-  //
-  // codeInvoker is responsible for injecting Polaris into the scope for a
-  // function so that it will work. It does this by creating a new function with
-  // all the Polaris exports defined as parameters and then calling that new
-  // function.
-  const codeInvoker = function(fn) {
-    const scope = Object.assign({}, Polaris);
-
-    // Replace the empty parameter list with a list based upon the scope.
-    // We can't use a placeholder in the parmeter list and search/replace that
-    // because the placeholder's name may be mangled when the code is minified.
-    const args = Object.keys(scope).join(', ');
-    const fnString = fn
-      .toString()
-      .replace(/^function(\s*)\(\)/, `function$1(${args})`);
-
-    // eslint-disable-next-line no-eval
-    return eval(`(${fnString})`).apply(null, Object.values(scope));
-  };
 
   const hooks = Object.keys(React)
     .filter((key) => key.startsWith(HOOK_PREFIX))
@@ -173,7 +142,14 @@ import {
   ViewMinor,
 } from '@shopify/polaris-icons';
 
-const codeInvoker = ${codeInvoker};
+function encapsulatedEval(env, code) {
+  const fn = new Function(
+    ...Object.keys(env),
+    'return eval(' + JSON.stringify(code) + ')'
+  );
+  return fn.apply(this, Object.values(env));
+}
+
 
 export default { title: ${JSON.stringify(`All Components|${readme.name}`)} };
 
@@ -323,16 +299,18 @@ function wrapExample(code) {
   const fullComponentDefinitionMatch =
     classPattern.exec(code) || functionPattern.exec(code);
 
+  // return `() => () => 'hi'`;
+
   if (fullComponentDefinitionMatch) {
-    return `return function() {
+    return `function() {
     ${code}
     return ${fullComponentDefinitionMatch[1]};
   };`;
   } else {
-    return `return function () {return function() {
-    return (
+    return `function () {
+    return () => (
       ${code}
     );
-  };};`;
+  };`;
   }
 }
