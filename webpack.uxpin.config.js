@@ -1,8 +1,5 @@
 const {join, resolve} = require('path');
 
-const {
-  svgOptions: svgOptimizationOptions,
-} = require('@shopify/images/optimize');
 const postcssShopify = require('postcss-shopify');
 const postcssRemtoPx = require('./config/uxpin/postcss-remtopx');
 
@@ -62,31 +59,6 @@ module.exports = {
             options: {
               sourceMap: false,
               includePaths: [resolve(__dirname, '..', 'src', 'styles')],
-            },
-          },
-          {
-            loader: 'sass-resources-loader',
-            options: {
-              resources: [
-                resolve(__dirname, 'src', 'styles', 'foundation.scss'),
-                resolve(__dirname, 'src', 'styles', 'shared.scss'),
-              ],
-            },
-          },
-        ],
-      },
-      {
-        test(resource) {
-          return ICON_PATH_REGEX.test(resource) && resource.endsWith('.svg');
-        },
-        use: [
-          {
-            loader: '@shopify/images/icon-loader',
-          },
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              svgo: svgOptimizationOptions(),
             },
           },
         ],

@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line shopify/strict-component-boundaries
 import AppProvider from '../../../src/components/AppProvider';
 
 const theme = {
@@ -18,7 +19,7 @@ const theme = {
       'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-gray.svg?6215648040070010999',
   },
 };
-
+// eslint-disable-next-line react/prop-types
 export default function UXPinWrapper({children}) {
-  return React.createElement(AppProvider, { theme }, children)
+  return React.createElement(AppProvider, {theme, i18n: {}}, children);
 }

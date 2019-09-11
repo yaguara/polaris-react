@@ -2470,10 +2470,10 @@
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
-"@uxpin/merge-cli@2.2.3":
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/@uxpin/merge-cli/-/merge-cli-2.2.3.tgz#e92a1c8487714fc087685e67b344538be5b6b9ac"
-  integrity sha512-3UhkWF5jIenq3ySspKB8bhOFfXBpw/mqnXkUuLw13tBJ/qw94mFmWNmc0bAYjOy+JtNIk+iwF1fU4bn23vRwYA==
+"@uxpin/merge-cli@2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@uxpin/merge-cli/-/merge-cli-2.4.0.tgz#be39bb282590285d576aa7192f8c320c8da27cd1"
+  integrity sha512-pOlILPeFCqJqMTygtwa8xQV5DypQKlDCjMy8pjj22tV5Im9ycXgzAzxU9N60I4P6hZFejPLC0z4sKIBvcyXOZA==
   dependencies:
     "@babel/core" "^7.2.2"
     "@babel/plugin-proposal-class-properties" "^7.2.3"

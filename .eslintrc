@@ -87,7 +87,8 @@
       "rules": {
         "shopify/jsx-no-hardcoded-content": "off",
         "shopify/no-ancestor-directory-import": "off",
-        "react/jsx-filename-extension": "off"
+        "react/jsx-filename-extension": "off",
+        "import/no-default-export": "off"
       }
     }
   ]
