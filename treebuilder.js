@@ -13,6 +13,7 @@ exports.__esModule = true;
 var path_1 = __importDefault(require("path"));
 var ts = __importStar(require("typescript"));
 var glob_1 = __importDefault(require("glob"));
+var node_cmd_1 = __importDefault(require("node-cmd"));
 var graph = {};
 function compile(fileNames, options) {
     var program = ts.createProgram(fileNames, options);
@@ -20,7 +21,7 @@ function compile(fileNames, options) {
         if (!graph[path_1["default"].resolve(fileName)]) {
             var ast = program.getSourceFile(fileName);
             recurse({
-                fileName: path_1["default"].resolve(ast.originalFileName),
+                fileName: skipIndexFile(path_1["default"].resolve(ast.originalFileName)),
                 dependsOn: [],
                 dependedOnBy: []
             });
@@ -50,7 +51,7 @@ function compile(fileNames, options) {
                 }
                 else {
                     newNode = recurse({
-                        fileName: moduleFileName,
+                        fileName: skipIndexFile(moduleFileName),
                         dependsOn: [],
                         dependedOnBy: [node]
                     });
@@ -63,26 +64,61 @@ function compile(fileNames, options) {
         graph[path_1["default"].resolve(node.fileName)] = node;
         return node;
     }
+    function skipIndexFile(fileName) {
+        if (/(components\/)(\w*\/)?(index.ts)/.test(fileName)) {
+            var ast = program.getSourceFile(fileName);
+            return Array.from(ast.resolvedModules.values())[0]
+                .resolvedFileName;
+        }
+        return fileName;
+    }
 }
 function findDependencies(fileName) {
-    var dependencies = [];
-    recurse(graph[path_1["default"].resolve(fileName)]);
-    function recurse(node) {
-        node.dependedOnBy.forEach(function (dependency) {
-            dependencies.push(dependency.fileName);
-            recurse(dependency);
-        });
+    var dependencies = {};
+    recurse(graph[path_1["default"].resolve(fileName)], 0);
+    function recurse(node, depth) {
+        if (node.dependedOnBy) {
+            node.dependedOnBy.forEach(function (dependency) {
+                dependencies[dependency.fileName] = 1;
+                recurse(dependency, depth + 1);
+            });
+        }
     }
-    return dependencies;
+    return Object.keys(dependencies).filter(function (dependency) {
+        return dependency !==
+            '/Users/andrerocha/src/github.com/Shopify/polaris-react/src/components/index.ts';
+    });
 }
-var files = glob_1["default"].sync(process.argv[2], {
-    ignore: process.argv[3]
-});
-compile(files, {
-    noEmitOnError: true,
-    noImplicitAny: true,
-    target: ts.ScriptTarget.ES5,
-    module: ts.ModuleKind.CommonJS
-});
-console.log(findDependencies(process.argv[4]));
-debugger;
+function getGitStagedFiles() {
+    return new Promise(function (resolve, reject) {
+        node_cmd_1["default"].get('git status --no-renames -s', function (err, data, stderr) {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(data
+                .split('\n')
+                .filter(function (datum) {
+                return ['M', 'A'].includes(datum[0]) || ['M', 'A'].includes(datum[1]);
+            })
+                .map(function (datum) { return datum.slice(3); }));
+        });
+    });
+}
+exports.getGitStagedFiles = getGitStagedFiles;
+function getDependencies(codebaseGlob, ignoreGlob, fileGlobs) {
+    var codebase = glob_1["default"].sync(codebaseGlob, {
+        ignore: ignoreGlob
+    });
+    compile(codebase, {
+        noEmitOnError: true,
+        noImplicitAny: true,
+        target: ts.ScriptTarget.ES5,
+        module: ts.ModuleKind.CommonJS
+    });
+    return fileGlobs
+        .map(function (fileGlob) { return glob_1["default"].sync(fileGlob); })
+        .reduce(function (accumulator, current) { return accumulator.concat(current); }, [])
+        .map(findDependencies);
+}
+exports.getDependencies = getDependencies;
