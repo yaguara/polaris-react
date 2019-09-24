@@ -106,7 +106,7 @@
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/lodash": "^4.14.108",
     "@types/node": "^11.13.8",
-    "@uxpin/merge-cli": "2.4.0",
+    "@uxpin/merge-cli": "2.4.1",
     "archiver": "^3.0.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-loader": "^8.0.5",
