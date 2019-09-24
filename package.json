@@ -61,7 +61,8 @@
     "version": "yarn run readme-update-version",
     "storybook": "start-storybook -p 6006 --quiet",
     "storybook:build": "yarn run copy-polaris-tokens && build-storybook -o build/storybook/static",
-    "merge": "uxpin-merge --webpack-config ./webpack.uxpin.config.js --wrapper ./config/uxpin/Wrapper/UXPinWrapper.js"
+    "merge": "uxpin-merge --webpack-config ./webpack.uxpin.config.js --wrapper ./config/uxpin/Wrapper/UXPinWrapper.js",
+    "merge-push": "uxpin-merge push --webpack-config ./webpack.uxpin.config.js --wrapper ./config/uxpin/Wrapper/UXPinWrapper.js"
   },
   "stylelint": {
     "extends": [
