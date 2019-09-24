@@ -94,6 +94,9 @@ enum Suffix {
   Shortcut = 'Shortcut',
 }
 
+/**
+ * @uxpincomponent
+ */
 class Filters extends React.Component<ComposedProps, State> {
   static contextType = ResourceListContext;
 

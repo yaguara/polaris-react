@@ -5,8 +5,10 @@ import {useAppBridge} from '../../utilities/app-bridge';
 
 export interface Props {}
 
-/** @uxpincomponent */
-function Loading() {
+/**
+ * @uxpincomponent
+ */
+export function Loading() {
   const appBridgeLoading = useRef<AppBridgeLoading.Loading>();
   const appBridge = useAppBridge();
   const {startLoading, stopLoading} = useFrame();

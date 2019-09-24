@@ -1,6 +1,6 @@
 import React from 'react';
 import ButtonGroup from '../ButtonGroup';
-import Button from '../../Button';
+import Button from '../../Button/Button';
 
 export default (
   <ButtonGroup uxpId="buttongroup-1">

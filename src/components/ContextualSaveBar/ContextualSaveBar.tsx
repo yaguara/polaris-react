@@ -7,7 +7,10 @@ import {ContextualSaveBarProps, useFrame} from '../../utilities/frame';
 // crashing if we write `ContextualSaveBar extends React.Component<ContextualSaveBarProps>`
 export interface Props extends ContextualSaveBarProps {}
 
-function ContextualSaveBar({
+/**
+ * @uxpincomponent
+ */
+export function ContextualSaveBar({
   message,
   saveAction,
   discardAction,
