@@ -6,6 +6,7 @@ import {useI18n} from '../../utilities/i18n';
 import {isInputFocused} from '../../utilities/is-input-focused';
 import {Icon} from '../Icon';
 import {UnstyledLink} from '../UnstyledLink';
+import {Spinner} from '../Spinner';
 import {Tooltip} from '../Tooltip';
 import {KeypressListener} from '../KeypressListener';
 import {Key} from '../../types';
@@ -38,6 +39,8 @@ export interface PaginationDescriptor {
   onPrevious?(): void;
   /** Text to provide more context in between the arrow buttons */
   label?: string;
+  /** Whether or not the next or previous page is currently loading */
+  loading?: boolean;
 }
 
 export interface PaginationProps extends PaginationDescriptor {
@@ -59,6 +62,7 @@ export function Pagination({
   plain,
   accessibilityLabel,
   label,
+  loading,
 }: PaginationProps) {
   const i18n = useI18n();
 
@@ -67,7 +71,19 @@ export function Pagination({
   const navLabel =
     accessibilityLabel || i18n.translate('Polaris.Pagination.pagination');
 
-  const className = classNames(styles.Pagination, plain && styles.plain);
+  const className = classNames(
+    styles.Pagination,
+    plain && styles.plain,
+    loading && styles.loading,
+  );
+
+  if (loading) {
+    return (
+      <div className={className} aria-label={navLabel}>
+        <Spinner size="small" />
+      </div>
+    );
+  }
 
   const previousClassName = classNames(
     styles.Button,
