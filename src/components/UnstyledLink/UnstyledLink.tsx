@@ -10,12 +10,8 @@ export interface UnstyledLinkProps extends LinkLikeComponentProps {}
 // This does have a display name, but the linting has a bug in it
 // https://github.com/yannickcr/eslint-plugin-react/issues/2324
 // eslint-disable-next-line react/display-name
-export const UnstyledLink = React.memo(
-  // eslint-disable-next-line react/display-name
-  React.forwardRef<unknown, UnstyledLinkProps>(function UnstyledLink(
-    props,
-    _ref,
-  ) {
+export const UnstyledLink = React.forwardRef<unknown, UnstyledLinkProps>(
+  function UnstyledLink(props, _ref) {
     const LinkComponent = useLink();
     if (LinkComponent) {
       return <LinkComponent {...unstyled.props} {...props} />;
@@ -27,5 +23,5 @@ export const UnstyledLink = React.memo(
     return (
       <a target={target} {...rest} href={url} rel={rel} {...unstyled.props} />
     );
-  }),
+  },
 );

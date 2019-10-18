@@ -34,6 +34,8 @@ Use [the changelog guidelines](https://git.io/polaris-changelog-guidelines) to f
 
 ### Code quality
 
+- Removed memoisation of `UnstyledLink` as it has no meaningful effect ([#2330](https://github.com/Shopify/polaris-react/pull/2330))
+
 ### Deprecations
 
 ### Development workflow
