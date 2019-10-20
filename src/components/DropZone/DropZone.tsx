@@ -303,6 +303,12 @@ class DropZone extends React.Component<CombinedProps, State> {
       : intl.translate('Polaris.DropZone.FileUpload.label');
     const labelHiddenValue = label ? labelHidden : true;
 
+    React.useEffect(() => {
+      if (label === '') {
+        console.error('label prop should never be empty! Use labelHidden to hide label.');
+      }
+    }, [label]);
+
     const context = {
       disabled,
       focused,

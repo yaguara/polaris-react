@@ -79,6 +79,12 @@ export function SingleThumb(props: SingleThumbProps) {
     disabled && styles.disabled,
   );
 
+  React.useEffect(() => {
+    if (label === '') {
+      console.error('label prop should never be empty! Use labelHidden to hide label.');
+    }
+  }, [label]);
+
   return (
     <Labelled
       id={id}

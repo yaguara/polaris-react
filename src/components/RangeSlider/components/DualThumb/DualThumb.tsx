@@ -216,6 +216,12 @@ export class DualThumb extends React.Component<DualThumbProps, State> {
       <div className={styles.Suffix}>{suffix}</div>
     );
 
+    React.useEffect(() => {
+      if (label === '') {
+        console.error('label prop should never be empty! Use labelHidden to hide label.');
+      }
+    }, [label]);
+
     return (
       <React.Fragment>
         <Labelled

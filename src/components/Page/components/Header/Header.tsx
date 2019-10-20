@@ -105,6 +105,12 @@ export function Header({
     isNavigationCollapsed && styles.mobileView,
   );
 
+  React.useEffect(() => {
+    if (title === '') {
+      console.error('title prop should never be empty! Use titleHidden to hide title.');
+    }
+  }, [label]);
+
   return (
     <div className={headerClassNames}>
       {navigationMarkup}

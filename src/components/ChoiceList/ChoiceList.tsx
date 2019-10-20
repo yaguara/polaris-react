@@ -75,6 +75,12 @@ export function ChoiceList({
     <legend className={styles.Title}>{title}</legend>
   ) : null;
 
+  React.useEffect(() => {
+    if (title === '') {
+      console.error('title prop should never be empty! Use titleHidden to hide title.');
+    }
+  }, [title]);
+
   const choicesMarkup = choices.map((choice) => {
     const {
       value,

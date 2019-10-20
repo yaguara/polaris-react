@@ -3,6 +3,7 @@ import {addEventListener} from '@shopify/javascript-utilities/events';
 import {CircleCancelMinor} from '@shopify/polaris-icons';
 import {VisuallyHidden} from '../VisuallyHidden';
 import {classNames, variationName} from '../../utilities/css';
+import {useHiddenNotEmpty} from '../../utilities/a11y';
 import {useI18n} from '../../utilities/i18n';
 import {useUniqueId} from '../../utilities/unique-id';
 import {Labelled, Action, helpTextID, labelID} from '../Labelled';
@@ -399,6 +400,8 @@ export function TextField({
     'aria-controls': ariaControls,
     'aria-multiline': multiline,
   });
+
+  useHiddenNotBlank({propName: 'label', value: label});
 
   return (
     <Labelled

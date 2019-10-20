@@ -64,6 +64,12 @@ export function RadioButton({
     ? describedBy.join(' ')
     : undefined;
 
+  React.useEffect(() => {
+    if (label === '') {
+      console.error('label prop should never be empty! Use labelHidden to hide label.');
+    }
+  }, [label]);
+
   return (
     <Choice
       label={label}

@@ -66,6 +66,12 @@ export function Labelled({
     </div>
   ) : null;
 
+  React.useEffect(() => {
+    if (label === '') {
+      console.error('label prop should never be empty! Use labelHidden to hide label.');
+    }
+  }, [label]);
+
   return (
     <div className={className}>
       {labelMarkup}

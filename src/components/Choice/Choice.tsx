@@ -68,6 +68,13 @@ export function Choice({
       </div>
     ) : null;
 
+  React.useEffect(() => {
+    if (label === '') {
+      console.error('label prop should never be empty! Use labelHidden to hide label.');
+    }
+  }, [label]);
+
+
   return descriptionMarkup ? (
     <div>
       {labelMarkup}

@@ -144,6 +144,12 @@ export function Select({
 
   const optionsMarkup = normalizedOptions.map(renderOption);
 
+  React.useEffect(() => {
+    if (label === '') {
+      console.error('label prop should never be empty! Use labelHidden to hide label.');
+    }
+  }, [label]);
+
   return (
     <Labelled
       id={id}

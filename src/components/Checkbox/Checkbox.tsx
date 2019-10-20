@@ -116,6 +116,12 @@ export const Checkbox = React.forwardRef<CheckboxHandles, CheckboxProps>(
       isIndeterminate && styles['Input-indeterminate'],
     );
 
+    React.useEffect(() => {
+      if (label === '') {
+        console.error('label prop should never be empty! Use labelHidden to hide label.');
+      }
+    }, [label]);
+
     return (
       /* eslint-disable jsx-a11y/no-redundant-roles */
       <Choice
