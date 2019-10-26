@@ -6,7 +6,11 @@ export interface UseHiddenNotBlankProps {
   onError(error: Error): void;
 }
 
-export function useHiddenNotBlank({ propName, value, onError=defaultOnError }:UseHiddenNotBlankProps) {
+export function useHiddenNotBlank({
+  propName,
+  value,
+  onError = defaultOnError,
+}: UseHiddenNotBlankProps) {
   const [logged, setLogged] = useState(false);
 
   useEffect(() => {
@@ -18,10 +22,10 @@ export function useHiddenNotBlank({ propName, value, onError=defaultOnError }:Us
       onError(error);
       setLogged(true);
     }
-  }, [propName, value, logged]);
+  }, [propName, value, logged, onError]);
 }
 
 function defaultOnError(error: Error) {
-  console.error(error);
+  console.error(error); // eslint-disable-line no-console
   throw error;
 }

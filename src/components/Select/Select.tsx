@@ -1,6 +1,6 @@
 import React from 'react';
-import {useHiddenNotBlank} from '../../utilities/a11y';
 import {ArrowUpDownMinor} from '@shopify/polaris-icons';
+import {useHiddenNotBlank} from '../../utilities/a11y';
 import {classNames} from '../../utilities/css';
 import {useUniqueId} from '../../utilities/unique-id';
 import {Labelled, Action, helpTextID} from '../Labelled';

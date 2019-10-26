@@ -1,6 +1,6 @@
 import React, {useRef, useImperativeHandle} from 'react';
-import {useHiddenNotBlank} from '../../utilities/a11y';
 import {MinusMinor, TickSmallMinor} from '@shopify/polaris-icons';
+import {useHiddenNotBlank} from '../../utilities/a11y';
 import {useUniqueId} from '../../utilities/unique-id';
 import {classNames} from '../../utilities/css';
 import {Choice, helpTextID} from '../Choice';
