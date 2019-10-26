@@ -1,4 +1,5 @@
 import React from 'react';
+import {useHiddenNotBlank} from '../../utilities/a11y';
 import {classNames} from '../../utilities/css';
 
 import {Action, Error} from '../../types';
@@ -66,11 +67,7 @@ export function Labelled({
     </div>
   ) : null;
 
-  React.useEffect(() => {
-    if (label === '') {
-      console.error('label prop should never be empty! Use labelHidden to hide label.');
-    }
-  }, [label]);
+  useHiddenNotBlank({propName: 'label', value: label});
 
   return (
     <div className={className}>

@@ -45,7 +45,13 @@ describe('useHiddenNotBlank', () => {
   });
 });
 
-function TestComponent({label, value, onError}) {
+interface TestComponentProps {
+  label: string;
+  value: any;
+  onError(error: Error): void;
+}
+
+function TestComponent({label, value, onError}: TestComponentProps) {
   useHiddenNotBlank({propName: 'label', value: label, onError});
 
   return <div>{label}:{value}</div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import {useHiddenNotBlank} from '../../utilities/a11y';
 import {ArrowUpDownMinor} from '@shopify/polaris-icons';
 import {classNames} from '../../utilities/css';
 import {useUniqueId} from '../../utilities/unique-id';
@@ -144,11 +145,7 @@ export function Select({
 
   const optionsMarkup = normalizedOptions.map(renderOption);
 
-  React.useEffect(() => {
-    if (label === '') {
-      console.error('label prop should never be empty! Use labelHidden to hide label.');
-    }
-  }, [label]);
+  useHiddenNotBlank({propName: 'label', value: label});
 
   return (
     <Labelled

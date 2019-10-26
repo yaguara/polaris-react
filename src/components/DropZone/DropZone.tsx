@@ -1,4 +1,5 @@
 import React from 'react';
+// import {useHiddenNotBlank} from '../../utilities/a11y';
 import {createUniqueIDFactory} from '@shopify/javascript-utilities/other';
 import debounce from 'lodash/debounce';
 import {
@@ -303,11 +304,7 @@ class DropZone extends React.Component<CombinedProps, State> {
       : intl.translate('Polaris.DropZone.FileUpload.label');
     const labelHiddenValue = label ? labelHidden : true;
 
-    React.useEffect(() => {
-      if (label === '') {
-        console.error('label prop should never be empty! Use labelHidden to hide label.');
-      }
-    }, [label]);
+    // useHiddenNotBlank({propName: 'label', value: label});
 
     const context = {
       disabled,

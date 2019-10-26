@@ -155,7 +155,7 @@ describe('<Autocomplete/>', () => {
   function noop() {}
 
   function renderTextField() {
-    return <Autocomplete.TextField label="" onChange={noop} />;
+    return <Autocomplete.TextField label="Test field" onChange={noop} />;
   }
 
   function handleOnSelect(this: any, updatedSelection: string[]) {

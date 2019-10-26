@@ -1,4 +1,5 @@
 import React from 'react';
+import {useHiddenNotBlank} from '../../../../utilities/a11y';
 import {classNames} from '../../../../utilities/css';
 import {buttonsFrom} from '../../../Button';
 import {useMediaQuery} from '../../../../utilities/media-query';
@@ -105,11 +106,7 @@ export function Header({
     isNavigationCollapsed && styles.mobileView,
   );
 
-  React.useEffect(() => {
-    if (title === '') {
-      console.error('title prop should never be empty! Use titleHidden to hide title.');
-    }
-  }, [label]);
+  useHiddenNotBlank({propName: 'title', value: title});
 
   return (
     <div className={headerClassNames}>

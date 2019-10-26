@@ -1,4 +1,5 @@
 import React from 'react';
+import {useHiddenNotBlank} from '../../utilities/a11y';
 
 import {classNames} from '../../utilities/css';
 import {useUniqueId} from '../../utilities/unique-id';
@@ -75,11 +76,7 @@ export function ChoiceList({
     <legend className={styles.Title}>{title}</legend>
   ) : null;
 
-  React.useEffect(() => {
-    if (title === '') {
-      console.error('title prop should never be empty! Use titleHidden to hide title.');
-    }
-  }, [title]);
+  useHiddenNotBlank({propName: 'title', value: title});
 
   const choicesMarkup = choices.map((choice) => {
     const {

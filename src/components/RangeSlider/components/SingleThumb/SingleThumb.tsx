@@ -1,4 +1,5 @@
 import React from 'react';
+import {useHiddenNotBlank} from '../../../../utilities/a11y';
 import {classNames} from '../../../../utilities/css';
 import {clamp} from '../../../../utilities/clamp';
 import {Labelled, helpTextID} from '../../../Labelled';
@@ -79,11 +80,7 @@ export function SingleThumb(props: SingleThumbProps) {
     disabled && styles.disabled,
   );
 
-  React.useEffect(() => {
-    if (label === '') {
-      console.error('label prop should never be empty! Use labelHidden to hide label.');
-    }
-  }, [label]);
+  useHiddenNotBlank({propName: 'label', value: label});
 
   return (
     <Labelled

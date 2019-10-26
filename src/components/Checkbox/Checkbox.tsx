@@ -1,4 +1,5 @@
 import React, {useRef, useImperativeHandle} from 'react';
+import {useHiddenNotBlank} from '../../utilities/a11y';
 import {MinusMinor, TickSmallMinor} from '@shopify/polaris-icons';
 import {useUniqueId} from '../../utilities/unique-id';
 import {classNames} from '../../utilities/css';
@@ -116,11 +117,7 @@ export const Checkbox = React.forwardRef<CheckboxHandles, CheckboxProps>(
       isIndeterminate && styles['Input-indeterminate'],
     );
 
-    React.useEffect(() => {
-      if (label === '') {
-        console.error('label prop should never be empty! Use labelHidden to hide label.');
-      }
-    }, [label]);
+    useHiddenNotBlank({propName: 'label', value: label});
 
     return (
       /* eslint-disable jsx-a11y/no-redundant-roles */

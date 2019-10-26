@@ -1,6 +1,12 @@
 import {useState, useEffect} from 'react';
 
-export function useHiddenNotBlank({ propName, value, onError=console.error }) {
+export interface UseHiddenNotBlankProps {
+  propName: string;
+  value: any;
+  onError(error: Error): void;
+}
+
+export function useHiddenNotBlank({ propName, value, onError=defaultOnError }:UseHiddenNotBlankProps) {
   const [logged, setLogged] = useState(false);
 
   useEffect(() => {
@@ -13,4 +19,9 @@ export function useHiddenNotBlank({ propName, value, onError=console.error }) {
       setLogged(true);
     }
   }, [propName, value, logged]);
+}
+
+function defaultOnError(error: Error) {
+  console.error(error);
+  throw error;
 }

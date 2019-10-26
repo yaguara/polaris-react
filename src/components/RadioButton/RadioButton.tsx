@@ -1,4 +1,5 @@
 import React from 'react';
+import {useHiddenNotBlank} from '../../utilities/a11y';
 import {useUniqueId} from '../../utilities/unique-id';
 import {Choice, helpTextID} from '../Choice';
 import styles from './RadioButton.scss';
@@ -64,11 +65,7 @@ export function RadioButton({
     ? describedBy.join(' ')
     : undefined;
 
-  React.useEffect(() => {
-    if (label === '') {
-      console.error('label prop should never be empty! Use labelHidden to hide label.');
-    }
-  }, [label]);
+  useHiddenNotBlank({propName: 'label', value: label});
 
   return (
     <Choice

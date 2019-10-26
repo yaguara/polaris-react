@@ -1,4 +1,5 @@
 import React from 'react';
+import {useHiddenNotBlank} from '../../utilities/a11y';
 import {classNames} from '../../utilities/css';
 
 import {Error} from '../../types';
@@ -68,12 +69,7 @@ export function Choice({
       </div>
     ) : null;
 
-  React.useEffect(() => {
-    if (label === '') {
-      console.error('label prop should never be empty! Use labelHidden to hide label.');
-    }
-  }, [label]);
-
+  useHiddenNotBlank({propName: 'label', value: label});
 
   return descriptionMarkup ? (
     <div>

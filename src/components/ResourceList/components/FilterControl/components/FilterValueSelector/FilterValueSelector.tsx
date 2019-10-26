@@ -57,8 +57,9 @@ export function FilterValueSelector({
     />
   ) : null;
 
+  // FIXME: This should not be empty.
   const selectedFilterLabel =
-    typeof operatorText === 'string' ? operatorText : '';
+    typeof operatorText === 'string' ? operatorText : 'EMPTY OPERATOR TEXT PLACEHOLDER';
 
   switch (filter.type) {
     case FilterType.Select:
