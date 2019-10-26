@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react';
 export interface UseHiddenNotBlankProps {
   propName: string;
   value: any;
-  onError(error: Error): void;
+  onError?(error: Error): void;
 }
 
 export function useHiddenNotBlank({
