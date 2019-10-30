@@ -1,4 +1,5 @@
 import React from 'react';
+import {matchMedia} from '@shopify/jest-dom-mocks';
 import {mountWithAppProvider} from 'test-utilities/legacy';
 import {EventListener} from '../../EventListener';
 import {Slidable, AlphaPicker} from '../components';
@@ -16,6 +17,14 @@ enum SlidableType {
 }
 
 describe('<ColorPicker />', () => {
+  beforeEach(() => {
+    matchMedia.mock();
+  });
+
+  afterEach(() => {
+    matchMedia.restore();
+  });
+
   describe('Saturation/ Brightness pane', () => {
     describe('onChange', () => {
       it('is called when the user mouse downs', () => {
