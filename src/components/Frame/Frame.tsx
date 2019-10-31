@@ -9,6 +9,7 @@ import {
   withAppProvider,
   WithAppProviderProps,
 } from '../../utilities/with-app-provider';
+import {FeaturesContext} from '../../utilities/features';
 import {Backdrop} from '../Backdrop';
 import {TrapFocus} from '../TrapFocus';
 import {dataPolarisTopBar, layer} from '../shared';
@@ -69,6 +70,9 @@ const APP_FRAME_LOADING_BAR = 'AppFrameLoadingBar';
 type CombinedProps = FrameProps & WithAppProviderProps;
 
 class Frame extends React.PureComponent<CombinedProps, State> {
+  static contextType = FeaturesContext;
+  context!: React.ContextType<typeof FeaturesContext>;
+
   state: State = {
     skipFocused: false,
     globalRibbonHeight: 0,
@@ -235,6 +239,7 @@ class Frame extends React.PureComponent<CombinedProps, State> {
       styles.Frame,
       navigation && styles.hasNav,
       topBar && styles.hasTopBar,
+      this.context!.unstableGlobalTheming && styles.globalTheming,
     );
 
     const navigationOverlayMarkup =
