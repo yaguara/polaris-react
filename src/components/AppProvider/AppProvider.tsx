@@ -24,6 +24,8 @@ import {
   globalIdGeneratorFactory,
 } from '../../utilities/unique-id';
 
+import './AppProvider.scss';
+
 interface State {
   intl: I18n;
   appBridge: ReturnType<typeof createAppBridge>;

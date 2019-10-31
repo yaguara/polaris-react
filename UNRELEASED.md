@@ -10,6 +10,8 @@ Use [the changelog guidelines](https://git.io/polaris-changelog-guidelines) to f
 
 ### Enhancements
 
+- The styles in global.scss have been moved into AppProvider. As AppProvider is a required wrapper for polaris components this should not affect your usage. An empty global.scss is provided in order to not break existing integration with old sewing-kit versions. ([#2392](https://github.com/Shopify/polaris-react/pull/2392))
+
 ### Bug fixes
 
 - Fixed an accessibility issue with `TextField` `multiline` where `aria-multiline` would be set to an invalid type `number` ([#2351](https://github.com/Shopify/polaris-react/pull/2351))
