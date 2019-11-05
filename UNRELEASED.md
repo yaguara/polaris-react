@@ -8,7 +8,7 @@
 
 ### Bug fixes
 
-- Fix colour not appearing in main colour picker when in Windows high contrast mode ([#2399](https://github.com/Shopify/polaris-react/pull/2399))
+- Fix colour not appearing in main `ColorPicker` panel when in Windows high contrast mode ([#2399](https://github.com/Shopify/polaris-react/pull/2399))
 
 ### Documentation
 
