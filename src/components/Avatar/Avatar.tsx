@@ -6,7 +6,7 @@ import {isServer} from '../../utilities/target';
 import {Image} from '../Image';
 
 import styles from './Avatar.scss';
-import * as avatars from './images';
+import {customerPlaceholder} from './images';
 
 export type Size = 'small' | 'medium' | 'large';
 
@@ -17,11 +17,6 @@ enum Status {
 }
 
 const STYLE_CLASSES = ['one', 'two', 'three', 'four', 'five', 'six'];
-const AVATAR_IMAGES = Object.keys(avatars).map(
-  // import/namespace does not allow computed values by default
-  // eslint-disable-next-line import/namespace
-  (key: keyof typeof avatars) => avatars[key],
-);
 
 export interface AvatarProps {
   /**
@@ -88,7 +83,7 @@ export function Avatar({
   if (source) {
     finalSource = source;
   } else if (customer) {
-    finalSource = customerPlaceholder(nameString);
+    finalSource = customerPlaceholder;
   }
 
   const className = classNames(
@@ -144,10 +139,4 @@ function styleClass(name?: string) {
   return name
     ? STYLE_CLASSES[name.charCodeAt(0) % STYLE_CLASSES.length]
     : STYLE_CLASSES[0];
-}
-
-function customerPlaceholder(name?: string) {
-  return name
-    ? AVATAR_IMAGES[name.charCodeAt(0) % AVATAR_IMAGES.length]
-    : AVATAR_IMAGES[0];
 }
