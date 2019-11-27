@@ -33,6 +33,8 @@ export interface PopoverProps {
    * @default 'div'
    */
   activatorWrapper?: string;
+  /** Whether or not the activator is disabled */
+  activatorDisabled?: boolean;
   /** Prevent automatic focus of the first field on activation */
   preventAutofocus?: boolean;
   /** Automatically add wrap content in a section */
@@ -65,6 +67,7 @@ export const Popover: React.FunctionComponent<PopoverProps> & {
   active,
   fixed,
   ariaHaspopup,
+  activatorDisabled = false,
   ...rest
 }: PopoverProps) {
   const [activatorNode, setActivatorNode] = useState();
@@ -79,8 +82,13 @@ export const Popover: React.FunctionComponent<PopoverProps> & {
 
     const firstFocusable = findFirstFocusableNode(activatorContainer.current);
     const focusableActivator = firstFocusable || activatorContainer.current;
-    setActivatorAttributes(focusableActivator, {id, active, ariaHaspopup});
-  }, [active, ariaHaspopup, id]);
+    setActivatorAttributes(focusableActivator, {
+      id,
+      active,
+      ariaHaspopup,
+      activatorDisabled,
+    });
+  }, [id, active, ariaHaspopup, activatorDisabled]);
 
   const handleClose = (source: CloseSource) => {
     onClose(source);
