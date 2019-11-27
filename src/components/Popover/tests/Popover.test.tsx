@@ -20,14 +20,19 @@ describe('<Popover />', () => {
     setActivatorAttributesSpy.mockRestore();
   });
 
-  it('invokes setActivatorAttributes with active, ariaHasPopup and id', () => {
+  it('invokes setActivatorAttributes with active, ariaHasPopup, activatorDisabled, and id', () => {
     mountWithAppProvider(
       <Popover active={false} activator={<div>Activator</div>} onClose={spy} />,
     );
 
     expect(setActivatorAttributesSpy).toHaveBeenLastCalledWith(
       expect.any(Object),
-      {active: false, ariaHaspopup: undefined, id: 'Polarispopover1'},
+      {
+        active: false,
+        ariaHaspopup: undefined,
+        id: 'Polarispopover1',
+        activatorDisabled: false,
+      },
     );
   });
 

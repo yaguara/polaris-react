@@ -205,6 +205,7 @@ export class ConnectedFilterControl extends React.Component<
           <Popover
             active={action.popoverOpen}
             activator={this.activatorButtonFrom(action)}
+            activatorDisabled={this.props.disabled || action.disabled}
             onClose={action.onAction}
             preferredAlignment="left"
             sectioned
