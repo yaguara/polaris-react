@@ -33,7 +33,10 @@ export interface PopoverProps {
    * @default 'div'
    */
   activatorWrapper?: string;
-  /** Whether or not the activator is disabled */
+  /**
+   * Whether or not the activator is disabled
+   * @default false
+   */
   activatorDisabled?: boolean;
   /** Prevent automatic focus of the first field on activation */
   preventAutofocus?: boolean;

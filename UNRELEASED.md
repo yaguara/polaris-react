@@ -15,6 +15,7 @@
 - Added `features` prop to `AppProvider` ([#2204](https://github.com/Shopify/polaris-react/pull/2204))
 - Added support for using `EmptyState` in a content context ([#1570](https://github.com/Shopify/polaris-react/pull/1570))
 - `Page` no longer renders navigation or actions in print mode ([#2469](https://github.com/Shopify/polaris-react/pull/2469))
+- Added the `activatorDisabled` prop to `Popover`. This is be used to prevent accessibility attributes being set on the activator wrapper element when the `activator` is `disabled` ([#2473](https://github.com/Shopify/polaris-react/pull/2473))
 
 ### Bug fixes
 
@@ -27,6 +28,7 @@
 - Added the top bar height to the `Topbar` in `Frame` to ensure the `Sticky` components get the correct top position ([#2415](https://github.com/Shopify/polaris-react/pull/2415))
 - Fixed `merge` mutating its arguments ([#2317](https://github.com/Shopify/polaris-react/pull/2317))
 - Updated `Card` footer actions to be right aligned by default again ([#2407](https://github.com/Shopify/polaris-react/pull/2407))
+- Fixed `Popover` setting a `tabindex` and other accessibility attributes on the activator wrapper when the `activator` is disabled ([#2473](https://github.com/Shopify/polaris-react/pull/2473))
 
 ### Documentation
 
