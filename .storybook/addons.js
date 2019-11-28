@@ -4,3 +4,4 @@ import '@storybook/addon-actions/register';
 import '@storybook/addon-notes/register';
 import '@storybook/addon-a11y/register';
 import '@storybook/addon-contexts/register';
+import 'storybook-addon-designs/register';
