@@ -11,7 +11,48 @@
 }
 
 @function control-icon-transition() {
-  @return transform duration(fast) easing(in) easing(out);
+  @return transform duration(fast) easing(in);
+}
+
+@mixin control-backdrop-dl($style: base) {
+  @if $style == base {
+    background-color: var(--p-neutral-border);
+    position: relative;
+    border-radius: var(--p-border-radius-base);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      bottom: 2px;
+      left: 2px;
+      border-radius: calc(var(--p-border-radius-base) - 2px);
+      background-color: var(--p-surface-foreground);
+    }
+
+    &:hover {
+      background-color: var(--p-neutral-border-hovered);
+    }
+  } @else if $style == active {
+    background-color: var(--p-interactive-action);
+
+    &::before {
+      background-color: var(--p-interactive-action);
+    }
+  } @else if $style == disabled {
+    background-color: var(--p-neutral-border-disabled);
+
+    &::before {
+      background-color: var(--p-surface-foreground);
+    }
+  } @else if $style == error {
+    background-color: var(--p-critical-border);
+
+    &::before {
+      background-color: var(--p-critical-surface);
+    }
+  }
 }
 
 @mixin control-backdrop($style: base) {
@@ -58,6 +99,7 @@
   } @else if $style == focused {
     background: color('indigo');
     box-shadow: 0 0 0 1px color('indigo'), shadow(transparent);
+    border-color: transparent;
 
     &::after {
       background: color('white');

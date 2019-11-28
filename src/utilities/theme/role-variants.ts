@@ -240,6 +240,12 @@ export const roleVariants: RoleVariants = {
       light: {lightness: 82},
       dark: {lightness: 18},
     },
+    {
+      name: 'iconOnInteractive',
+      description: 'For use as a fill color for icons on critical actions.',
+      light: {lightness: 100},
+      dark: {lightness: 100},
+    },
   ],
   neutral: [
     {
@@ -273,6 +279,24 @@ export const roleVariants: RoleVariants = {
       description: 'Used as a pressed state for secondary buttons',
       light: {lightness: 87},
       dark: {lightness: 42},
+    },
+    {
+      name: 'neutralBorder',
+      description: 'Used for borders on form elements',
+      light: {lightness: 75},
+      dark: {lightness: 35},
+    },
+    {
+      name: 'neutralBorderHovered',
+      description: 'Used for borders on form elements',
+      light: {lightness: 65},
+      dark: {lightness: 35},
+    },
+    {
+      name: 'neutralBorderDisabled',
+      description: 'Used for disabled borders on form elements',
+      light: {lightness: 85},
+      dark: {lightness: 45},
     },
   ],
   primary: [

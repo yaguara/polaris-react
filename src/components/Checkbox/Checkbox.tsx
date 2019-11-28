@@ -1,6 +1,7 @@
 import React, {useRef, useImperativeHandle} from 'react';
 import {MinusMinor, TickSmallMinor} from '@shopify/polaris-icons';
 import {useUniqueId} from '../../utilities/unique-id';
+import {useFeatures} from '../../utilities/features';
 import {classNames} from '../../utilities/css';
 import {Choice, helpTextID} from '../Choice';
 import {errorTextID} from '../InlineError';
@@ -60,7 +61,7 @@ export const Checkbox = React.forwardRef<CheckboxHandles, CheckboxProps>(
     ref,
   ) {
     const inputNode = useRef<HTMLInputElement>(null);
-
+    const {unstableGlobalTheming = false} = useFeatures();
     const id = useUniqueId('Checkbox', idProp);
 
     useImperativeHandle(ref, () => ({
@@ -100,7 +101,11 @@ export const Checkbox = React.forwardRef<CheckboxHandles, CheckboxProps>(
       ? describedBy.join(' ')
       : undefined;
 
-    const wrapperClassName = classNames(styles.Checkbox, error && styles.error);
+    const wrapperClassName = classNames(
+      styles.Checkbox,
+      error && styles.error,
+      unstableGlobalTheming && styles.globalTheming,
+    );
 
     const isIndeterminate = checked === 'indeterminate';
     const isChecked = !isIndeterminate && Boolean(checked);
@@ -114,6 +119,12 @@ export const Checkbox = React.forwardRef<CheckboxHandles, CheckboxProps>(
     const inputClassName = classNames(
       styles.Input,
       isIndeterminate && styles['Input-indeterminate'],
+      unstableGlobalTheming && styles.globalTheming,
+    );
+
+    const backdropClassName = classNames(
+      styles.Backdrop,
+      unstableGlobalTheming && styles.globalTheming,
     );
 
     return (
@@ -147,7 +158,7 @@ export const Checkbox = React.forwardRef<CheckboxHandles, CheckboxProps>(
             role="checkbox"
             {...indeterminateAttributes}
           />
-          <span className={styles.Backdrop} />
+          <span className={backdropClassName} />
           <span className={styles.Icon}>
             <Icon source={iconSource} />
           </span>

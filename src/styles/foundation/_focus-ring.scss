@@ -18,12 +18,29 @@
     left: -$position;
     display: block;
     border: $stroke solid var(--p-interactive-focus);
+    opacity: 1;
+    scale: 1;
     @if $size == 'wide' {
       border-radius: calc(var(--p-border-radius-wide) + #{$position});
     } @else {
       border-radius: calc(var(--p-border-radius-base) + #{$position});
     }
     pointer-events: none;
+  }
+}
+
+@mixin focus-ring-animated($size: 'base', $show: 0) {
+  $easing: cubic-bezier(0.4, 0.22, 0.28, 1);
+  @include focus-ring($size);
+  &::after {
+    transition: opacity duration(fast) $easing, transform duration(fast) $easing;
+    @if $show == 0 {
+      opacity: 0;
+      transform: scale(0.8);
+    } @else {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 }
 

@@ -21,6 +21,8 @@ const Overrides = {
   overrideLoadingZIndex: '514',
   buttonFontWeight: '500',
   nonNullContent: "''",
+  choiceSize: rem('20px'),
+  choiceMargin: rem('1px'),
   bannerDefaultBorder: buildBannerBorder('--p-border-on-surface'),
   bannerSuccessBorder: buildBannerBorder('--p-success-border'),
   bannerHighlightBorder: buildBannerBorder('--p-highlight-border'),
