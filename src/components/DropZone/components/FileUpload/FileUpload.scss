@@ -22,9 +22,9 @@ $slim-vertical-padding: ($slim-min-height - line-height(body) - rem(2px)) / 2;
   }
 
   &.focused {
-    border-color: color('indigo');
+    border-color: var(--p-interactive-focus, color('indigo'));
     outline: 0;
-    box-shadow: 0 0 0 1px color('indigo');
+    box-shadow: 0 0 0 1px var(--p-interactive-focus, color('indigo'));
 
     @include high-contrast-button-outline;
   }
@@ -36,7 +36,7 @@ $slim-vertical-padding: ($slim-min-height - line-height(body) - rem(2px)) / 2;
 }
 
 .ActionTitle {
-  color: color('blue');
+  color: var(--p-interactive-action, color('blue'));
   text-decoration: none;
 
   &:not(.ActionTitle-disabled) {
@@ -44,19 +44,26 @@ $slim-vertical-padding: ($slim-min-height - line-height(body) - rem(2px)) / 2;
 
     &:hover,
     &:active {
-      color: color('blue', 'dark');
       text-decoration: underline;
+    }
+
+    &:hover {
+      color: var(--p-interactive-action-hovered, color('blue', 'dark'));
+    }
+
+    &:active {
+      color: var(--p-interactive-action-pressed, color('blue', 'dark'));
     }
   }
 }
 
 .ActionTitle-focused {
-  color: color('blue', 'dark');
+  color: var(--p-interactive-focus, color('blue', 'dark'));
   text-decoration: underline;
 }
 
 .ActionTitle-disabled {
-  color: color('ink', 'lightest');
+  color: var(--p-interactive-action-disabled, color('ink', 'lightest'));
 }
 
 .Image {
