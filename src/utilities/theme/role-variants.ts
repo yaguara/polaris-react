@@ -274,6 +274,24 @@ export const roleVariants: RoleVariants = {
       light: {lightness: 87},
       dark: {lightness: 42},
     },
+    {
+      name: 'neutralActionBorder',
+      description: 'Used for borders on form elements',
+      light: {lightness: 75},
+      dark: {lightness: 35},
+    },
+    {
+      name: 'neutralActionBorderDisabled',
+      description: 'Used for borders on disabled form elements',
+      light: {lightness: 85},
+      dark: {lightness: 35},
+    },
+    {
+      name: 'neutralActionBorderHovered',
+      description: 'Used for borders on hovered form elements',
+      light: {lightness: 65},
+      dark: {lightness: 35},
+    },
   ],
   primary: [
     {
