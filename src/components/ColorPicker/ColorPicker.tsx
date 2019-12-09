@@ -3,6 +3,8 @@ import {clamp} from '@shopify/javascript-utilities/math';
 
 import {hsbToRgb} from '../../utilities/color-transformers';
 import {HSBColor, HSBAColor} from '../../utilities/color-types';
+import {classNames} from '../../utilities/css';
+import {useFeatures} from '../../utilities/features';
 import {AlphaPicker, HuePicker, Slidable, Position} from './components';
 import styles from './ColorPicker.scss';
 
@@ -68,6 +70,13 @@ export class ColorPicker extends React.PureComponent<ColorPickerProps, State> {
         onChange={this.handleAlphaChange}
       />
     ) : null;
+
+    const {unstableGlobalTheming = false} = useFeatures();
+
+    const colorLayerClassName = classNames(
+      styles.ColorLayer,
+      unstableGlobalTheming && styles.globalTheming,
+    );
 
     return (
       <div

@@ -44,6 +44,10 @@ $stacking-order: (
   .ColorLayer {
     box-shadow: inset var(--p-override-none, shadow(deep));
     border-radius: var(--p-border-radius-base, border-radius() + 1px);
+
+    .globalTheming {
+      border: var(--p-border-on-surface);
+    }
   }
 
   &::after,
