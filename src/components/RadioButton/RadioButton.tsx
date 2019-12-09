@@ -1,5 +1,7 @@
 import React from 'react';
 import {useUniqueId} from '../../utilities/unique-id';
+import {useFeatures} from '../../utilities/features';
+import {classNames} from '../../utilities/css';
 import {Choice, helpTextID} from '../Choice';
 import styles from './RadioButton.scss';
 
@@ -48,6 +50,7 @@ export function RadioButton({
 }: RadioButtonProps) {
   const id = useUniqueId('RadioButton', idProp);
   const name = nameProp || id;
+  const {unstableGlobalTheming = false} = useFeatures();
 
   function handleChange({currentTarget}: React.ChangeEvent<HTMLInputElement>) {
     onChange && onChange(currentTarget.checked, id);
@@ -63,6 +66,16 @@ export function RadioButton({
   const ariaDescribedBy = describedBy.length
     ? describedBy.join(' ')
     : undefined;
+
+  const inputClassName = classNames(
+    styles.Input,
+    unstableGlobalTheming && styles.globalTheming,
+  );
+
+  const backdropClassName = classNames(
+    styles.Backdrop,
+    unstableGlobalTheming && styles.globalTheming,
+  );
 
   return (
     <Choice
@@ -80,13 +93,13 @@ export function RadioButton({
           type="radio"
           checked={checked}
           disabled={disabled}
-          className={styles.Input}
+          className={inputClassName}
           onChange={handleChange}
           onFocus={onFocus}
           onBlur={onBlur}
           aria-describedby={ariaDescribedBy}
         />
-        <span className={styles.Backdrop} />
+        <span className={backdropClassName} />
         <span className={styles.Icon} />
       </span>
     </Choice>

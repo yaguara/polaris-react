@@ -101,11 +101,7 @@ export const Checkbox = React.forwardRef<CheckboxHandles, CheckboxProps>(
       ? describedBy.join(' ')
       : undefined;
 
-    const wrapperClassName = classNames(
-      styles.Checkbox,
-      error && styles.error,
-      unstableGlobalTheming && styles.globalTheming,
-    );
+    const wrapperClassName = classNames(styles.Checkbox, error && styles.error);
 
     const isIndeterminate = checked === 'indeterminate';
     const isChecked = !isIndeterminate && Boolean(checked);
