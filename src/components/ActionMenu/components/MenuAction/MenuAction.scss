@@ -15,15 +15,13 @@ $difference-between-touch-area-and-backdrop: control-height() -
   text-decoration: none;
   color: var(--p-text-subdued-on-surface, color('ink', 'light'));
 
+  // Start - Delete below me when rolling out global theming
   &:hover,
   &:active {
-    color: var(--p-text-on-surface, color('ink'));
+    color: color('ink');
 
     .IconWrapper {
-      @include recolor-icon(
-        var(--p-icon-on-surface, color('ink')),
-        var(--p-override-transparent, color('white'))
-      );
+      @include recolor-icon(color('ink'), color('white'));
     }
   }
 
@@ -51,15 +49,70 @@ $difference-between-touch-area-and-backdrop: control-height() -
   }
 
   &.disabled {
-    color: var(--p-text-disabled-on-surface, color('ink', 'lightest'));
+    color: color('ink', 'lightest');
     cursor: default;
     pointer-events: none;
 
     .IconWrapper {
-      @include recolor-icon(
-        var(--p-icon-disabled-on-surface, color('ink', 'lightest'))
-      );
+      @include recolor-icon(color('ink', 'lightest'));
     }
+  }
+  // End - Delete after me when rolling out global theming
+
+  &.globalTheming {
+    border-radius: var(--p-border-radius-base);
+
+    &:hover {
+      background: var(--p-neutral-action-hovered);
+    }
+
+    &:focus {
+      background-color: transparent;
+    }
+
+    &:focus:not(:active) {
+      @include focus-ring;
+    }
+
+    &:active {
+      background: var(--p-neutral-action-pressed);
+    }
+
+    &.disabled {
+      color: var(--p-text-disabled-on-surface);
+      cursor: default;
+      pointer-events: none;
+
+      .IconWrapper {
+        @include recolor-icon(var(--p-icon-disabled-on-surface));
+      }
+    }
+
+    .IconWrapper {
+      @include recolor-icon(--p-icon-on-surface);
+    }
+
+    // Start - overrides than can be deleted during global theming rollout
+    &:hover,
+    &:active {
+      color: var(--p-text-subdued-on-surface);
+
+      .IconWrapper {
+        @include recolor-icon(var(--p-icon-subdued-on-surface));
+      }
+    }
+
+    &:focus,
+    &:active {
+      &::after {
+        background: transparent;
+      }
+    }
+
+    &::after {
+      height: auto;
+    }
+    // End - overrides than can be deleted during global theming rollout
   }
 }
 
