@@ -107,17 +107,12 @@ export const TopBar: React.FunctionComponent<TopBarProps> & {
     );
   }
 
-  const searchResultsMarkup =
-    searchResults && searchResultsVisible ? (
-      <Search visible={searchResultsVisible} onDismiss={onSearchResultsDismiss}>
-        {searchResults}
-      </Search>
-    ) : null;
-
   const searchMarkup = searchField ? (
     <React.Fragment>
       {searchField}
-      {searchResultsMarkup}
+      <Search visible={searchResultsVisible} onDismiss={onSearchResultsDismiss}>
+        {searchResults}
+      </Search>
     </React.Fragment>
   ) : null;
 
