@@ -1,12 +1,18 @@
 import React, {useCallback, useRef} from 'react';
+import {classNames} from '../../../../utilities/css';
 import * as styles from './SearchDismissOverlay.scss';
 
 interface Props {
   /** Callback when the search is dismissed */
   onDismiss?(): void;
+  /** Determines whether the overlay should be visible */
+  visible?: boolean;
 }
 
-export function SearchDismissOverlay({onDismiss = noop}: Props) {
+export function SearchDismissOverlay({
+  onDismiss = noop,
+  visible = false,
+}: Props) {
   const node = useRef(null);
 
   const handleDismiss = useCallback(
@@ -21,7 +27,10 @@ export function SearchDismissOverlay({onDismiss = noop}: Props) {
   return (
     <div
       ref={node}
-      className={styles.SearchDismissOverlay}
+      className={classNames(
+        styles.SearchDismissOverlay,
+        visible && styles.visible,
+      )}
       onClick={handleDismiss}
     />
   );

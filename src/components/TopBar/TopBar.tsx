@@ -27,6 +27,8 @@ export interface TopBarProps {
   searchResults?: React.ReactNode;
   /** A boolean property indicating whether search results are currently visible. */
   searchResultsVisible?: boolean;
+  /** Determines whether the search dismiss overlay should be visible */
+  searchResultsOverlayVisible?: boolean;
   /** A callback function that handles the dismissal of search results */
   onSearchResultsDismiss?: SearchProps['onDismiss'];
   /** A callback function that handles hiding and showing mobile navigation */
@@ -49,6 +51,7 @@ export const TopBar: React.FunctionComponent<TopBarProps> & {
   searchField,
   secondaryMenu,
   searchResultsVisible,
+  searchResultsOverlayVisible = false,
   onNavigationToggle,
   onSearchResultsDismiss,
   contextControl,
@@ -110,7 +113,11 @@ export const TopBar: React.FunctionComponent<TopBarProps> & {
   const searchMarkup = searchField ? (
     <React.Fragment>
       {searchField}
-      <Search visible={searchResultsVisible} onDismiss={onSearchResultsDismiss}>
+      <Search
+        visible={searchResultsVisible}
+        onDismiss={onSearchResultsDismiss}
+        overlayVisible={searchResultsOverlayVisible}
+      >
         {searchResults}
       </Search>
     </React.Fragment>
