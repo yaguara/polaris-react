@@ -85,6 +85,8 @@ export interface ButtonProps {
   onMouseEnter?(): void;
   /** Callback when element is touched */
   onTouchStart?(): void;
+  className?: any
+  style?: any
 }
 
 const DEFAULT_SIZE = 'medium';
@@ -121,6 +123,8 @@ export function Button({
   textAlign,
   fullWidth,
   pressed,
+  className: extendedClasses,
+  style
 }: ButtonProps) {
   const {unstableGlobalTheming = false} = useFeatures();
   const hasGivenDeprecationWarning = useRef(false);
@@ -132,6 +136,8 @@ export function Button({
     );
     hasGivenDeprecationWarning.current = true;
   }
+
+  const extendedClassNames = extendedClasses.split(' ')
 
   const i18n = useI18n();
 
@@ -152,6 +158,7 @@ export function Button({
     textAlign && styles[variationName('textAlign', textAlign)],
     fullWidth && styles.fullWidth,
     icon && children == null && styles.iconOnly,
+    ...extendedClassNames
   );
 
   const disclosureIcon = (
@@ -222,7 +229,7 @@ export function Button({
       // Render an `<a>` so toggling disabled/enabled state changes only the
       // `href` attribute instead of replacing the whole element.
       // eslint-disable-next-line jsx-a11y/anchor-is-valid
-      <a id={id} className={className} aria-label={accessibilityLabel}>
+      <a id={id} className={className} style={style} aria-label={accessibilityLabel}>
         {content}
       </a>
     ) : (
@@ -238,6 +245,7 @@ export function Button({
         onMouseEnter={onMouseEnter}
         onTouchStart={onTouchStart}
         className={className}
+        style={style}
         aria-label={accessibilityLabel}
       >
         {content}
@@ -261,6 +269,7 @@ export function Button({
       onMouseEnter={onMouseEnter}
       onTouchStart={onTouchStart}
       className={className}
+      style={style}
       disabled={isDisabled}
       aria-label={accessibilityLabel}
       aria-controls={ariaControls}
