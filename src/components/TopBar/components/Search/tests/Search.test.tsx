@@ -15,8 +15,15 @@ describe('<Search />', () => {
     expect(search.text()).toContain('Hello Polaris');
   });
 
+  it('renders a SearchDismissOverlay', () => {
+    const search = mountWithAppProvider(<Search>Hello Polaris</Search>);
+    expect(search.find(SearchDismissOverlay)).toHaveLength(1);
+  });
+
   it('passes the overlayVisible prop to SearchDismissOverlay', () => {
-    const search = mountWithAppProvider(<Search overlayVisible />);
+    const search = mountWithAppProvider(
+      <Search overlayVisible>Hello Polaris</Search>,
+    );
 
     expect(search.find(SearchDismissOverlay).prop('visible')).toBe(true);
   });
