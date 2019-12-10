@@ -8,10 +8,6 @@ import {
   TextField,
   Button,
 } from 'components';
-import {
-  findFirstFocusableNode,
-  findLastFocusableNode,
-} from '@shopify/javascript-utilities/focus';
 import {TrapFocus} from '../TrapFocus';
 
 describe('<TrapFocus />', () => {
