@@ -85,8 +85,8 @@ export interface ButtonProps {
   onMouseEnter?(): void;
   /** Callback when element is touched */
   onTouchStart?(): void;
-  className?: any
-  style?: any
+  className?: any;
+  style?: any;
 }
 
 const DEFAULT_SIZE = 'medium';

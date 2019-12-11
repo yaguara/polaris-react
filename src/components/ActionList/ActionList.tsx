@@ -15,6 +15,8 @@ export interface ActionListProps {
   actionRole?: string;
   /** Callback when any item is clicked or keypressed */
   onActionAnyItem?: ActionListItemDescriptor['onAction'];
+  className?: any;
+  style?: any;
 }
 
 export function ActionList({
@@ -22,6 +24,8 @@ export function ActionList({
   sections = [],
   actionRole,
   onActionAnyItem,
+  className: extendedClasses = '',
+  style
 }: ActionListProps) {
   let finalSections: ActionListSection[] = [];
 
@@ -35,6 +39,7 @@ export function ActionList({
   const className = classNames(
     styles.ActionList,
     unstableGlobalTheming && styles.globalTheming,
+    ...extendedClasses.split(' '),
   );
 
   const hasMultipleSections = finalSections.length > 1;
@@ -53,5 +58,5 @@ export function ActionList({
     ) : null;
   });
 
-  return <Element className={className}>{sectionMarkup}</Element>;
+  return <Element className={className} style={style}>{sectionMarkup}</Element>;
 }

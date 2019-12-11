@@ -20,6 +20,8 @@ export interface BadgeProps {
    * @default 'medium'
    */
   size?: Size;
+  className?: any;
+  style?: any;
 }
 
 export const PROGRESS_LABELS: {[key in Progress]: Progress} = {
@@ -43,6 +45,8 @@ export function Badge({
   status,
   progress,
   size = DEFAULT_SIZE,
+  className: extendedClasses = '',
+  style,
 }: BadgeProps) {
   const i18n = useI18n();
 
@@ -51,6 +55,7 @@ export function Badge({
     status && styles[variationName('status', status)],
     progress && styles[variationName('progress', progress)],
     size && size !== DEFAULT_SIZE && styles[variationName('size', size)],
+    ...extendedClasses.split(' '),
   );
 
   let progressMarkup;
@@ -100,7 +105,7 @@ export function Badge({
   ) : null;
 
   return (
-    <span className={className}>
+    <span className={className} style={style}>
       {statusLabelMarkup}
       {pipMarkup}
       <span className={styles.Content}>{children}</span>

@@ -40,6 +40,8 @@ export interface AvatarProps {
   source?: string;
   /** Accessible label for the avatar image */
   accessibilityLabel?: string;
+  className?: any;
+  style?: any;
 }
 
 export function Avatar({
@@ -49,6 +51,8 @@ export function Avatar({
   customer,
   size = 'medium',
   accessibilityLabel,
+  className: extendedClasses = '',
+  style
 }: AvatarProps) {
   const i18n = useI18n();
   const {unstableGlobalTheming = false} = useFeatures();
@@ -108,6 +112,7 @@ export function Avatar({
     size && styles[variationName('size', size)],
     hasImage && status !== Status.Loaded && styles.hidden,
     hasImage && styles.hasImage,
+    ...extendedClasses.split(' '),
   );
 
   const imageMarkUp =
@@ -144,7 +149,7 @@ export function Avatar({
     ) : null;
 
   return (
-    <span aria-label={label} role="img" className={className}>
+    <span aria-label={label} role="img" className={className} style={style}>
       {initialsMarkup}
       {imageMarkUp}
     </span>
