@@ -1,6 +1,7 @@
 import React from 'react';
 import {AnnotatedSection, Section} from './components';
 import styles from './Layout.scss';
+import {classNames} from '../../utilities/css';
 
 export interface LayoutProps {
   /** Automatically adds sections to layout. */
@@ -14,10 +15,12 @@ export class Layout extends React.Component<LayoutProps, never> {
   static Section = Section;
 
   render() {
-    const {children, sectioned} = this.props;
+    const {children, sectioned, className: extendedClasses = '', style } = this.props;
+
+    const className = classNames(styles.Layout, ...extendedClasses);
 
     const content = sectioned ? <Section>{children}</Section> : children;
 
-    return <div className={styles.Layout}>{content}</div>;
+    return <div className={className} style={style}>{content}</div>;
   }
 }

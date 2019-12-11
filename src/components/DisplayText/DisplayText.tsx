@@ -18,17 +18,22 @@ export interface DisplayTextProps {
   size?: Size;
   /** Content to display */
   children?: React.ReactNode;
+  className?: any;
+  style?: any;
 }
 
 export function DisplayText({
   element: Element = 'p',
   children,
   size = 'medium',
+  className: extendedClasses = '',
+  style,
 }: DisplayTextProps) {
   const className = classNames(
     styles.DisplayText,
     size && styles[variationName('size', size)],
+    ...extendedClasses.split(' '),
   );
 
-  return <Element className={className}>{children}</Element>;
+  return <Element className={className} style={style}>{children}</Element>;
 }

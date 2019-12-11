@@ -18,9 +18,19 @@ const COLORS_WITH_BACKDROPS = [
 
 // This is needed for the polaris
 // styleguide to generate the props explorer
-interface Props extends IconProps {}
+interface Props extends IconProps {
+  className?: any;
+  style?: any;
+}
 
-export function Icon({source, color, backdrop, accessibilityLabel}: Props) {
+export function Icon({
+  source,
+  color,
+  backdrop,
+  accessibilityLabel,
+  className: extendedClasses = '',
+  style,
+}: Props) {
   const i18n = useI18n();
   const telemetry = useTelemetry();
 
@@ -46,6 +56,7 @@ export function Icon({source, color, backdrop, accessibilityLabel}: Props) {
     color && styles[variationName('color', color)],
     color && color !== 'white' && styles.isColored,
     backdrop && styles.hasBackdrop,
+    ...extendedClasses.split(' '),
   );
 
   let contentMarkup: React.ReactNode;
@@ -72,7 +83,7 @@ export function Icon({source, color, backdrop, accessibilityLabel}: Props) {
   }
 
   return (
-    <span className={className} aria-label={accessibilityLabel}>
+    <span className={className} style={style} aria-label={accessibilityLabel}>
       {contentMarkup}
     </span>
   );
