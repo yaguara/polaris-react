@@ -123,7 +123,7 @@ export function Button({
   textAlign,
   fullWidth,
   pressed,
-  className: extendedClasses,
+  className: extendedClasses = '',
   style
 }: ButtonProps) {
   const {unstableGlobalTheming = false} = useFeatures();
@@ -136,8 +136,6 @@ export function Button({
     );
     hasGivenDeprecationWarning.current = true;
   }
-
-  const extendedClassNames = extendedClasses.split(' ')
 
   const i18n = useI18n();
 
@@ -158,7 +156,7 @@ export function Button({
     textAlign && styles[variationName('textAlign', textAlign)],
     fullWidth && styles.fullWidth,
     icon && children == null && styles.iconOnly,
-    ...extendedClassNames
+    ...extendedClasses.split(' ')
   );
 
   const disclosureIcon = (
