@@ -46,6 +46,8 @@ export interface ChoiceListProps {
   disabled?: boolean;
   /** Callback when the selected choices change */
   onChange?(selected: string[], name: string): void;
+  className?: any;
+  style?: any;
 }
 
 export function ChoiceList({
@@ -58,6 +60,8 @@ export function ChoiceList({
   error,
   disabled = false,
   name: nameProp,
+  className: extendedClasses = '',
+  style,
 }: ChoiceListProps) {
   // Type asserting to any is required for TS3.2 but can be removed when we update to 3.3
   // see https://github.com/Microsoft/TypeScript/issues/28768
@@ -69,6 +73,7 @@ export function ChoiceList({
   const className = classNames(
     styles.ChoiceList,
     titleHidden && styles.titleHidden,
+    ...extendedClasses.split(' '),
   );
 
   const titleMarkup = title ? (
@@ -125,7 +130,7 @@ export function ChoiceList({
   );
 
   return (
-    <fieldset className={className} id={finalName} aria-invalid={error != null}>
+    <fieldset className={className} style={style} id={finalName} aria-invalid={error != null}>
       {titleMarkup}
       <ul className={styles.Choices}>{choicesMarkup}</ul>
       {errorMarkup}

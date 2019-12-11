@@ -31,6 +31,8 @@ export interface CardProps {
   secondaryFooterActionsDisclosureText?: string;
   /** Alignment of the footer actions on the card, defaults to right */
   footerActionAlignment?: 'right' | 'left';
+  className?: any;
+  style?: any;
 }
 
 // TypeScript can't generate types that correctly infer the typing of
@@ -52,6 +54,8 @@ export const Card: React.FunctionComponent<CardProps> & {
   secondaryFooterActions,
   secondaryFooterActionsDisclosureText,
   footerActionAlignment = 'right',
+  className: extendedClasses = '',
+  style,
 }: CardProps) {
   const i18n = useI18n();
 
@@ -60,7 +64,7 @@ export const Card: React.FunctionComponent<CardProps> & {
     toggleSecondaryActionsPopoverOpen,
   ] = useToggle(false);
 
-  const className = classNames(styles.Card, subdued && styles.subdued);
+  const className = classNames(styles.Card, subdued && styles.subdued, ...extendedClasses.split(' '));
 
   const headerMarkup =
     title || actions ? <Header actions={actions} title={title} /> : null;
@@ -119,7 +123,7 @@ export const Card: React.FunctionComponent<CardProps> & {
 
   return (
     <WithinContentContext.Provider value>
-      <div className={className}>
+      <div className={className} style={style}>
         {headerMarkup}
         {content}
         {footerMarkup}

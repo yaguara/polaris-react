@@ -36,6 +36,8 @@ export interface BaseProps {
   onFocus?(): void;
   /** Callback when focus is removed */
   onBlur?(): void;
+  className?: any;
+  style?: any;
 }
 
 export interface CheckboxProps extends BaseProps {}
@@ -56,6 +58,8 @@ export const Checkbox = React.forwardRef<CheckboxHandles, CheckboxProps>(
       onChange,
       onFocus,
       onBlur,
+      className: extendedClasses = '',
+      style,
     }: CheckboxProps,
     ref,
   ) {
@@ -100,7 +104,7 @@ export const Checkbox = React.forwardRef<CheckboxHandles, CheckboxProps>(
       ? describedBy.join(' ')
       : undefined;
 
-    const wrapperClassName = classNames(styles.Checkbox, error && styles.error);
+    const wrapperClassName = classNames(styles.Checkbox, error && styles.error, ...extendedClasses.split(' '));
 
     const isIndeterminate = checked === 'indeterminate';
     const isChecked = !isIndeterminate && Boolean(checked);
@@ -127,7 +131,7 @@ export const Checkbox = React.forwardRef<CheckboxHandles, CheckboxProps>(
         disabled={disabled}
         onClick={handleInput}
       >
-        <span className={wrapperClassName}>
+        <span className={wrapperClassName} style={style}>
           <input
             onKeyUp={handleKeyUp}
             ref={inputNode}

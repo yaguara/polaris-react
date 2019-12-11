@@ -23,6 +23,8 @@ export interface ChoiceProps {
   helpText?: React.ReactNode;
   /** Callback when clicked */
   onClick?(): void;
+  className?: any;
+  style?: any;
 }
 
 export function Choice({
@@ -34,15 +36,18 @@ export function Choice({
   labelHidden,
   helpText,
   onClick,
+  className: extendedClasses = '',
+  style,
 }: ChoiceProps) {
   const className = classNames(
     styles.Choice,
     labelHidden && styles.labelHidden,
     disabled && styles.disabled,
+    ...extendedClasses.split(' '),
   );
 
   const labelMarkup = (
-    <label className={className} htmlFor={id} onClick={onClick}>
+    <label className={className} style={style} htmlFor={id} onClick={onClick}>
       <span className={styles.Control}>{children}</span>
       <span className={styles.Label}>{label}</span>
     </label>

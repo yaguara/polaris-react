@@ -13,6 +13,8 @@ export interface ButtonGroupProps {
   connectedTop?: boolean;
   /** Button components */
   children?: React.ReactNode;
+  className?: any;
+  style?: any;
 }
 
 export function ButtonGroup({
@@ -20,11 +22,14 @@ export function ButtonGroup({
   segmented,
   fullWidth,
   connectedTop,
+  className: extendedClasses = '',
+  style,
 }: ButtonGroupProps) {
   const className = classNames(
     styles.ButtonGroup,
     segmented && styles.segmented,
     fullWidth && styles.fullWidth,
+    ...extendedClasses.split(' '),
   );
 
   const contents = elementChildren(children).map((child, index) => (
@@ -34,6 +39,7 @@ export function ButtonGroup({
   return (
     <div
       className={className}
+      style={style}
       data-buttongroup-segmented={segmented}
       data-buttongroup-connected-top={connectedTop}
       data-buttongroup-full-width={fullWidth}
