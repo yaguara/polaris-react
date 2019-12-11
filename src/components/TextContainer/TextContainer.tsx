@@ -10,12 +10,15 @@ export interface TextContainerProps {
   spacing?: Spacing;
   /** The content to render in the text container. */
   children?: React.ReactNode;
+  className?: any;
+  style?: any;
 }
 
-export function TextContainer({spacing, children}: TextContainerProps) {
+export function TextContainer({spacing, children, className: extendedClasses = '', style,}: TextContainerProps) {
   const className = classNames(
     styles.TextContainer,
     spacing && styles[variationName('spacing', spacing)],
+    ...extendedClasses
   );
-  return <div className={className}>{children}</div>;
+  return <div className={className} style={style}>{children}</div>;
 }

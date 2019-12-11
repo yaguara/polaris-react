@@ -6,6 +6,7 @@ import {PreferredPosition} from '../PositionedOverlay';
 import {Portal} from '../Portal';
 import {TooltipOverlay} from './components';
 import styles from './Tooltip.scss';
+import {classNames} from '../../utilities/css';
 
 export interface TooltipProps {
   /** The element that will activate to tooltip */
@@ -26,6 +27,8 @@ export interface TooltipProps {
    * @default 'span'
    */
   activatorWrapper?: string;
+  className?: any;
+  style?: any;
 }
 
 interface State {
@@ -62,9 +65,12 @@ export class Tooltip extends React.PureComponent<TooltipProps, State> {
       light,
       preferredPosition = 'below',
       activatorWrapper: WrapperComponent = 'span' as any,
+      className: extendedClasses = '',
+      style,
     } = this.props;
 
     const {active, activatorNode} = this.state;
+    const className = classNames(styles.Label, ...extendedClasses);
 
     const portal = activatorNode ? (
       <Portal idPrefix="tooltip">
@@ -76,7 +82,7 @@ export class Tooltip extends React.PureComponent<TooltipProps, State> {
           onClose={noop}
           light={light}
         >
-          <div className={styles.Label} testID="TooltipOverlayLabel">
+          <div className={className} style={style} testID="TooltipOverlayLabel">
             {content}
           </div>
         </TooltipOverlay>

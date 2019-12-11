@@ -40,6 +40,18 @@ style={style}
 - Choice
 - ChoiceList
 - DisplayText
+- Icon
+- Layout
+- Page
+- PageActions
+- Select
+- Stack
+- Subheading
+- Tabs
+- TextContainer
+- TextField
+- TextStyle 
+- Tooltip
 
 ## App development
 

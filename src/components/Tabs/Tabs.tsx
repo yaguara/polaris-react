@@ -27,6 +27,8 @@ export interface TabsProps {
   fitted?: boolean;
   /** Callback when tab is selected */
   onSelect?(selectedTabIndex: number): void;
+  className?: any;
+  style?: any;
 }
 
 type CombinedProps = TabsProps & WithAppProviderProps;
@@ -76,6 +78,8 @@ class Tabs extends React.PureComponent<CombinedProps, State> {
       fitted,
       children,
       polaris: {intl},
+      className: extendedClasses = '',
+      style,
     } = this.props;
     const {tabToFocus, visibleTabs, hiddenTabs, showDisclosure} = this.state;
     const disclosureTabs = hiddenTabs.map((tabIndex) => tabs[tabIndex]);
@@ -111,6 +115,7 @@ class Tabs extends React.PureComponent<CombinedProps, State> {
       styles.Tabs,
       fitted && styles.fitted,
       disclosureActivatorVisible && styles.fillSpace,
+      ...extendedClasses
     );
 
     const disclosureTabClassName = classNames(
@@ -136,6 +141,7 @@ class Tabs extends React.PureComponent<CombinedProps, State> {
         <ul
           role="tablist"
           className={classname}
+          style={style}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           onKeyDown={handleKeyDown}

@@ -17,16 +17,19 @@ export interface TextStyleProps {
   variation?: Variation;
   /** The content that should get the intended styling */
   children?: React.ReactNode;
+  className?: any;
+  style?: any;
 }
 
-export function TextStyle({variation, children}: TextStyleProps) {
+export function TextStyle({variation, children, className: extendedClasses = '', style }: TextStyleProps) {
   const className = classNames(
     variation && styles[variationName('variation', variation)],
     variation === VariationValue.Code && styles.code,
+    ...extendedClasses
   );
   const Element = variationElement(variation);
 
-  return <Element className={className}>{children}</Element>;
+  return <Element className={className} style={style}>{children}</Element>;
 }
 
 function variationElement(variation?: Variation) {

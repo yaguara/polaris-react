@@ -111,6 +111,8 @@ export interface BaseProps {
   onFocus?(): void;
   /** Callback when focus is removed */
   onBlur?(): void;
+  className?: any;
+  style?: any;
 }
 
 interface NonMutuallyExclusiveProps extends BaseProps {}
@@ -162,6 +164,8 @@ export function TextField({
   onChange,
   onFocus,
   onBlur,
+  className: extendedClasses = '',
+  style,
 }: TextFieldProps) {
   const i18n = useI18n();
   const [height, setHeight] = useState<number | null>(null);
@@ -192,6 +196,7 @@ export function TextField({
     multiline && styles.multiline,
     focus && styles.focus,
     unstableGlobalTheming && styles.globalTheming,
+    ...extendedClasses.split(' '),
   );
 
   const inputType = type === 'currency' ? 'text' : type;
@@ -410,6 +415,7 @@ export function TextField({
       <Connected left={connectedLeft} right={connectedRight}>
         <div
           className={className}
+          style={style}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onClick={handleClick}
