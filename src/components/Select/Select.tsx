@@ -66,6 +66,8 @@ export interface BaseProps {
   onFocus?(): void;
   /** Callback when focus is removed */
   onBlur?(): void;
+  className?: any;
+  style?: any;
 }
 
 export interface SelectProps extends BaseProps {}
@@ -88,6 +90,8 @@ export function Select({
   onChange,
   onFocus,
   onBlur,
+  className: extendedClasses = '',
+  style,
 }: SelectProps) {
   const id = useUniqueId('Select', idProp);
 
@@ -97,6 +101,7 @@ export function Select({
     styles.Select,
     error && styles.error,
     disabled && styles.disabled,
+    ...extendedClasses.split(' '),
   );
 
   const handleChange = onChange
@@ -153,7 +158,7 @@ export function Select({
       labelHidden={labelHidden}
       helpText={helpText}
     >
-      <div className={className}>
+      <div className={className} style={style}>
         <select
           id={id}
           name={name}

@@ -43,6 +43,8 @@ export class Stack extends React.PureComponent<StackProps, never> {
       distribution,
       alignment,
       wrap,
+      className: extendedClasses = '',
+      style,
     } = this.props;
 
     const className = classNames(
@@ -52,6 +54,7 @@ export class Stack extends React.PureComponent<StackProps, never> {
       distribution && styles[variationName('distribution', distribution)],
       alignment && styles[variationName('alignment', alignment)],
       wrap === false && styles.noWrap,
+      ...extendedClasses.split(' '),
     );
 
     const itemMarkup = elementChildren(children).map((child, index) => {
@@ -59,6 +62,6 @@ export class Stack extends React.PureComponent<StackProps, never> {
       return wrapWithComponent(child, Item, props);
     });
 
-    return <div className={className}>{itemMarkup}</div>;
+    return <div className={className} style={style}>{itemMarkup}</div>;
   }
 }

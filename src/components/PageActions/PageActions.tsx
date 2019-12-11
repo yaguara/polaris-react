@@ -6,17 +6,22 @@ import {ButtonGroup} from '../ButtonGroup';
 import {buttonsFrom} from '../Button';
 
 import styles from './PageActions.scss';
+import {classNames} from '../../utilities/css';
 
 export interface PageActionsProps {
   /** The primary action for the page */
   primaryAction?: DisableableAction & LoadableAction;
   /** The secondary actions for the page */
   secondaryActions?: ComplexAction[];
+  className?: any;
+  style?: any;
 }
 
 export function PageActions({
   primaryAction,
   secondaryActions,
+  className: extendedClasses = '',
+  style,
 }: PageActionsProps) {
   const primaryActionMarkup = primaryAction
     ? buttonsFrom(primaryAction, {primary: true})
@@ -28,8 +33,10 @@ export function PageActions({
 
   const distribution = secondaryActionsMarkup ? 'equalSpacing' : 'trailing';
 
+  const className = classNames(styles.PageActions, ...extendedClasses.split(' '));
+
   return (
-    <div className={styles.PageActions}>
+    <div className={className} style={style}>
       <Stack distribution={distribution} spacing="tight">
         {secondaryActionsMarkup}
         {primaryActionMarkup}

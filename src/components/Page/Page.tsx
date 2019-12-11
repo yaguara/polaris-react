@@ -37,6 +37,8 @@ export interface PageProps extends HeaderProps {
    * @deprecated As of release 4.0, replaced by {@link https://polaris.shopify.com/components/structure/page#props-narrow-width}
    */
   singleColumn?: boolean;
+  className?: any;
+  style?: any;
 }
 
 export type ComposedProps = PageProps & WithAppProviderProps;
@@ -102,6 +104,8 @@ class Page extends React.PureComponent<ComposedProps, never> {
       fullWidth,
       narrowWidth,
       singleColumn,
+      className: extendedClasses = '',
+      style,
       ...rest
     } = this.props;
 
@@ -116,6 +120,7 @@ class Page extends React.PureComponent<ComposedProps, never> {
       styles.Page,
       fullWidth && styles.fullWidth,
       (narrowWidth || singleColumn) && styles.narrowWidth,
+      ...extendedClasses.split(' '),
     );
 
     const headerMarkup =
@@ -124,7 +129,7 @@ class Page extends React.PureComponent<ComposedProps, never> {
       );
 
     return (
-      <div className={className}>
+      <div className={className} style={style}>
         {headerMarkup}
         <div className={styles.Content}>{children}</div>
       </div>
