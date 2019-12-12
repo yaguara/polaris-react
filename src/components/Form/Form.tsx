@@ -37,6 +37,8 @@ export interface FormProps {
   target?: Target;
   /** Callback when form is submitted */
   onSubmit(event: React.FormEvent<HTMLFormElement>): void;
+  className?: any;
+  style?: any;
 }
 
 export function Form({
@@ -52,6 +54,8 @@ export function Form({
   preventDefault = true,
   target,
   onSubmit,
+  className = '',
+  style
 }: FormProps) {
   const i18n = useI18n();
 
@@ -88,6 +92,8 @@ export function Form({
       noValidate={noValidate}
       target={target}
       onSubmit={handleSubmit}
+      className={className}
+      style={style}
     >
       {children}
       {submitMarkup}
