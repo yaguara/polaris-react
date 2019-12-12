@@ -1,7 +1,7 @@
 {
   "name": "@yaguara/polaris",
   "description": "Shopify’s product component library",
-  "version": "4.9.3",
+  "version": "4.9.5",
   "private": false,
   "license": "SEE LICENSE IN LICENSE.md",
   "author": "Shopify <dev@shopify.com>",
@@ -48,8 +48,6 @@
     "prebuild-consumer": "yarn run build",
     "build-consumer": "node ./scripts/build-consumer",
     "build-shrink-ray": "yarn run copy-polaris-tokens && node ./scripts/build-shrink-ray.js",
-    "secrets": "ejson decrypt -o secrets.json secrets.ejson",
-    "prenew-version-pr-generator": "rimraf sandbox && yarn run secrets",
     "new-version-pr-generator": "node ./scripts/new-version-pr-generator",
     "copy-polaris-tokens": "rimraf ./src/styles/polaris-tokens && shx cp -r ./node_modules/@shopify/polaris-tokens/dist ./src/styles/polaris-tokens",
     "prepublish": "in-publish && yarn run build || :",
