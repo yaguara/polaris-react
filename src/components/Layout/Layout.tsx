@@ -8,6 +8,8 @@ export interface LayoutProps {
   sectioned?: boolean;
   /** The content to display inside the layout. */
   children?: React.ReactNode;
+  className?: any;
+  style?: any;
 }
 
 export class Layout extends React.Component<LayoutProps, never> {

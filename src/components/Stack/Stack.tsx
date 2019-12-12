@@ -30,6 +30,8 @@ export interface StackProps {
   alignment?: Alignment;
   /** Adjust horizontal alignment of elements */
   distribution?: Distribution;
+  className?: any;
+  style?: any;
 }
 
 export class Stack extends React.PureComponent<StackProps, never> {

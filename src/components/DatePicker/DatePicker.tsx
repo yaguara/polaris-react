@@ -45,8 +45,6 @@ export interface BaseProps {
   onChange?(date: Range): void;
   /** Callback when month is changed. */
   onMonthChange?(month: Months, year: Year): void;
-  className?: any;
-  style?: any;
 }
 
 export interface DatePickerProps extends BaseProps {}
@@ -63,8 +61,6 @@ export function DatePicker({
   weekStartsOn = Weekdays.Sunday,
   onMonthChange,
   onChange = noop,
-  className: extendedClasses = '',
-  style,
 }: DatePickerProps) {
   const i18n = useI18n();
   const [hoverDate, setHoverDate] = useState<Date | undefined>(undefined);

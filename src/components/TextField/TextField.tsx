@@ -165,7 +165,7 @@ export function TextField({
   onFocus,
   onBlur,
   className: extendedClasses = '',
-  style,
+  style: extendedStyle,
 }: TextFieldProps) {
   const i18n = useI18n();
   const [height, setHeight] = useState<number | null>(null);
@@ -322,7 +322,7 @@ export function TextField({
       />
     ) : null;
 
-  const style = multiline && height ? {height} : null;
+  const style = multiline && height ? { ...extendedStyle, height } : extendedStyle;
 
   const handleExpandingResize = useCallback((height: number) => {
     setHeight(height);
